@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.etv.manage.dao.UpgradeFileMapper" >
+  <resultMap id="BaseResultMap" type="com.etv.manage.model.UpgradeFile" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="UPGRADE_USER_ID" property="upgradeUserId" jdbcType="INTEGER" />
+    <result column="MOTHERBOARD_ID" property="motherboardId" jdbcType="INTEGER" />
+    <result column="UF_NEXT_VERSION" property="ufNextVersion" jdbcType="VARCHAR" />
+    <result column="UF_VERSION" property="ufVersion" jdbcType="VARCHAR" />
+    <result column="UF_URL" property="ufUrl" jdbcType="VARCHAR" />
+    <result column="UF_REMARK" property="ufRemark" jdbcType="VARCHAR" />
+    <result column="UF_CREATE_TIME" property="ufCreateTime" jdbcType="TIMESTAMP" />
+    <result column="PERSON_ID" property="personId" jdbcType="VARCHAR" />
+    <result column="UF_FILE_SIZE" property="ufFileSize" jdbcType="VARCHAR" />
+    <result column="UF_FILE_NAME" property="ufFileName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, UPGRADE_USER_ID, MOTHERBOARD_ID, UF_NEXT_VERSION, UF_VERSION, UF_URL, UF_REMARK, 
+    UF_CREATE_TIME, PERSON_ID, UF_FILE_SIZE, UF_FILE_NAME
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from ETV_UPGRADE_FILE
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from ETV_UPGRADE_FILE
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.etv.manage.model.UpgradeFile" >
+    insert into ETV_UPGRADE_FILE (ID, UPGRADE_USER_ID, MOTHERBOARD_ID, 
+      UF_NEXT_VERSION, UF_VERSION, UF_URL, 
+      UF_REMARK, UF_CREATE_TIME, PERSON_ID, 
+      UF_FILE_SIZE, UF_FILE_NAME)
+    values (#{id,jdbcType=INTEGER}, #{upgradeUserId,jdbcType=INTEGER}, #{motherboardId,jdbcType=INTEGER}, 
+      #{ufNextVersion,jdbcType=VARCHAR}, #{ufVersion,jdbcType=VARCHAR}, #{ufUrl,jdbcType=VARCHAR}, 
+      #{ufRemark,jdbcType=VARCHAR}, #{ufCreateTime,jdbcType=TIMESTAMP}, #{personId,jdbcType=VARCHAR}, 
+      #{ufFileSize,jdbcType=VARCHAR}, #{ufFileName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.etv.manage.model.UpgradeFile" >
+    insert into ETV_UPGRADE_FILE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="upgradeUserId != null" >
+        UPGRADE_USER_ID,
+      </if>
+      <if test="motherboardId != null" >
+        MOTHERBOARD_ID,
+      </if>
+      <if test="ufNextVersion != null" >
+        UF_NEXT_VERSION,
+      </if>
+      <if test="ufVersion != null" >
+        UF_VERSION,
+      </if>
+      <if test="ufUrl != null" >
+        UF_URL,
+      </if>
+      <if test="ufRemark != null" >
+        UF_REMARK,
+      </if>
+      <if test="ufCreateTime != null" >
+        UF_CREATE_TIME,
+      </if>
+      <if test="personId != null" >
+        PERSON_ID,
+      </if>
+      <if test="ufFileSize != null" >
+        UF_FILE_SIZE,
+      </if>
+      <if test="ufFileName != null" >
+        UF_FILE_NAME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="upgradeUserId != null" >
+        #{upgradeUserId,jdbcType=INTEGER},
+      </if>
+      <if test="motherboardId != null" >
+        #{motherboardId,jdbcType=INTEGER},
+      </if>
+      <if test="ufNextVersion != null" >
+        #{ufNextVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="ufVersion != null" >
+        #{ufVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="ufUrl != null" >
+        #{ufUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="ufRemark != null" >
+        #{ufRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="ufCreateTime != null" >
+        #{ufCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="personId != null" >
+        #{personId,jdbcType=VARCHAR},
+      </if>
+      <if test="ufFileSize != null" >
+        #{ufFileSize,jdbcType=VARCHAR},
+      </if>
+      <if test="ufFileName != null" >
+        #{ufFileName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.etv.manage.model.UpgradeFile" >
+    update ETV_UPGRADE_FILE
+    <set >
+      <if test="upgradeUserId != null" >
+        UPGRADE_USER_ID = #{upgradeUserId,jdbcType=INTEGER},
+      </if>
+      <if test="motherboardId != null" >
+        MOTHERBOARD_ID = #{motherboardId,jdbcType=INTEGER},
+      </if>
+      <if test="ufNextVersion != null" >
+        UF_NEXT_VERSION = #{ufNextVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="ufVersion != null" >
+        UF_VERSION = #{ufVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="ufUrl != null" >
+        UF_URL = #{ufUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="ufRemark != null" >
+        UF_REMARK = #{ufRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="ufCreateTime != null" >
+        UF_CREATE_TIME = #{ufCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="personId != null" >
+        PERSON_ID = #{personId,jdbcType=VARCHAR},
+      </if>
+      <if test="ufFileSize != null" >
+        UF_FILE_SIZE = #{ufFileSize,jdbcType=VARCHAR},
+      </if>
+      <if test="ufFileName != null" >
+        UF_FILE_NAME = #{ufFileName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.etv.manage.model.UpgradeFile" >
+    update ETV_UPGRADE_FILE
+    set UPGRADE_USER_ID = #{upgradeUserId,jdbcType=INTEGER},
+      MOTHERBOARD_ID = #{motherboardId,jdbcType=INTEGER},
+      UF_NEXT_VERSION = #{ufNextVersion,jdbcType=VARCHAR},
+      UF_VERSION = #{ufVersion,jdbcType=VARCHAR},
+      UF_URL = #{ufUrl,jdbcType=VARCHAR},
+      UF_REMARK = #{ufRemark,jdbcType=VARCHAR},
+      UF_CREATE_TIME = #{ufCreateTime,jdbcType=TIMESTAMP},
+      PERSON_ID = #{personId,jdbcType=VARCHAR},
+      UF_FILE_SIZE = #{ufFileSize,jdbcType=VARCHAR},
+      UF_FILE_NAME = #{ufFileName,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  
+  
+  <!--自定义sql  -->
+  
+  <select id="selectAll" resultType="map">
+     select 
+     id, UF_NICK_NAME as nickName, UF_VERSION as version, UF_URL as url, UF_ISOPEN as isOpen
+      from ETV_UPGRADE_FILE
+  </select>
+  
+  <select id="selctByNickName" resultType="map" parameterType="java.lang.String">
+     select 
+      UF_VERSION as version, UF_URL as url
+     from ETV_UPGRADE_FILE where UF_NICK_NAME= #{nickName}
+  </select>
+  
+  
+  
+  <!--升级文件分业  -->
+  <select id="selecePageUpgradeFile" parameterType="map" resultType="map">
+  select uf.ID AS id,
+		uf.UF_VERSION AS ufVersion,
+		uf.UF_URL AS ufUrl,
+		uf.UF_REMARK AS ufRemark,
+		uf.UF_CREATE_TIME AS ufCreateTime,
+		uf.PERSON_ID AS personId,
+		uf.UF_FILE_SIZE as ufFileSize,
+		uf.UF_FILE_NAME as ufFileName,
+		ui.UPGRADE_USER userName,
+		uf.UF_NEXT_VERSION ufNextVersion
+  from ETV_UPGRADE_FILE uf 
+  left join ETV_UPGRADE_INFO ui on uf.UPGRADE_USER_ID=ui.ID
+  where uf.UPGRADE_USER_ID=#{upgradeUserId,jdbcType=VARCHAR} and  MOTHERBOARD_ID = #{motherBoardTypeId,jdbcType=INTEGER}
+  </select>
+  
+  <!--外部api接口查询升级文件信息  -->
+  <select id="selctUpgradeFileByParams" parameterType="map" resultType="map">
+  	select 
+      UF_NEXT_VERSION as version, UF_URL as url, UF_FILE_SIZE fileSize
+     from ETV_UPGRADE_FILE  uf
+     left join ETV_UPGRADE_INFO ui on ui.id=uf.UPGRADE_USER_ID
+     left join ETV_MOTHERBOARD_TYPE mt on mt.id=uf.MOTHERBOARD_ID and ui.id=mt.UPGRADE_USER_ID
+     where ui.UPGRADE_USER= #{userName,jdbcType=VARCHAR} and mt.MOTHERBOARD_TYPE=#{product,jdbcType=VARCHAR} and uf.UF_VERSION=#{version,jdbcType=VARCHAR}
+  </select>
+</mapper>

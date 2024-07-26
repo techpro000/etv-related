@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.etv.manage.dao.RepeatAuthMapper" >
+  <resultMap id="BaseResultMap" type="com.etv.manage.model.RepeatAuth" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="CU_ID" property="cuId" jdbcType="VARCHAR" />
+    <result column="MAC" property="mac" jdbcType="VARCHAR" />
+    <result column="AUTH_TYPE" property="authType" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="ACTIVE_KEY" property="activeKey" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, CU_ID, MAC, AUTH_TYPE, REMARK, ACTIVE_KEY, CREATE_TIME
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from etv_repeat_auth
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from etv_repeat_auth
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.etv.manage.model.RepeatAuth" >
+    insert into etv_repeat_auth (ID, CU_ID, MAC, 
+      AUTH_TYPE, REMARK, ACTIVE_KEY, 
+      CREATE_TIME)
+    values (#{id,jdbcType=VARCHAR}, #{cuId,jdbcType=VARCHAR}, #{mac,jdbcType=VARCHAR}, 
+      #{authType,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{activeKey,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.etv.manage.model.RepeatAuth" >
+    insert into etv_repeat_auth
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="cuId != null" >
+        CU_ID,
+      </if>
+      <if test="mac != null" >
+        MAC,
+      </if>
+      <if test="authType != null" >
+        AUTH_TYPE,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+      <if test="activeKey != null" >
+        ACTIVE_KEY,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="cuId != null" >
+        #{cuId,jdbcType=VARCHAR},
+      </if>
+      <if test="mac != null" >
+        #{mac,jdbcType=VARCHAR},
+      </if>
+      <if test="authType != null" >
+        #{authType,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="activeKey != null" >
+        #{activeKey,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.etv.manage.model.RepeatAuth" >
+    update etv_repeat_auth
+    <set >
+      <if test="cuId != null" >
+        CU_ID = #{cuId,jdbcType=VARCHAR},
+      </if>
+      <if test="mac != null" >
+        MAC = #{mac,jdbcType=VARCHAR},
+      </if>
+      <if test="authType != null" >
+        AUTH_TYPE = #{authType,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="activeKey != null" >
+        ACTIVE_KEY = #{activeKey,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.etv.manage.model.RepeatAuth" >
+    update etv_repeat_auth
+    set CU_ID = #{cuId,jdbcType=VARCHAR},
+      MAC = #{mac,jdbcType=VARCHAR},
+      AUTH_TYPE = #{authType,jdbcType=VARCHAR},
+      REMARK = #{remark,jdbcType=VARCHAR},
+      ACTIVE_KEY = #{activeKey,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  <!--自定义sql  -->
+  
+  <select id="selectPageRepeatAuth" parameterType="map" resultType="com.etv.manage.model.vo.RepeatAuthQueryVo">
+  select  ra.ID id, cu.CU_COMPANY_NAME companyName, MAC mac, AUTH_TYPE authType, 
+  REMARK remark, ACTIVE_KEY activeKey, CREATE_TIME createTime
+  from etv_repeat_auth ra 
+  inner join etv_customer cu on cu.id=ra.cu_id
+  where 1=1
+<!--   <if test="authType !=null and authType!= ''"> -->
+<!--   and AUTH_TYPE = #{authType,jdbcType=VARCHAR} -->
+<!--   </if> -->
+  <if test="startTime!=null and startTime !=''">
+  and DATE_FORMAT(CREATE_TIME, '%Y-%m-%d')&gt;= STR_TO_DATE(#{startTime,jdbcType=VARCHAR},'%Y-%m-%d')
+  </if>
+  <if test="endTime !=null and endTime !=''">
+  and DATE_FORMAT(CREATE_TIME, '%Y-%m-%d')&lt;= STR_TO_DATE(#{endTime,jdbcType=VARCHAR},'%Y-%m-%d')
+  </if>
+  <if test="companyName !=null and companyName !=''">
+  and cu.CU_COMPANY_NAME like CONCAT(CONCAT('%', ltrim(rtrim(#{companyName,jdbcType=VARCHAR}))),'%') 
+  </if>
+  </select>
+  
+</mapper>

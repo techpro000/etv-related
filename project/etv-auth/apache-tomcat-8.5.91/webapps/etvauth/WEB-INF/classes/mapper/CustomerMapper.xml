@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.etv.manage.dao.CustomerMapper" >
+  <resultMap id="BaseResultMap" type="com.etv.manage.model.Customer" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="CU_PS_ID" property="cuPsId" jdbcType="VARCHAR" />
+    <result column="CU_NAME" property="cuName" jdbcType="VARCHAR" />
+    <result column="CU_AUTH_NUM" property="cuAuthNum" jdbcType="VARCHAR" />
+    <result column="CU_PHONE" property="cuPhone" jdbcType="VARCHAR" />
+    <result column="CU_COMPANY_NAME" property="cuCompanyName" jdbcType="VARCHAR" />
+    <result column="CU_APPID" property="cuAppid" jdbcType="VARCHAR" />
+    <result column="CU_LAST_PHONE_FEE" property="cuLastPhoneFee" jdbcType="VARCHAR" />
+    <result column="CU_APP_KEY" property="cuAppKey" jdbcType="VARCHAR" />
+    <result column="CU_CREATE_TIME" property="cuCreateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, CU_PS_ID, CU_NAME, CU_AUTH_NUM, CU_PHONE, CU_COMPANY_NAME, CU_APPID, CU_LAST_PHONE_FEE, 
+    CU_APP_KEY, CU_CREATE_TIME
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from etv_customer
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from etv_customer
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.etv.manage.model.Customer" >
+    insert into etv_customer (ID, CU_PS_ID, CU_NAME, 
+      CU_AUTH_NUM, CU_PHONE, CU_COMPANY_NAME, 
+      CU_APPID, CU_LAST_PHONE_FEE, CU_APP_KEY, 
+      CU_CREATE_TIME)
+    values (#{id,jdbcType=VARCHAR}, #{cuPsId,jdbcType=VARCHAR}, #{cuName,jdbcType=VARCHAR}, 
+      #{cuAuthNum,jdbcType=VARCHAR}, #{cuPhone,jdbcType=VARCHAR}, #{cuCompanyName,jdbcType=VARCHAR}, 
+      #{cuAppid,jdbcType=VARCHAR}, #{cuLastPhoneFee,jdbcType=VARCHAR}, #{cuAppKey,jdbcType=VARCHAR}, 
+      #{cuCreateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.etv.manage.model.Customer" >
+    insert into etv_customer
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="cuPsId != null" >
+        CU_PS_ID,
+      </if>
+      <if test="cuName != null" >
+        CU_NAME,
+      </if>
+      <if test="cuAuthNum != null" >
+        CU_AUTH_NUM,
+      </if>
+      <if test="cuPhone != null" >
+        CU_PHONE,
+      </if>
+      <if test="cuCompanyName != null" >
+        CU_COMPANY_NAME,
+      </if>
+      <if test="cuAppid != null" >
+        CU_APPID,
+      </if>
+      <if test="cuLastPhoneFee != null" >
+        CU_LAST_PHONE_FEE,
+      </if>
+      <if test="cuAppKey != null" >
+        CU_APP_KEY,
+      </if>
+      <if test="cuCreateTime != null" >
+        CU_CREATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="cuPsId != null" >
+        #{cuPsId,jdbcType=VARCHAR},
+      </if>
+      <if test="cuName != null" >
+        #{cuName,jdbcType=VARCHAR},
+      </if>
+      <if test="cuAuthNum != null" >
+        #{cuAuthNum,jdbcType=VARCHAR},
+      </if>
+      <if test="cuPhone != null" >
+        #{cuPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="cuCompanyName != null" >
+        #{cuCompanyName,jdbcType=VARCHAR},
+      </if>
+      <if test="cuAppid != null" >
+        #{cuAppid,jdbcType=VARCHAR},
+      </if>
+      <if test="cuLastPhoneFee != null" >
+        #{cuLastPhoneFee,jdbcType=VARCHAR},
+      </if>
+      <if test="cuAppKey != null" >
+        #{cuAppKey,jdbcType=VARCHAR},
+      </if>
+      <if test="cuCreateTime != null" >
+        #{cuCreateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.etv.manage.model.Customer" >
+    update etv_customer
+    <set >
+      <if test="cuPsId != null" >
+        CU_PS_ID = #{cuPsId,jdbcType=VARCHAR},
+      </if>
+      <if test="cuName != null" >
+        CU_NAME = #{cuName,jdbcType=VARCHAR},
+      </if>
+      <if test="cuAuthNum != null" >
+        CU_AUTH_NUM = #{cuAuthNum,jdbcType=VARCHAR},
+      </if>
+      <if test="cuPhone != null" >
+        CU_PHONE = #{cuPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="cuCompanyName != null" >
+        CU_COMPANY_NAME = #{cuCompanyName,jdbcType=VARCHAR},
+      </if>
+      <if test="cuAppid != null" >
+        CU_APPID = #{cuAppid,jdbcType=VARCHAR},
+      </if>
+      <if test="cuLastPhoneFee != null" >
+        CU_LAST_PHONE_FEE = #{cuLastPhoneFee,jdbcType=VARCHAR},
+      </if>
+      <if test="cuAppKey != null" >
+        CU_APP_KEY = #{cuAppKey,jdbcType=VARCHAR},
+      </if>
+      <if test="cuCreateTime != null" >
+        CU_CREATE_TIME = #{cuCreateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.etv.manage.model.Customer" >
+    update etv_customer
+    set CU_PS_ID = #{cuPsId,jdbcType=VARCHAR},
+      CU_NAME = #{cuName,jdbcType=VARCHAR},
+      CU_AUTH_NUM = #{cuAuthNum,jdbcType=VARCHAR},
+      CU_PHONE = #{cuPhone,jdbcType=VARCHAR},
+      CU_COMPANY_NAME = #{cuCompanyName,jdbcType=VARCHAR},
+      CU_APPID = #{cuAppid,jdbcType=VARCHAR},
+      CU_LAST_PHONE_FEE = #{cuLastPhoneFee,jdbcType=VARCHAR},
+      CU_APP_KEY = #{cuAppKey,jdbcType=VARCHAR},
+      CU_CREATE_TIME = #{cuCreateTime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  
+  <!--自定义sql -->
+  
+  
+  <!--查询客户信息分页  -->
+  <select id="selectPageCustomer" parameterType="map" resultMap="BaseResultMap">
+   select 
+    <include refid="Base_Column_List" />
+    from ETV_CUSTOMER
+    where 1=1
+    <if test="name!=null and name!=''">
+     and  CU_NAME like CONCAT(CONCAT('%', ltrim(rtrim(#{name,jdbcType=VARCHAR}))),'%') 
+    </if>
+    <if test="psId!=null and psId!=''">
+     and  CU_PS_ID =#{psId,jdbcType=VARCHAR}
+    </if>
+    <if test="companyName!=null and companyName!=''">
+     and  CU_COMPANY_NAME like CONCAT(CONCAT('%', ltrim(rtrim(#{companyName,jdbcType=VARCHAR}))),'%') 
+    </if>
+    <if test="phone !=null and phone !=''">
+     and  CU_PHONE like CONCAT(CONCAT('%', ltrim(rtrim(#{phone,jdbcType=VARCHAR}))),'%') 
+    </if>
+    <if test="appId !=null and appId !=''">
+     and  CU_APPID like CONCAT(CONCAT('%', ltrim(rtrim(#{appId,jdbcType=VARCHAR}))),'%') 
+    </if>
+    order by CU_CREATE_TIME desc 
+  </select>
+  
+  <!--查询客户信息列表  -->
+  <select id="selectCountCustomer" parameterType="map" resultType="int">
+   select 
+    count(id)
+    from ETV_CUSTOMER
+    where 1=1
+    <if test="name != null and name != ''">
+    and  CU_NAME like CONCAT(CONCAT('%', ltrim(rtrim(#{name,jdbcType=VARCHAR}))),'%') 
+    </if>
+    <if test="psId!=null and psId!=''">
+     and  CU_PS_ID =#{psId,jdbcType=VARCHAR}
+    </if>
+  </select>
+  
+  <!--根据客户名查询客户是否存在  -->
+  <select id="selectCustomerByUserName" parameterType="string" resultMap="BaseResultMap">
+  	 select 
+    <include refid="Base_Column_List" />
+    from ETV_CUSTOMER
+    where CU_NAME=#{userName,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="selectCustomerExistUninclude" parameterType="map" resultType="int">
+   select 
+    count(id)
+    from ETV_CUSTOMER
+    where ID!=#{id,jdbcType=VARCHAR} and CU_NAME=#{userName,jdbcType=VARCHAR}
+  </select>
+  
+  <!--根据appid查询客户信息  -->
+  <select id="selectCustomerByAppId" parameterType="String" resultMap="BaseResultMap">
+  select <include refid="Base_Column_List" /> 
+  from ETV_CUSTOMER
+  where CU_APPID=#{appId,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="selectPhoneExist" parameterType="String" resultType="int">
+  select
+  count(1)
+   from ETV_CUSTOMER
+  where CU_PHONE=#{phone,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="selectPhoneExistNoSelf" parameterType="map" resultType="int">
+  select
+  count(1)
+   from ETV_CUSTOMER
+  where CU_PHONE=#{phone,jdbcType=VARCHAR} and id!=#{id,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="selectCustomerByPsId" parameterType="String" resultMap="BaseResultMap">
+  select <include refid="Base_Column_List" /> 
+  from ETV_CUSTOMER
+  where CU_PS_ID=#{psId,jdbcType=VARCHAR}
+  </select>
+  
+  <update id="updateCustomerCallTime" parameterType="map">
+  update ETV_CUSTOMER
+  set CU_LAST_PHONE_FEE=#{totalLastFee,jdbcType=VARCHAR}
+  where ID=#{id,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="selectCustomerByPhone" parameterType="String" resultMap="BaseResultMap">
+  select <include refid="Base_Column_List" /> 
+  from ETV_CUSTOMER
+  where CU_PHONE=#{phone,jdbcType=VARCHAR}
+  </select>
+</mapper>

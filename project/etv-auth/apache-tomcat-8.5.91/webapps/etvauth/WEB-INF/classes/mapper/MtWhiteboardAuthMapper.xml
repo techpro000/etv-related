@@ -1,0 +1,401 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.etv.manage.dao.MtWhiteboardAuthMapper" >
+  <resultMap id="BaseResultMap" type="com.etv.manage.model.MtWhiteboardAuth" >
+    <id column="whiteboard_auth_id" property="whiteboardAuthId" jdbcType="BIGINT" />
+    <result column="dev_mac" property="devMac" jdbcType="VARCHAR" />
+    <result column="cus_id" property="cusId" jdbcType="VARCHAR" />
+    <result column="appid" property="appid" jdbcType="VARCHAR" />
+    <result column="auth_state" property="authState" jdbcType="INTEGER" />
+    <result column="auth_time" property="authTime" jdbcType="TIMESTAMP" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="auth_type" property="authType" jdbcType="INTEGER" />
+    <result column="app_key" property="appKey" jdbcType="VARCHAR" />
+    <result column="app_key_type" property="appKeyType" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.etv.manage.model.MtWhiteboardAuth" extends="BaseResultMap" >
+    <result column="remark" property="remark" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    whiteboard_auth_id, dev_mac, cus_id, appid, auth_state, auth_time, create_time, auth_type, 
+    app_key, app_key_type
+  </sql>
+  <sql id="Blob_Column_List" >
+    remark
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from etv_mt_whiteboard_auth
+    where whiteboard_auth_id = #{whiteboardAuthId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from etv_mt_whiteboard_auth
+    where whiteboard_auth_id = #{whiteboardAuthId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.etv.manage.model.MtWhiteboardAuth" >
+    insert into etv_mt_whiteboard_auth (whiteboard_auth_id, dev_mac, cus_id, 
+      appid, auth_state, auth_time, 
+      create_time, auth_type, app_key, 
+      app_key_type, remark)
+    values (#{whiteboardAuthId,jdbcType=BIGINT}, #{devMac,jdbcType=VARCHAR}, #{cusId,jdbcType=VARCHAR}, 
+      #{appid,jdbcType=VARCHAR}, #{authState,jdbcType=INTEGER}, #{authTime,jdbcType=TIMESTAMP}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{authType,jdbcType=INTEGER}, #{appKey,jdbcType=VARCHAR}, 
+      #{appKeyType,jdbcType=INTEGER}, #{remark,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.etv.manage.model.MtWhiteboardAuth" >
+    insert into etv_mt_whiteboard_auth
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="whiteboardAuthId != null" >
+        whiteboard_auth_id,
+      </if>
+      <if test="devMac != null" >
+        dev_mac,
+      </if>
+      <if test="cusId != null" >
+        cus_id,
+      </if>
+      <if test="appid != null" >
+        appid,
+      </if>
+      <if test="authState != null" >
+        auth_state,
+      </if>
+      <if test="authTime != null" >
+        auth_time,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="authType != null" >
+        auth_type,
+      </if>
+      <if test="appKey != null" >
+        app_key,
+      </if>
+      <if test="appKeyType != null" >
+        app_key_type,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="whiteboardAuthId != null" >
+        #{whiteboardAuthId,jdbcType=BIGINT},
+      </if>
+      <if test="devMac != null" >
+        #{devMac,jdbcType=VARCHAR},
+      </if>
+      <if test="cusId != null" >
+        #{cusId,jdbcType=VARCHAR},
+      </if>
+      <if test="appid != null" >
+        #{appid,jdbcType=VARCHAR},
+      </if>
+      <if test="authState != null" >
+        #{authState,jdbcType=INTEGER},
+      </if>
+      <if test="authTime != null" >
+        #{authTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="authType != null" >
+        #{authType,jdbcType=INTEGER},
+      </if>
+      <if test="appKey != null" >
+        #{appKey,jdbcType=VARCHAR},
+      </if>
+      <if test="appKeyType != null" >
+        #{appKeyType,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.etv.manage.model.MtWhiteboardAuth" >
+    update etv_mt_whiteboard_auth
+    <set >
+      <if test="devMac != null" >
+        dev_mac = #{devMac,jdbcType=VARCHAR},
+      </if>
+      <if test="cusId != null" >
+        cus_id = #{cusId,jdbcType=VARCHAR},
+      </if>
+      <if test="appid != null" >
+        appid = #{appid,jdbcType=VARCHAR},
+      </if>
+      <if test="authState != null" >
+        auth_state = #{authState,jdbcType=INTEGER},
+      </if>
+      <if test="authTime != null" >
+        auth_time = #{authTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="authType != null" >
+        auth_type = #{authType,jdbcType=INTEGER},
+      </if>
+      <if test="appKey != null" >
+        app_key = #{appKey,jdbcType=VARCHAR},
+      </if>
+      <if test="appKeyType != null" >
+        app_key_type = #{appKeyType,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where whiteboard_auth_id = #{whiteboardAuthId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.etv.manage.model.MtWhiteboardAuth" >
+    update etv_mt_whiteboard_auth
+    set dev_mac = #{devMac,jdbcType=VARCHAR},
+      cus_id = #{cusId,jdbcType=VARCHAR},
+      appid = #{appid,jdbcType=VARCHAR},
+      auth_state = #{authState,jdbcType=INTEGER},
+      auth_time = #{authTime,jdbcType=TIMESTAMP},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      auth_type = #{authType,jdbcType=INTEGER},
+      app_key = #{appKey,jdbcType=VARCHAR},
+      app_key_type = #{appKeyType,jdbcType=INTEGER},
+      remark = #{remark,jdbcType=LONGVARCHAR}
+    where whiteboard_auth_id = #{whiteboardAuthId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.etv.manage.model.MtWhiteboardAuth" >
+    update etv_mt_whiteboard_auth
+    set dev_mac = #{devMac,jdbcType=VARCHAR},
+      cus_id = #{cusId,jdbcType=VARCHAR},
+      appid = #{appid,jdbcType=VARCHAR},
+      auth_state = #{authState,jdbcType=INTEGER},
+      auth_time = #{authTime,jdbcType=TIMESTAMP},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      auth_type = #{authType,jdbcType=INTEGER},
+      app_key = #{appKey,jdbcType=VARCHAR},
+      app_key_type = #{appKeyType,jdbcType=INTEGER}
+    where whiteboard_auth_id = #{whiteboardAuthId,jdbcType=BIGINT}
+  </update>
+  
+  
+  <!-- cus sql -->
+	
+	<select id="mtWhiteboardAuthPage" resultMap="BaseResultMap">
+		SELECT 
+			<include refid="Base_Column_List" />
+		FROM
+			etv_mt_whiteboard_auth
+		<where>
+			1=1
+			<if test="authState!= null">
+				and auth_state = #{authState}
+			</if>
+			<if test="cusId != null">
+				and cus_id = #{cusId}
+			</if>
+			<if test="appKeyType != null and appKeyType!=''">
+				and app_key_type = #{appKeyType}
+			</if>
+			<if test="mac!=null and mac!=''">
+				and dev_mac like CONCAT(CONCAT('%', ltrim(rtrim(#{mac}))),'%')
+			</if>
+			<if test="startDate !=null and startDate!='' ">
+			 	and create_time &gt;= #{startDate} 
+			</if>
+			<if test=" endDate !=null and endDate !=''">
+				and create_time &lt;= #{endDate}
+			</if>
+		</where>
+	</select>
+	
+	<select id="getByDevMacAndAppid" resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM
+		etv_mt_whiteboard_auth
+		WHERE dev_mac = #{devMac}
+		<if test="appid!= null">
+			and appid = #{appid}
+		</if>
+	</select>
+	
+	<select id="getByDevMacAndAppidAndKeyType" resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM
+		etv_mt_whiteboard_auth
+		WHERE dev_mac = #{devMac} and app_key_type = #{appKeyType,jdbcType=INTEGER}
+		<if test="appid!= null">
+			and appid = #{appid}
+		</if>
+	</select>
+	
+	<select id="getAuthByAuthState" resultMap="BaseResultMap">
+		SELECT 
+			<include refid="Base_Column_List" />
+		FROM 
+			etv_mt_whiteboard_auth	
+		<where>
+				auth_state = #{authState}
+				and appid = #{appid}
+		</where>
+		ORDER BY whiteboard_auth_id ASC
+		LIMIT 1
+	</select>
+	
+	<select id="cusMTAuthListPage" resultType="map">
+		SELECT
+			cu_Name cnName,
+			CU_COMPANY_NAME companyName,
+			CU_APPID appid,
+			CU_CREATE_TIME createTime,
+		  CU_PHONE phone,
+			id cuId,
+		  (SELECT
+			count(whiteboard_auth_id)
+		FROM
+			etv_mt_whiteboard_auth
+		WHERE
+			cus_id = id
+		AND auth_state = - 1)  unusedAuthNum,
+		  (SELECT
+			count(whiteboard_auth_id)
+		FROM
+			etv_mt_whiteboard_auth
+		WHERE
+			cus_id = id
+		) totalAuthNum
+		FROM
+			etv_customer cus
+			<where>
+				<if test="psId != null">
+					CU_PS_ID  = #{psId}
+				</if>
+				<if test="cpName != null and cpName !=''">
+					and CU_COMPANY_NAME like CONCAT(CONCAT('%', ltrim(rtrim(#{cpName}))),'%')
+				</if>
+				<if test="phone != null and phone !=''">
+					and CU_PHONE  like CONCAT(CONCAT('%', ltrim(rtrim(#{phone}))),'%')
+				</if>
+				<if test="appid != null and appid !=''">
+					and CU_APPID  = #{appid}
+				</if>
+			</where>
+	</select>
+	
+	
+	<select id="selectMtWhiteboardAuthPointNum" parameterType="String" resultType="int">
+		SELECT 
+			count(*)
+		FROM
+			etv_mt_whiteboard_auth
+			where cus_id = #{cuId}
+	</select>
+	
+	
+	<select id="selectExistInfo" resultType="int"
+		parameterType="map">
+		select count(1)
+		from etv_mt_whiteboard_auth
+		where APP_KEY = #{appKey,jdbcType=VARCHAR}
+	</select>
+	
+	
+	<!--查询投屏库存 -->
+	<select id="selectMappingScreenInventory" resultType="com.etv.manage.model.vo.MTAuthVo" parameterType="map">
+		select
+			whiteboard_auth_id id,app_key appKey,create_time createTime,app_key_type appKeyType
+		from etv_mt_whiteboard_auth
+		where ISNULL(CUS_ID)
+		<if test="appKeyType != null">
+		and app_key_type=#{appKeyType}
+		</if>
+		order by whiteboard_auth_id desc
+	</select>
+	
+	<update id="authToCus" parameterType="map">
+		update etv_mt_whiteboard_auth 
+		set cus_id = #{cusId},
+		appid=#{appid} ,
+		create_time=now()
+		where whiteboard_auth_id=#{whiteboardAuthId}
+	</update>
+	
+ 	<select id="countDeviceByMacAndCuId" parameterType="map" resultType="java.lang.Integer">
+	  	select 
+	     count(1)
+	    from etv_mt_whiteboard_auth
+	    where dev_mac = #{mac,jdbcType=VARCHAR} and cus_id=#{cuId,jdbcType=VARCHAR} 
+    </select>
+    
+	<select id="getMTNotUsedAuth" resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM
+		etv_mt_whiteboard_auth
+		WHERE
+		cus_id = #{cuId}
+		AND dev_mac IS NULL
+		<if test="type!=null">
+			and app_key_type=#{type}
+		</if>
+		LIMIT 1
+	</select>
+	
+	<select id="exportMTInfoAuthRec" parameterType="map"
+		resultType="com.etv.manage.model.vo.MTAuthRecExcelVo">
+		select
+			dev_mac mac,app_key appKey,auth_time authTime,auth_state authState
+		from etv_mt_whiteboard_auth
+		where cus_id=#{cuId}
+	</select>
+	
+	<update id="mtAuthBatchClear" parameterType="map">
+		UPDATE etv_mt_whiteboard_auth 
+		SET dev_mac = NULL,
+		auth_time = NULL,
+		auth_state = -1 
+		WHERE
+			whiteboard_auth_id = #{whiteboardAuthId}
+	</update>
+	
+	<select id="selectMtAuthScreenAuthRecByParams" parameterType="String" resultMap="BaseResultMap">
+		select 
+		*
+		from etv_mt_whiteboard_auth
+		where 
+		cus_id=#{cusId} and app_key_type='3'
+		<if test="authState !=null and authState !=''">
+			and auth_state=#{authState}
+		</if>
+		<if test="startDate !=null and startDate!='' ">
+			 and create_time &gt;= #{startDate} 
+		</if>
+		<if test=" endDate !=null and endDate !=''">
+			and create_time &lt;= #{endDate}
+		</if>
+	</select>
+	
+	<update id="updateMtWhiteboardAuth" parameterType="list">
+		update etv_mt_whiteboard_auth
+		set auth_state=1
+		where whiteboard_auth_id in
+		<foreach collection="mtWhiteboardAuthLst" item="mtWhiteboardAuth" index="index" open="("
+			close=")" separator=",">
+			#{mtWhiteboardAuth.whiteboardAuthId}
+		</foreach>
+	</update>
+	
+	
+	<update id="activeMeetingRelatedAuth" parameterType="map">
+  	update  etv_mt_whiteboard_auth
+	 set auth_state=1,
+	 auth_time=now()
+    where whiteboard_auth_id= #{id,jdbcType=BIGINT}  and cus_id = #{cuId,jdbcType=VARCHAR} 
+  </update>
+</mapper>

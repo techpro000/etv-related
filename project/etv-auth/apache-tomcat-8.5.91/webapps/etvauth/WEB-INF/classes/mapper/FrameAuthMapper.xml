@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.etv.manage.dao.FrameAuthMapper" >
+  <resultMap id="BaseResultMap" type="com.etv.manage.model.FrameAuth" >
+    <id column="ID" property="id" jdbcType="BIGINT" />
+    <result column="CU_ID" property="cuId" jdbcType="VARCHAR" />
+    <result column="MAC" property="mac" jdbcType="VARCHAR" />
+    <result column="ACTIVE_KEY" property="activeKey" jdbcType="VARCHAR" />
+    <result column="ACTIVE_STATE" property="activeState" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, CU_ID, MAC, ACTIVE_KEY, ACTIVE_STATE, REMARK, CREATE_TIME
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from photo_frame_auth
+    where ID = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from photo_frame_auth
+    where ID = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.etv.manage.model.FrameAuth" >
+    insert into photo_frame_auth (ID, CU_ID, MAC, 
+      ACTIVE_KEY, ACTIVE_STATE, REMARK, 
+      CREATE_TIME)
+    values (#{id,jdbcType=BIGINT}, #{cuId,jdbcType=VARCHAR}, #{mac,jdbcType=VARCHAR}, 
+      #{activeKey,jdbcType=VARCHAR}, #{activeState,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.etv.manage.model.FrameAuth" >
+    insert into photo_frame_auth
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="cuId != null" >
+        CU_ID,
+      </if>
+      <if test="mac != null" >
+        MAC,
+      </if>
+      <if test="activeKey != null" >
+        ACTIVE_KEY,
+      </if>
+      <if test="activeState != null" >
+        ACTIVE_STATE,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="cuId != null" >
+        #{cuId,jdbcType=VARCHAR},
+      </if>
+      <if test="mac != null" >
+        #{mac,jdbcType=VARCHAR},
+      </if>
+      <if test="activeKey != null" >
+        #{activeKey,jdbcType=VARCHAR},
+      </if>
+      <if test="activeState != null" >
+        #{activeState,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.etv.manage.model.FrameAuth" >
+    update photo_frame_auth
+    <set >
+      <if test="cuId != null" >
+        CU_ID = #{cuId,jdbcType=VARCHAR},
+      </if>
+      <if test="mac != null" >
+        MAC = #{mac,jdbcType=VARCHAR},
+      </if>
+      <if test="activeKey != null" >
+        ACTIVE_KEY = #{activeKey,jdbcType=VARCHAR},
+      </if>
+      <if test="activeState != null" >
+        ACTIVE_STATE = #{activeState,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.etv.manage.model.FrameAuth" >
+    update photo_frame_auth
+    set CU_ID = #{cuId,jdbcType=VARCHAR},
+      MAC = #{mac,jdbcType=VARCHAR},
+      ACTIVE_KEY = #{activeKey,jdbcType=VARCHAR},
+      ACTIVE_STATE = #{activeState,jdbcType=VARCHAR},
+      REMARK = #{remark,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  
+  
+   <select id="selectAuthFrameDevice" resultMap="BaseResultMap" parameterType="String">
+   select 
+    <include refid="Base_Column_List" />
+    from photo_frame_auth
+    where CU_ID = #{userId,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="selectPhotoFrameDevice" parameterType="String" resultMap="BaseResultMap">
+  select 
+    <include refid="Base_Column_List" />
+    from photo_frame_auth
+    where MAC = #{mac,jdbcType=VARCHAR}
+  </select>
+  
+  
+  <select id="selectPFAuthNum" parameterType="string" resultType="int">
+   select count(1)
+   from photo_frame_auth
+   where CU_ID= #{cuId,jdbcType=VARCHAR}
+   </select>
+   
+   <select id="selectPFUsedAuthNum" parameterType="string" resultType="int">
+   select count(1)
+   from photo_frame_auth
+   where CU_ID= #{cuId,jdbcType=VARCHAR} and MAC !=''
+   </select>
+   
+   <select id="selectFrameNotUsedAuth" parameterType="String" resultMap="BaseResultMap">
+  select 
+   <include refid="Base_Column_List" />
+  from photo_frame_auth
+  where CU_ID=#{cuId,jdbcType=VARCHAR} and (MAC='' or ISNULL(MAC))
+  </select>
+  
+  <select id="selectFrameAuthIsRegByMacAndCuId" parameterType="String" resultMap="BaseResultMap">
+  	select 
+    <include refid="Base_Column_List" />
+    from photo_frame_auth
+    where MAC = #{mac,jdbcType=VARCHAR} and CU_ID=#{cuId,jdbcType=VARCHAR}
+  </select>
+  
+</mapper>

@@ -1,0 +1,465 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.etv.manage.dao.MachineMapper" >
+  <resultMap id="BaseResultMap" type="com.etv.manage.model.Machine" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="MA_CU_ID" property="maCuId" jdbcType="VARCHAR" />
+    <result column="MA_ACTIVE_KEY" property="maActiveKey" jdbcType="VARCHAR" />
+    <result column="MA_CERT_KEY" property="maCertKey" jdbcType="VARCHAR" />
+    <result column="MA_SYSTME_VERSION" property="maSystmeVersion" jdbcType="VARCHAR" />
+    <result column="MA_NO" property="maNo" jdbcType="VARCHAR" />
+    <result column="MA_AUTH_TIME" property="maAuthTime" jdbcType="TIMESTAMP" />
+    <result column="MA_COMPANY" property="maCompany" jdbcType="VARCHAR" />
+    <result column="MA_CREATE_TIME" property="maCreateTime" jdbcType="TIMESTAMP" />
+    <result column="MA_AUTH_STATE" property="maAuthState" jdbcType="VARCHAR" />
+    <result column="MA_AUTH_TYPE" property="maAuthType" jdbcType="VARCHAR" />
+    <result column="MA_ACTIV_STATE" property="maActivState" jdbcType="VARCHAR" />
+    <result column="MA_REMARK" property="maRemark" jdbcType="LONGVARCHAR" />
+    <result column="MA_PLATFORM" property="maPlatform" jdbcType="VARCHAR" />
+    <result column="MA_AUTH_OS" property="maAuthOs" jdbcType="INTEGER" />
+    <result column="MA_AUTH_VERSION" property="maAuthVersion" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, MA_CU_ID, MA_ACTIVE_KEY, MA_CERT_KEY, MA_SYSTME_VERSION, MA_NO, MA_AUTH_TIME, 
+    MA_COMPANY, MA_CREATE_TIME, MA_AUTH_STATE, MA_AUTH_TYPE, MA_ACTIV_STATE, MA_REMARK, 
+    MA_PLATFORM, MA_AUTH_OS,MA_AUTH_VERSION
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from etv_machine
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from etv_machine
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.etv.manage.model.Machine" >
+    insert into etv_machine (ID, MA_CU_ID, MA_ACTIVE_KEY, 
+      MA_CERT_KEY, MA_SYSTME_VERSION, MA_NO, 
+      MA_AUTH_TIME, MA_COMPANY, MA_CREATE_TIME, 
+      MA_AUTH_STATE, MA_AUTH_TYPE, MA_ACTIV_STATE, 
+      MA_REMARK, MA_PLATFORM, MA_AUTH_OS,MA_AUTH_VERSION
+      )
+    values (#{id,jdbcType=VARCHAR}, #{maCuId,jdbcType=VARCHAR}, #{maActiveKey,jdbcType=VARCHAR}, 
+      #{maCertKey,jdbcType=VARCHAR}, #{maSystmeVersion,jdbcType=VARCHAR}, #{maNo,jdbcType=VARCHAR}, 
+      #{maAuthTime,jdbcType=TIMESTAMP}, #{maCompany,jdbcType=VARCHAR}, #{maCreateTime,jdbcType=TIMESTAMP}, 
+      #{maAuthState,jdbcType=VARCHAR}, #{maAuthType,jdbcType=VARCHAR}, #{maActivState,jdbcType=VARCHAR}, 
+      #{maRemark,jdbcType=LONGVARCHAR}, #{maPlatform,jdbcType=VARCHAR}, #{maAuthOs,jdbcType=INTEGER}, #{maAuthVersion,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.etv.manage.model.Machine" >
+    insert into etv_machine
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="maCuId != null" >
+        MA_CU_ID,
+      </if>
+      <if test="maActiveKey != null" >
+        MA_ACTIVE_KEY,
+      </if>
+      <if test="maCertKey != null" >
+        MA_CERT_KEY,
+      </if>
+      <if test="maSystmeVersion != null" >
+        MA_SYSTME_VERSION,
+      </if>
+      <if test="maNo != null" >
+        MA_NO,
+      </if>
+      <if test="maAuthTime != null" >
+        MA_AUTH_TIME,
+      </if>
+      <if test="maCompany != null" >
+        MA_COMPANY,
+      </if>
+      <if test="maCreateTime != null" >
+        MA_CREATE_TIME,
+      </if>
+      <if test="maAuthState != null" >
+        MA_AUTH_STATE,
+      </if>
+      <if test="maAuthType != null" >
+        MA_AUTH_TYPE,
+      </if>
+      <if test="maActivState != null" >
+        MA_ACTIV_STATE,
+      </if>
+      <if test="maRemark != null" >
+        MA_REMARK,
+      </if>
+      <if test="maPlatform != null" >
+        MA_PLATFORM,
+      </if>
+      <if test="maAuthOs != null" >
+        MA_AUTH_OS,
+      </if>
+      <if test="maAuthVersion != null" >
+        MA_AUTH_VERSION,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="maCuId != null" >
+        #{maCuId,jdbcType=VARCHAR},
+      </if>
+      <if test="maActiveKey != null" >
+        #{maActiveKey,jdbcType=VARCHAR},
+      </if>
+      <if test="maCertKey != null" >
+        #{maCertKey,jdbcType=VARCHAR},
+      </if>
+      <if test="maSystmeVersion != null" >
+        #{maSystmeVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="maNo != null" >
+        #{maNo,jdbcType=VARCHAR},
+      </if>
+      <if test="maAuthTime != null" >
+        #{maAuthTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="maCompany != null" >
+        #{maCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="maCreateTime != null" >
+        #{maCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="maAuthState != null" >
+        #{maAuthState,jdbcType=VARCHAR},
+      </if>
+      <if test="maAuthType != null" >
+        #{maAuthType,jdbcType=VARCHAR},
+      </if>
+      <if test="maActivState != null" >
+        #{maActivState,jdbcType=VARCHAR},
+      </if>
+      <if test="maRemark != null" >
+        #{maRemark,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="maPlatform != null" >
+        #{maPlatform,jdbcType=VARCHAR},
+      </if>
+      <if test="maAuthOs != null" >
+        #{maAuthOs,jdbcType=INTEGER},
+      </if>
+      <if test="maAuthVersion != null" >
+        #{maAuthVersion,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.etv.manage.model.Machine" >
+    update etv_machine
+    <set >
+      <if test="maCuId != null" >
+        MA_CU_ID = #{maCuId,jdbcType=VARCHAR},
+      </if>
+      <if test="maActiveKey != null" >
+        MA_ACTIVE_KEY = #{maActiveKey,jdbcType=VARCHAR},
+      </if>
+      <if test="maCertKey != null" >
+        MA_CERT_KEY = #{maCertKey,jdbcType=VARCHAR},
+      </if>
+      <if test="maSystmeVersion != null" >
+        MA_SYSTME_VERSION = #{maSystmeVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="maNo != null" >
+        MA_NO = #{maNo,jdbcType=VARCHAR},
+      </if>
+      <if test="maAuthTime != null" >
+        MA_AUTH_TIME = #{maAuthTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="maCompany != null" >
+        MA_COMPANY = #{maCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="maCreateTime != null" >
+        MA_CREATE_TIME = #{maCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="maAuthState != null" >
+        MA_AUTH_STATE = #{maAuthState,jdbcType=VARCHAR},
+      </if>
+      <if test="maAuthType != null" >
+        MA_AUTH_TYPE = #{maAuthType,jdbcType=VARCHAR},
+      </if>
+      <if test="maActivState != null" >
+        MA_ACTIV_STATE = #{maActivState,jdbcType=VARCHAR},
+      </if>
+      <if test="maRemark != null" >
+        MA_REMARK = #{maRemark,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="maPlatform != null" >
+        MA_PLATFORM = #{maPlatform,jdbcType=VARCHAR},
+      </if>
+      <if test="maAuthOs != null" >
+        MA_AUTH_OS = #{maAuthOs,jdbcType=INTEGER},
+      </if>
+      <if test="maAuthVersion != null" >
+        MA_AUTH_VERSION = #{maAuthVersion,jdbcType=INTEGER},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.etv.manage.model.Machine" >
+    update etv_machine
+    set MA_CU_ID = #{maCuId,jdbcType=VARCHAR},
+      MA_ACTIVE_KEY = #{maActiveKey,jdbcType=VARCHAR},
+      MA_CERT_KEY = #{maCertKey,jdbcType=VARCHAR},
+      MA_SYSTME_VERSION = #{maSystmeVersion,jdbcType=VARCHAR},
+      MA_NO = #{maNo,jdbcType=VARCHAR},
+      MA_AUTH_TIME = #{maAuthTime,jdbcType=TIMESTAMP},
+      MA_COMPANY = #{maCompany,jdbcType=VARCHAR},
+      MA_CREATE_TIME = #{maCreateTime,jdbcType=TIMESTAMP},
+      MA_AUTH_STATE = #{maAuthState,jdbcType=VARCHAR},
+      MA_AUTH_TYPE = #{maAuthType,jdbcType=VARCHAR},
+      MA_ACTIV_STATE = #{maActivState,jdbcType=VARCHAR},
+      MA_REMARK = #{maRemark,jdbcType=LONGVARCHAR},
+      MA_PLATFORM = #{maPlatform,jdbcType=VARCHAR},
+      MA_AUTH_OS = #{maAuthOs,jdbcType=INTEGER},
+      MA_AUTH_VERSION = #{maAuthVersion,jdbcType=INTEGER}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  
+   <!-- 自定义sql -->
+  <select id="selectCountMachineByCuId" parameterType="String" resultType="int">
+  	 select 
+    count(id)
+    from ETV_MACHINE
+    where MA_CU_ID = #{cuId,jdbcType=VARCHAR} and MA_AUTH_TYPE='1'
+  </select>
+  
+  <!--根據客户id查询设备信息  -->
+   <select id="selectAuthMachineListByCuId" parameterType="map" resultMap="BaseResultMap">
+     select 
+    <include refid="Base_Column_List" />
+    from ETV_MACHINE
+    where MA_CU_ID = #{cuId,jdbcType=VARCHAR}
+    <if test="machineNo!=null and machineNo!=''">
+    	and  MA_NO like CONCAT(CONCAT('%', ltrim(rtrim(#{machineNo,jdbcType=VARCHAR}))),'%')
+    </if>
+    <if test="authOS!=null and authOS !=''">
+    	and  MA_AUTH_OS = #{authOS,jdbcType=INTEGER}
+    </if>
+    <if test="authState !=null  and authState !=''">
+		 <choose>
+			 <when test="authState==1">
+			  and MA_AUTH_STATE='1'
+			 </when>
+			 <when test="authState==0">
+			  and MA_ACTIV_STATE='0' and MA_AUTH_STATE!='1'
+			 </when>
+			 <otherwise>
+			  and MA_ACTIV_STATE='-1'
+			 </otherwise>
+		 </choose>
+    </if>
+    and MA_AUTH_TYPE=#{type,jdbcType=VARCHAR}
+    order by MA_CREATE_TIME desc
+   </select>
+   
+   <!--根据设备id和客户id查询设备信息  -->
+   <select id="selectMachineExist" parameterType="map" resultMap="BaseResultMap">
+   	select 
+   	 <include refid="Base_Column_List" />
+   	from ETV_MACHINE
+   	 where MA_CU_ID = #{cuId,jdbcType=VARCHAR} and  MA_NO = #{maNo,jdbcType=VARCHAR}
+   </select>
+   
+   <!-- 根据设备编号查询设备信息 -->
+   <select id="selectMchineInfoByMacNo" parameterType="string" resultType="map">
+   select ma.MA_AUTH_STATE as authState,ma.MA_NO as maNo,cu.CU_NAME as customerName,ma.id id
+   from ETV_MACHINE ma
+   left join ETV_CUSTOMER cu on ma.MA_CU_ID=cu.ID
+   where ma.MA_NO = #{maNo,jdbcType=VARCHAR} and MA_AUTH_TYPE='-1' 
+   </select>
+   
+   <!--查询设备是否注册除当前id外  -->
+   <select id="selectMachineExistNoSelf" parameterType="map" resultType="int">
+   select count(1)
+   from ETV_MACHINE
+   where MA_CU_ID=#{cuId,jdbcType=VARCHAR} and MA_NO=#{machineNo,jdbcType=VARCHAR} and id !=#{id,jdbcType=VARCHAR}
+   </select>
+   
+   <!--查询设备是否注册  -->
+   <select id="selectMchineExist" parameterType="map" resultType="int">
+   select count(1) from ETV_MACHINE
+   where MA_CU_ID=#{cuId,jdbcType=VARCHAR} and MA_NO=#{machineNo,jdbcType=VARCHAR}
+   </select>
+   
+   <!--修改设备授权状态  -->
+   <update id="updateMachineAuthStateAndVersionById" parameterType="map">
+	   update ETV_MACHINE
+	   set MA_AUTH_STATE=#{state,jdbcType=VARCHAR}
+	   <if test="authTime!=null">
+	   ,MA_AUTH_TIME=#{authTime,jdbcType=TIMESTAMP}
+	   </if>
+	   <if test="systemVersion!=null and systemVersion!=''">
+	   , MA_SYSTME_VERSION=#{systemVersion,jdbcType=VARCHAR}
+	   </if>
+	    <if test="maAuthVersion!=null and maAuthVersion!=''">
+	   ,MA_AUTH_VERSION=#{maAuthVersion}
+	   </if>
+	   where  ID=#{id,jdbcType=VARCHAR} and  MA_AUTH_TYPE=#{authType,jdbcType=VARCHAR}
+   </update>
+   
+   <!--查询没有使用的授权机器  -->
+   <select id="selectNotUseAuthMachine"  parameterType="String" resultMap="BaseResultMap">
+   select  <include refid="Base_Column_List" />  from ETV_MACHINE
+   where MA_CU_ID=#{cuId,jdbcType=VARCHAR} and MA_AUTH_TYPE='1' and (MA_NO='' or ISNULL(MA_NO))
+   <if test="os!=null">
+   and MA_AUTH_OS=#{os,jdbcType=INTEGER}
+   </if>
+   </select>
+   
+   <!--根据设备编号，客户appid，版本号查询设备信息  -->
+   <select id="selectNewAuthMchineInfoByMacNo" parameterType="map" resultMap="BaseResultMap">
+   select 
+   MA_ACTIVE_KEY,ma.ID,MA_SYSTME_VERSION,MA_AUTH_STATE,MA_COMPANY,MA_ACTIV_STATE
+   from ETV_MACHINE ma
+   left join ETV_CUSTOMER cu on cu.ID=ma.MA_CU_ID
+   where MA_NO=#{machineNo,jdbcType=VARCHAR} and  MA_AUTH_TYPE='1'
+   <if test="systemVersion!=null and systemVersion!=''">
+   and MA_SYSTME_VERSION=#{systemVersion,jdbcType=VARCHAR}
+   </if>
+   and cu.CU_APPID=#{appId,jdbcType=VARCHAR} 
+   </select>
+   
+   
+   <update id="updateMachineAuthStateById" parameterType="map">
+   update  ETV_MACHINE
+   set MA_SYSTME_VERSION=#{systemVersion,jdbcType=VARCHAR}
+   where  ID=#{id,jdbcType=VARCHAR}
+   </update>
+   
+   <!--新增设备注册  -->
+   <update id="updateRegMachine" parameterType="map">
+    update ETV_MACHINE
+	   set MA_NO=#{machineNo,jdbcType=VARCHAR}
+	   , MA_SYSTME_VERSION=#{systemVersion,jdbcType=VARCHAR}
+   where  ID=#{id,jdbcType=VARCHAR}
+   </update>
+   
+   <!--批量修改状态  -->
+   <update id="updateAuthState" parameterType="list">
+   
+   update ETV_MACHINE
+   set MA_ACTIV_STATE='0'
+   where id in
+    <foreach collection="ids"  item="id"
+             separator="," open="(" close=")">
+      #{id,jdbcType=VARCHAR}
+    </foreach>
+   </update>
+   
+   <select id="selectOldCountMachineByCuId" parameterType="string" resultType="int">
+	  select count(1)
+	  from ETV_MACHINE
+	  where MA_CU_ID=#{cuId,jdbcType=VARCHAR} and MA_AUTH_TYPE='-1'
+   </select>
+   
+   <select id="selectAllNewAuthMachine" resultMap="BaseResultMap">
+   select <include refid="Base_Column_List" />
+   from ETV_MACHINE
+   where MA_AUTH_TYPE='1' and MA_NO!=''
+   </select>
+   
+   <update id="udpdateMachineCompany" parameterType="map">
+   update ETV_MACHINE
+   set MA_COMPANY=#{company,jdbcType=VARCHAR}
+   where ID=#{id,jdbcType=VARCHAR}
+   </update>
+   
+   <select id="selectMachineInAuthTimeNum" parameterType="map" resultMap="BaseResultMap">
+   	select 
+	ma.ID, MA_CU_ID, MA_ACTIVE_KEY, MA_NO, MA_REMARK
+	from etv_machine ma
+	inner join etv_customer cu on cu.ID=ma.MA_CU_ID
+	where  MA_NO=#{maNo,jdbcType=VARCHAR} and MA_SYSTME_VERSION= #{systemVersion,jdbcType=VARCHAR}
+	and cu.CU_APPID=#{appId,jdbcType=VARCHAR} and DATE_FORMAT(ma_auth_time,'%Y-%m-%d')&lt;STR_TO_DATE(now(),'%Y-%m-%d') 
+   </select>
+   
+   <delete id="updateCleanKsData" parameterType="list">
+   update ETV_MACHINE
+   set MA_ACTIV_STATE='-1',
+   MA_NO='',
+   MA_SYSTME_VERSION=null,
+   MA_COMPANY=null,
+   MA_REMARK=null
+   where id in
+    <foreach collection="ids"  item="id"
+             separator="," open="(" close=")">
+      #{id,jdbcType=VARCHAR}
+    </foreach>
+   </delete>
+   
+   <delete id="deleteBatchKsData" parameterType="list">
+   delete from  ETV_MACHINE
+   where id in
+    <foreach collection="ids"  item="id"
+             separator="," open="(" close=")">
+      #{id,jdbcType=VARCHAR}
+    </foreach>
+   </delete>
+   
+   <select id="selectAuthRepeatByRemark" parameterType="map" resultMap="BaseResultMap">
+   	select 
+   	ID, MA_CU_ID, MA_ACTIVE_KEY, MA_NO, MA_REMARK
+   	from etv_machine ma
+	inner join etv_customer cu on cu.ID=ma.MA_CU_ID
+	where  MA_NO=#{maNo,jdbcType=VARCHAR} and MA_SYSTME_VERSION= #{systemVersion,jdbcType=VARCHAR}
+	and cu.CU_APPID=#{appId,jdbcType=VARCHAR}  and  MA_REMARK like '%重复授权'
+   </select>
+   
+   <select id="selectMachineByAppIdAndMac" parameterType="map" resultMap="BaseResultMap">
+   	select 
+   MA_ACTIVE_KEY,ma.ID,MA_SYSTME_VERSION,MA_AUTH_STATE,MA_COMPANY,MA_ACTIV_STATE
+   from ETV_MACHINE ma
+   inner join ETV_CUSTOMER cu on cu.ID=ma.MA_CU_ID
+   where MA_NO=#{mac,jdbcType=VARCHAR} and cu.CU_APPID=#{appId,jdbcType=VARCHAR} 
+   and MA_SYSTME_VERSION= #{systemVersion,jdbcType=VARCHAR} and  MA_AUTH_TYPE='1'
+   </select>
+   
+   <select id="exportKuangshiAuthInfo" resultType="com.etv.manage.model.vo.KuangshiExcelVo">
+   select 
+   cu.CU_NAME customerName,MA_NO clNo,ma_auth_time authTime,
+   ma_create_time createTime,MA_AUTH_STATE authState,MA_REMARK remark
+   from etv_machine ma
+   inner join ETV_CUSTOMER cu on ma.MA_CU_ID=cu.id
+   where 1=1
+   <if test="type==1">
+   and   ma_auth_time &lt;= #{endDate} and ma_auth_time &gt;= #{startDate}
+   </if>
+   <if test="type==0">
+   and ma_create_time &lt;=#{endDate}  and ma_create_time &gt;=#{startDate}
+   </if>
+   </select>
+   
+   <select id="selectNotUseMachineNum" parameterType="String" resultType="int">
+   select  count(*) 
+   from ETV_MACHINE
+   where MA_CU_ID=#{cuId,jdbcType=VARCHAR} and MA_AUTH_TYPE='1' and (MA_NO='' or ISNULL(MA_NO))
+   <if test="os!=null">
+   and MA_AUTH_OS=#{os,jdbcType=INTEGER}
+   </if>
+   </select>
+   
+   
+   <select id="selectUsedMachineNum" parameterType="String" resultType="int">
+   select  count(*) 
+   from ETV_MACHINE
+   where MA_CU_ID=#{cuId,jdbcType=VARCHAR} and MA_AUTH_TYPE='1' and (MA_NO!='' or MA_NO!=null)
+   <if test="os!=null">
+   and MA_AUTH_OS=#{os,jdbcType=INTEGER}
+   </if>
+   
+   </select>
+   
+   <select id="selectKuangshiPointNum" parameterType="String" resultType="int">
+      select  count(*) 
+	   from ETV_MACHINE
+	   where MA_CU_ID=#{cuId,jdbcType=VARCHAR} 
+   </select>
+</mapper>

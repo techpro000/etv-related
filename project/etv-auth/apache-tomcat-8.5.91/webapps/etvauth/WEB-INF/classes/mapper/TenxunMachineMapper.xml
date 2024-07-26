@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.etv.manage.dao.TenxunMachineMapper" >
+  <resultMap id="BaseResultMap" type="com.etv.manage.model.TenxunMachine" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="TX_CU_ID" property="txCuId" jdbcType="VARCHAR" />
+    <result column="TX_ACTIVE_KEY" property="txActiveKey" jdbcType="VARCHAR" />
+    <result column="TX_SYSTME_VERSION" property="txSystmeVersion" jdbcType="VARCHAR" />
+    <result column="TX_NO" property="txNo" jdbcType="VARCHAR" />
+    <result column="TX_AUTH_TIME" property="txAuthTime" jdbcType="TIMESTAMP" />
+    <result column="TX_COMPANY" property="txCompany" jdbcType="VARCHAR" />
+    <result column="TX_CREATE_TIME" property="txCreateTime" jdbcType="TIMESTAMP" />
+    <result column="TX_AUTH_STATE" property="txAuthState" jdbcType="VARCHAR" />
+    <result column="TX_AUTH_TYPE" property="txAuthType" jdbcType="VARCHAR" />
+    <result column="TX_ACTIV_STATE" property="txActivState" jdbcType="VARCHAR" />
+    <result column="TX_REMARK" property="txRemark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, TX_CU_ID, TX_ACTIVE_KEY, TX_SYSTME_VERSION, TX_NO, TX_AUTH_TIME, TX_COMPANY, 
+    TX_CREATE_TIME, TX_AUTH_STATE, TX_AUTH_TYPE, TX_ACTIV_STATE, TX_REMARK
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from etv_tenxun_machine
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from etv_tenxun_machine
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.etv.manage.model.TenxunMachine" >
+    insert into etv_tenxun_machine (ID, TX_CU_ID, TX_ACTIVE_KEY, 
+      TX_SYSTME_VERSION, TX_NO, TX_AUTH_TIME, 
+      TX_COMPANY, TX_CREATE_TIME, TX_AUTH_STATE, 
+      TX_AUTH_TYPE, TX_ACTIV_STATE, TX_REMARK
+      )
+    values (#{id,jdbcType=VARCHAR}, #{txCuId,jdbcType=VARCHAR}, #{txActiveKey,jdbcType=VARCHAR}, 
+      #{txSystmeVersion,jdbcType=VARCHAR}, #{txNo,jdbcType=VARCHAR}, #{txAuthTime,jdbcType=TIMESTAMP}, 
+      #{txCompany,jdbcType=VARCHAR}, #{txCreateTime,jdbcType=TIMESTAMP}, #{txAuthState,jdbcType=VARCHAR}, 
+      #{txAuthType,jdbcType=VARCHAR}, #{txActivState,jdbcType=VARCHAR}, #{txRemark,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.etv.manage.model.TenxunMachine" >
+    insert into etv_tenxun_machine
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="txCuId != null" >
+        TX_CU_ID,
+      </if>
+      <if test="txActiveKey != null" >
+        TX_ACTIVE_KEY,
+      </if>
+      <if test="txSystmeVersion != null" >
+        TX_SYSTME_VERSION,
+      </if>
+      <if test="txNo != null" >
+        TX_NO,
+      </if>
+      <if test="txAuthTime != null" >
+        TX_AUTH_TIME,
+      </if>
+      <if test="txCompany != null" >
+        TX_COMPANY,
+      </if>
+      <if test="txCreateTime != null" >
+        TX_CREATE_TIME,
+      </if>
+      <if test="txAuthState != null" >
+        TX_AUTH_STATE,
+      </if>
+      <if test="txAuthType != null" >
+        TX_AUTH_TYPE,
+      </if>
+      <if test="txActivState != null" >
+        TX_ACTIV_STATE,
+      </if>
+      <if test="txRemark != null" >
+        TX_REMARK,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="txCuId != null" >
+        #{txCuId,jdbcType=VARCHAR},
+      </if>
+      <if test="txActiveKey != null" >
+        #{txActiveKey,jdbcType=VARCHAR},
+      </if>
+      <if test="txSystmeVersion != null" >
+        #{txSystmeVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="txNo != null" >
+        #{txNo,jdbcType=VARCHAR},
+      </if>
+      <if test="txAuthTime != null" >
+        #{txAuthTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="txCompany != null" >
+        #{txCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="txCreateTime != null" >
+        #{txCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="txAuthState != null" >
+        #{txAuthState,jdbcType=VARCHAR},
+      </if>
+      <if test="txAuthType != null" >
+        #{txAuthType,jdbcType=VARCHAR},
+      </if>
+      <if test="txActivState != null" >
+        #{txActivState,jdbcType=VARCHAR},
+      </if>
+      <if test="txRemark != null" >
+        #{txRemark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.etv.manage.model.TenxunMachine" >
+    update etv_tenxun_machine
+    <set >
+      <if test="txCuId != null" >
+        TX_CU_ID = #{txCuId,jdbcType=VARCHAR},
+      </if>
+      <if test="txActiveKey != null" >
+        TX_ACTIVE_KEY = #{txActiveKey,jdbcType=VARCHAR},
+      </if>
+      <if test="txSystmeVersion != null" >
+        TX_SYSTME_VERSION = #{txSystmeVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="txNo != null" >
+        TX_NO = #{txNo,jdbcType=VARCHAR},
+      </if>
+      <if test="txAuthTime != null" >
+        TX_AUTH_TIME = #{txAuthTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="txCompany != null" >
+        TX_COMPANY = #{txCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="txCreateTime != null" >
+        TX_CREATE_TIME = #{txCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="txAuthState != null" >
+        TX_AUTH_STATE = #{txAuthState,jdbcType=VARCHAR},
+      </if>
+      <if test="txAuthType != null" >
+        TX_AUTH_TYPE = #{txAuthType,jdbcType=VARCHAR},
+      </if>
+      <if test="txActivState != null" >
+        TX_ACTIV_STATE = #{txActivState,jdbcType=VARCHAR},
+      </if>
+      <if test="txRemark != null" >
+        TX_REMARK = #{txRemark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.etv.manage.model.TenxunMachine" >
+    update etv_tenxun_machine
+    set TX_CU_ID = #{txCuId,jdbcType=VARCHAR},
+      TX_ACTIVE_KEY = #{txActiveKey,jdbcType=VARCHAR},
+      TX_SYSTME_VERSION = #{txSystmeVersion,jdbcType=VARCHAR},
+      TX_NO = #{txNo,jdbcType=VARCHAR},
+      TX_AUTH_TIME = #{txAuthTime,jdbcType=TIMESTAMP},
+      TX_COMPANY = #{txCompany,jdbcType=VARCHAR},
+      TX_CREATE_TIME = #{txCreateTime,jdbcType=TIMESTAMP},
+      TX_AUTH_STATE = #{txAuthState,jdbcType=VARCHAR},
+      TX_AUTH_TYPE = #{txAuthType,jdbcType=VARCHAR},
+      TX_ACTIV_STATE = #{txActivState,jdbcType=VARCHAR},
+      TX_REMARK = #{txRemark,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  
+  <!-- 自定义sql -->
+  
+  <select id="selectTenxunNotUsedAuth" parameterType="String" resultMap="BaseResultMap">
+  select 
+   <include refid="Base_Column_List" />
+  from etv_tenxun_machine
+  where TX_CU_ID=#{cuId,jdbcType=VARCHAR} and (TX_NO='' or ISNULL(TX_NO))
+  </select>
+  
+  <!--查询设备信息根据appid和设备号  -->
+  <select id="selectTenxunMachineInfo" parameterType="String" resultMap="BaseResultMap">
+  select TX_CU_ID, TX_ACTIVE_KEY, TX_SYSTME_VERSION, TX_NO, TX_AUTH_TIME, TX_COMPANY,
+    TX_CREATE_TIME, TX_AUTH_STATE, TX_AUTH_TYPE, TX_ACTIV_STATE, TX_REMARK
+  from etv_tenxun_machine tx
+  inner join ETV_CUSTOMER cu on cu.ID=tx.TX_CU_ID
+  where cu.CU_APPID=#{appId,jdbcType=VARCHAR} and tx.TX_NO=#{machineNo,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="selectAuthTenxunMachineList" parameterType="String" resultMap="BaseResultMap">
+  select 
+    <include refid="Base_Column_List" />
+    from etv_tenxun_machine
+    where TX_CU_ID = #{cuId,jdbcType=VARCHAR}
+    <if test="machineNo!=null and machineNo!=''">
+    	and  TX_NO like CONCAT(CONCAT('%', ltrim(rtrim(#{machineNo,jdbcType=VARCHAR}))),'%')
+    </if>
+    <if test="authState !=null  and authState !=''">
+		 <choose>
+			 <when test="authState==1">
+			  and TX_AUTH_STATE='1'
+			 </when>
+			 <when test="authState==0">
+			  and TX_ACTIV_STATE='0' and TX_AUTH_STATE!='1'
+			 </when>
+			 <otherwise>
+			  and TX_ACTIV_STATE='-1'
+			 </otherwise>
+		 </choose>
+    </if>
+    order by TX_CREATE_TIME desc
+  </select>
+  
+   <select id="selectTenxunAuthNum" parameterType="string" resultType="int">
+   select count(1)
+   from etv_tenxun_machine
+   where TX_CU_ID= #{cuId,jdbcType=VARCHAR}
+   </select>
+   
+   <select id="selectTenxunUsedAuthNum" parameterType="string" resultType="int">
+   select count(1)
+   from etv_tenxun_machine
+   where TX_CU_ID= #{cuId,jdbcType=VARCHAR} and TX_NO !=''
+   </select>
+   
+   <update id="updateTenxunAuthState" parameterType="list">
+   	update etv_tenxun_machine
+   	set TX_ACTIV_STATE='0'
+   	where id in 
+   	<foreach collection ="ids" item="id" index= "index"  open="(" close=")" separator=",">
+   		#{id,jdbcType=VARCHAR}
+   	</foreach>
+   </update>
+  
+  <update id="updateCleanKsData" parameterType="list">
+  update etv_tenxun_machine
+   set TX_ACTIV_STATE='-1',
+   TX_NO='',
+   TX_COMPANY=null,
+   TX_REMARK=null
+   where id in
+    <foreach collection="ids"  item="id"
+             separator="," open="(" close=")">
+      #{id,jdbcType=VARCHAR}
+    </foreach>
+  </update>
+  
+  
+  <delete id="deleteBatchKsData" parameterType="list">
+   delete from  etv_tenxun_machine
+   where id in
+    <foreach collection="ids"  item="id"
+             separator="," open="(" close=")">
+      #{id,jdbcType=VARCHAR}
+    </foreach>
+   </delete>
+  
+  <select id="exportTenxunAuthInfo" parameterType="map" resultType="com.etv.manage.model.vo.TenxunExcelVo">
+   select 
+   cu.CU_NAME customerName,TX_NO clNo,ma_auth_time authTime,
+   TX_CREATE_TIME createTime,TX_AUTH_STATE authState,TX_REMARK remark
+   from etv_tenxun_machine tx
+   inner join ETV_CUSTOMER cu on tx.TX_CU_ID=cu.id
+   where 1=1
+   <if test="type==2">
+   and   DATE_FORMAT(tx_auth_time,'%Y-%m')= #{dateStr,jdbcType=VARCHAR}
+   </if>
+   <if test="type==1">
+   and DATE_FORMAT(tx_create_time,'%Y-%m')=#{dateStr,jdbcType=VARCHAR}
+   </if>
+   </select>
+  
+  <update id="updateTengxunAuthState" parameterType="String">
+  update etv_tenxun_machine
+  set TX_AUTH_STATE='1',
+  TX_AUTH_TIME=now()
+  where TX_NO=#{mac,jdbcType=VARCHAR} and  TX_CU_ID=#{cuId,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="selectTengxunUsedAuthNumInfo" parameterType="String" resultType="int">
+  select count(1)
+  from etv_tenxun_machine tm
+  inner join etv_customer cu on cu.id=tm.tx_cu_id
+  where cu.cu_appid=#{appId,jdbcType=VARCHAR} and TX_NO!=''
+  </select>
+  
+  
+  <select id="selectTengxunNotUsedAuthNumInfo" parameterType="String" resultType="int">
+  select count(1)
+  from etv_tenxun_machine tm
+  inner join etv_customer cu on cu.id=tm.tx_cu_id
+  where cu.cu_appid=#{appId,jdbcType=VARCHAR} and(TX_NO='' or ISNULL(TX_NO)) 
+  </select>
+  
+</mapper>

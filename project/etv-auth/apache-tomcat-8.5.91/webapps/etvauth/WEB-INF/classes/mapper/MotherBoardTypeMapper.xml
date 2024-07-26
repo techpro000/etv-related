@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.etv.manage.dao.MotherBoardTypeMapper" >
+  <resultMap id="BaseResultMap" type="com.etv.manage.model.MotherBoardType" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="UPGRADE_USER_ID" property="upgradeUserId" jdbcType="INTEGER" />
+    <result column="PERSONER_ID" property="personerId" jdbcType="VARCHAR" />
+    <result column="MOTHERBOARD_TYPE" property="motherboardType" jdbcType="VARCHAR" />
+    <result column="REMARAK" property="remarak" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, UPGRADE_USER_ID, PERSONER_ID, MOTHERBOARD_TYPE, REMARAK
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from ETV_MOTHERBOARD_TYPE
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from ETV_MOTHERBOARD_TYPE
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.etv.manage.model.MotherBoardType" >
+    insert into ETV_MOTHERBOARD_TYPE (ID, UPGRADE_USER_ID, PERSONER_ID, 
+      MOTHERBOARD_TYPE, REMARAK)
+    values (#{id,jdbcType=INTEGER}, #{upgradeUserId,jdbcType=INTEGER}, #{personerId,jdbcType=VARCHAR}, 
+      #{motherboardType,jdbcType=VARCHAR}, #{remarak,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.etv.manage.model.MotherBoardType" >
+    insert into ETV_MOTHERBOARD_TYPE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="upgradeUserId != null" >
+        UPGRADE_USER_ID,
+      </if>
+      <if test="personerId != null" >
+        PERSONER_ID,
+      </if>
+      <if test="motherboardType != null" >
+        MOTHERBOARD_TYPE,
+      </if>
+      <if test="remarak != null" >
+        REMARAK,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="upgradeUserId != null" >
+        #{upgradeUserId,jdbcType=INTEGER},
+      </if>
+      <if test="personerId != null" >
+        #{personerId,jdbcType=VARCHAR},
+      </if>
+      <if test="motherboardType != null" >
+        #{motherboardType,jdbcType=VARCHAR},
+      </if>
+      <if test="remarak != null" >
+        #{remarak,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.etv.manage.model.MotherBoardType" >
+    update ETV_MOTHERBOARD_TYPE
+    <set >
+      <if test="upgradeUserId != null" >
+        UPGRADE_USER_ID = #{upgradeUserId,jdbcType=INTEGER},
+      </if>
+      <if test="personerId != null" >
+        PERSONER_ID = #{personerId,jdbcType=VARCHAR},
+      </if>
+      <if test="motherboardType != null" >
+        MOTHERBOARD_TYPE = #{motherboardType,jdbcType=VARCHAR},
+      </if>
+      <if test="remarak != null" >
+        REMARAK = #{remarak,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.etv.manage.model.MotherBoardType" >
+    update ETV_MOTHERBOARD_TYPE
+    set UPGRADE_USER_ID = #{upgradeUserId,jdbcType=INTEGER},
+      PERSONER_ID = #{personerId,jdbcType=VARCHAR},
+      MOTHERBOARD_TYPE = #{motherboardType,jdbcType=VARCHAR},
+      REMARAK = #{remarak,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  
+    <!--自定义sql  -->
+  
+  <!--板卡类型分页  -->
+  <select id="selectAllMotherBoardType" parameterType="map" resultMap="BaseResultMap">
+  	select 
+    <include refid="Base_Column_List" />
+    from ETV_MOTHERBOARD_TYPE
+    where PERSONER_ID = #{psId,jdbcType=VARCHAR} and UPGRADE_USER_ID = #{upgradeUserId,jdbcType=INTEGER}
+  </select>
+</mapper>

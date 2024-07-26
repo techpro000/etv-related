@@ -1,0 +1,1000 @@
+   24  cd /var/opt/gitlab
+   25  ll
+   26  cd nginx/
+   27  ll
+   28  cd conf/
+   29  ll
+   30  vim nginx
+   31  vim nginx.conf 
+   32  ll
+   33  cp eson-customer.conf etv-custom.conf
+   34  ll
+   35  vim etv-custom.conf 
+   36  ll
+   37  echo "" > etv-custom.conf 
+   38  ll
+   39  vim etv-custom.conf 
+   40  ll
+   41  vim  nginx.conf
+   42  ps -ef |grep nginx
+   43  /opt/gitlab/embedded/sbin/nginx -s reload
+   44  ll
+   45  vim  etv-custom.conf
+   46  ll
+   47  sz etv-custom.conf
+   48  ll
+   49  rz -bye
+   50  /opt/gitlab/embedded/sbin/nginx -s reload
+   51  vim nginx.conf 
+   52  ll
+   53  cd ../
+   54  ll
+   55  cd ../
+   56  ll
+   57  ps -ef |grep nginx
+   58  cd  /var/opt/gitlab
+   59  ll
+   60  cd nginx/
+   61  ll
+   62  cd conf/
+   63  ll
+   64  vim eson-customer.conf 
+   65  /opt/gitlab/embedded/sbin/nginx -s reload
+   66  vim eson-customer.conf 
+   67  ll
+   68  vim gitlab-http.conf
+   69  ll
+   70  vim gitlab-health.conf
+   71  ll
+   72  vim nginx-status.conf
+   73  ll
+   74  vim nginx.conf 
+   75  ll
+   76  sz eson-customer.conf
+   77  ll
+   78  rz -bye
+   79  /opt/gitlab/embedded/sbin/nginx -s reload
+   80  ll
+   81  rz -bye
+   82  /opt/gitlab/embedded/sbin/nginx -s reload
+   83  ll
+   84  rz -bye
+   85  /opt/gitlab/embedded/sbin/nginx -s reload
+   86  ll
+   87  rz -bye
+   88  /opt/gitlab/embedded/sbin/nginx -s reload
+   89  ifconfig
+   90  ll
+   91  rz -bye
+   92  /opt/gitlab/embedded/sbin/nginx -s reload
+   93  cd /home/service/project/
+   94  ll
+   95  cd etv_bootserver/
+   96  ll
+   97  rz -bye
+   98  ll
+   99  cd config/
+  100  ll
+  101  vim application-local.yml 
+  102  ll
+  103  vim application-local.yml 
+  104  ll
+  105  ps -ef |grep etv
+  106  cd ../
+  107  ll
+  108  sh +x start.sh restart
+  109  ll
+  110  cd logs/
+  111  ll
+  112  tail -f etv-0.0.1.out 
+  113  cd /usr/local/bin
+  114  ll
+  115  pwd
+  116  ll
+  117  rz -bye
+  118  ll
+  119  mkdir -p /www/wwwroot/etv/web
+  120  ll
+  121  cd  /www/wwwroot/etv/web
+  122  ll
+  123  rz -bye
+  124  ll
+  125  unzip etv.zip 
+  126  ll
+  127  rm -fr etv.zip 
+  128  ll
+  129  pwd
+  130  cd /home/service/project/etv_bootserver/
+  131  ll
+  132  pwd
+  133  ll
+  134  vim start.sh 
+  135  ll
+  136  cd config/
+  137  ll
+  138  vim application-local.yml 
+  139  ll
+  140  cd ../
+  141  ll
+  142  sh +x start.sh restart
+  143  cd logs/
+  144  ll
+  145  sz etv-0.0.1.out
+  146  ll
+  147  cd ../
+  148  ll
+  149  cd config/
+  150  ll
+  151  vim application-local.yml 
+  152  ll
+  153  cd ../
+  154  ll
+  155  vim start.sh 
+  156  ll
+  157  sh +x start.sh restart
+  158  cd /home/nginx
+  159  ll
+  160  cd /www/wwwroot/etv/web
+  161  ll
+  162  cd /usr/logs/etv/master/
+  163  ll
+  164  tail -f info.log
+  165  tail -100f info.log
+  166  top
+  167  history |grep nginx
+  168  cd /var/opt/gitlab/nginx
+  169  ll
+  170  cd conf/
+  171  ll
+  172  vim etv-custom.conf 
+  173  ll
+  174  vim eson-customer.conf 
+  175  cd /home/nginx/customer
+  176  ll
+  177  cd ../
+  178  ll
+  179  cd customer/
+  180  ll
+  181  rm -fr index.html.gz 
+  182  ll
+  183  rz -bye
+  184  ll
+  185  unzip dist.zip 
+  186  n-auth.out 
+  187  tail -100f eson-auth.out 
+  188  ps -ef |grep gitlab
+  189  ll
+  190  cd /home/service/project/
+  191  ll
+  192  cd etv_bootserver/
+  193  ll
+  194  rz -bye
+  195  ll
+  196  sh +x start.sh restart
+  197  ps -ef |grep nginx
+  198  cd  /var/opt/gitlab/
+  199  ll
+  200  cd nginx/
+  201  ll
+  202  cd conf/
+  203  ll
+  204  vim etv-custom.conf 
+  205  cd /www/wwwroot/etv
+  206  ll
+  207  cd web/
+  208  ll
+  209  rz -bye
+  210  ll
+  211  unzip etv.zip 
+  212  ps -ef |grep nginx
+  213  cd /var/opt/gitlab/nginx
+  214  ll
+  215  vim conf/etv-custom.conf 
+  216  ll
+  217  cd conf/
+  218  ll
+  219  vim nginx.conf 
+  220  ps -ef |grep nginx
+  221  /opt/gitlab/embedded/sbin/nginx -s reload
+  222  ll
+  223  vim etv-custom.conf
+  224  /opt/gitlab/embedded/sbin/nginx -s reload
+  225  cd /home/service/
+  226  ll
+  227  mkdir 
+  228  mkdir ffmpeg
+  229  ll
+  230  cd ffmpeg/
+  231  ll
+  232  rz -bye
+  233  ll
+  234  tar -zxvf ffmpeg-4.3.2.tar.gz 
+  235  ll
+  236  tar -zxvf yasm-1.3.0.tar.gz 
+  237  ll
+  238  cd ffmpeg-4.3.2/
+  239  ll
+  240  ./configure --prefix=/usr/local/ffmpeg
+  241  ll
+  242  cd ../
+  243  ll
+  244  cd yasm-1.3.0/
+  245  ./configure 
+  246  make && make install
+  247  cd ../
+  248  ll
+  249  cd ffmpeg-4.3.2/
+  250  ll
+  251  ./configure --prefix=/usr/local/ffmpeg
+  252  make && make install
+  253  ll
+  254  cd /usr/local/ffmpeg
+  255  ll
+  256  cd bin/
+  257  ll
+  258  cp ffmpeg /usr/local/bin
+  259  cp ffprobe /usr/local/bin
+  260  pwds
+  261  pwd
+  262  ll
+  263  pwd
+  264  cd /usr/logs/etv/master/
+  265  ll
+  266  tail -f info.log
+  267  cd /home/service/project/etv_bootserver/
+  268  ll
+  269  cd logs/
+  270  ll
+  271  tail -f etv-0.0.1.out 
+  272  cd /home/service/project/
+  273  ll
+  274  cd etv_bootserver/
+  275  ll
+  276  pwd
+  277  ll
+  278  mkdir upload
+  279  mkdir scenesource
+  280  ll
+  281  vim start.sh 
+  282  ll
+  283  cd config/
+  284  ll
+  285  vim application-local.yml 
+  286  ll
+  287  cd ../
+  288  ll
+  289  cd upload/
+  290  ll
+  291  cd ../
+  292  cd scenesource/
+  293  ll
+  294  cd ../
+  295  ll
+  296  cd
+  297  ll
+  298  cd logs/
+  299  ll
+  300  cd ../
+  301  ll
+  302  find / -type d -name "upload"
+  303  cd /home/service/project/etv_bootserver/
+  304  ll
+  305  sh +x start.sh restart
+  306  ll
+  307  cd upload/
+  308  ll
+  309  cd ../
+  310  ll
+  311  cd upload/
+  312  ll
+  313  pwd
+  314  ll
+  315  cd ../
+  316  ll
+  317  vim start.sh 
+  318  ll
+  319  cd upload/
+  320  ll
+  321  mkdir -p tmpfile/temp
+  322  ll
+  323  cd ../
+  324  ll
+  325  cd upload/
+  326  ll
+  327  cd ../scenesource/
+  328  ll
+  329  cd ../
+  330  ll
+  331  l
+  332  chmod 777 upload/
+  333  chmod 777 scenesource/
+  334  ll
+  335  cd upload/
+  336  ll
+  337  cd ../scenesource/
+  338  ll
+  339  cd ../
+  340  ll
+  341  cd upload/
+  342  ll
+  343  cd ../
+  344  ll
+  345  cd /opt/soft/
+  346  ll
+  347  cd jdk/
+  348  ll
+  349  cd jdk-11.0.18/
+  350  ll
+  351  cd lib/
+  352  ll
+  353  pwd
+  354  cd ../
+  355  ll
+  356  cd ../
+  357  ll
+  358  vim /etc/profile
+  359  cd /home/service/project/etv_bootserver/upload/
+  360  ll
+  361  cd tmpfile/
+  362  ll
+  363  cd temp/
+  364  ll
+  365  cd ../../
+  366  ll
+  367  cd ../
+  368  ll
+  369  cd /usr/logs/etv/master/
+  370  ll
+  371  tail -f error.log
+  372  more  error.log
+  373  tail -200f info.log
+  374  cd /usr/local/bin
+  375  ll
+  376  chmod 777 ffmpeg 
+  377  ll
+  378  cd /home/service/project/etv_bootserver/
+  379  ll
+  380  cd upload/srcImgPath/thum/2023/0809/11/
+  381  ll
+  382  cd /usr/local/bin/
+  383  ll
+  384  rz -bye
+  385  ll
+  386  chmod 777 ffprobe 
+  387  ll
+  388  rm -fr ffmpeg ffprobe 
+  389  ll
+  390  pwd
+  391  ll
+  392  cd /www/wwwroot/etv/
+  393  ll
+  394  cd web/
+  395  ll
+  396  rm -fr etv.zip 
+  397  ll
+  398  rz -bye
+  399  ll
+  400  unzip etv.zip 
+  401  ll
+  402  top
+  403  cd /home/service/project/
+  404  ll
+  405  cd etv_bootserver/
+  406  ll
+  407  cat clearLog.sh 
+  408  cd /home/service/project/
+  409  ll
+  410  cd etv_bootserver/
+  411  ll
+  412  cd logs/
+  413  ll
+  414  cat /dev/null >  etv-0.0.1.out
+  415  ll
+  416  tail -f etv-0.0.1.out 
+  417  ll
+  418  tail -f etv-0.0.1.out 
+  419  ll
+  420  tail -f etv-0.0.1.out 
+  421  ll
+  422  > etv-0.0.1.out
+  423  ll
+  424  tail -f etv-0.0.1.out 
+  425  cd /www/wwwroot/etv/web/
+  426  ll
+  427  rz -bye
+  428  tail -f /home/service/project/etv_bootserver/logs/etv-0.0.1.out 
+  429  free -h
+  430  cd /www/wwwroot/etv/web/
+  431  ll
+  432  rz -bye
+  433  ll
+  434  unzip etv.zip 
+  435  ll
+  436  ps -ef |grep nginx
+  437  cd /var/opt/gitlab/nginx
+  438  ll
+  439  cd conf/
+  440  ll
+  441  vim eson-customer.conf
+  442  cd /home/service/project/
+  443  ll
+  444  cd esonCloud-customer/
+  445  LL
+  446  ll
+  447  cd /home/service/project/
+  448  ll
+  449  cd etv_bootserver/
+  450  ll
+  451  rz -bye
+  452  sh +x start.sh restart
+  453  cd ../
+  454  ll
+  455  cd etv-auth/
+  456  ll
+  457  cd apache-tomcat-8.5.91/
+  458  ll
+  459  cd webapps/
+  460  ll
+  461  rz -bye
+  462  ll
+  463  cd etvauth/\
+  464  ll
+  465  cd etvauth/
+  466  ll
+  467  cd ../
+  468  ll
+  469  cd ../
+  470  ps -ef |grep auth
+  471  kill -9 24375
+  472  ll
+  473  ./bin/startup.sh 
+  474  tail -f logs/catalina.out 
+  475  ll
+  476  cd webapps/
+  477  ll
+  478  zip -r etvauth.zip etvauth/
+  479  ll
+  480  sz etvauth.zip
+  481  ps -ef |grep nginx
+  482  cd  /var/opt/gitlab/nginx
+  483  ll
+  484  cd conf/
+  485  ll
+  486  vim eson-customer.conf 
+  487  cd /home/service/project/
+  488  ll
+  489  cd esonCloud-customer/
+  490  ll
+  491  cd eson-sys/
+  492  ll
+  493  rz -bye
+  494  ll
+  495  sh +x start.sh restart
+  496  tail -f logs/eson-modules-system.out 
+  497  cd /home/service/project/
+  498  ll
+  499  cd esonCloud-customer/
+  500  ll
+  501  cd eson-customerManager/
+  502  ll
+  503  rz -bye
+  504  ll
+  505  sh +x start.sh restart
+  506  cd logs/
+  507  tail -f eson-modules-customer.out 
+  508  ps -ef |grep etv
+  509  ll
+  510  ps -ef |grep etv
+  511  kill -9 3522
+  512  ps -ef |grep etv
+  513  cd /home/service/project/
+  514  ll
+  515  cd etv-auth/
+  516  ll
+  517  cd apache-tomcat-8.5.91/webapps/
+  518  ll
+  519  rz -bye
+  520  ps -ef |grep auth
+  521  ps -ef |grep etv-auth
+  522  kill -9 16292
+  523  cd ../
+  524  ./bin/startup.sh 
+  525  cd webapps/
+  526  ll
+  527  rm -fr etvauth.zip 
+  528  ll
+  529  zip -r etvauth.zip etvauth/
+  530  ll
+  531  sz etvauth.zip 
+  532  ll
+  533  ll -h
+  534  pwd
+  535  ll
+  536  ps -ef |grep tomcat
+  537  kill -9 26718
+  538  ll
+  539  rz -bye
+  540  cd ../
+  541  ll
+  542  ./bin/startup.sh 
+  543  cd webapps/
+  544  ll
+  545  rm -fr etvauth.zip 
+  546  ll
+  547  zip -r etvauth.zip etvauth/
+  548  ll
+  549  sz etvauth.zip
+  550  ps -ef |grep nginx
+  551  cd  /var/opt/gitlab/nginx
+  552  ll
+  553  cd conf/
+  554  ll
+  555  vim eson-customer.conf
+  556  ll
+  557  cd  /home/nginx/customer
+  558  ll
+  559  rm -fr dist.zip 
+  560  rz -bye
+  561  ll
+  562  unzip dist.zip 
+  563  ll
+  564  sz etvauth.zip
+  565  cd /home/service/project/etv-auth/
+  566  ll
+  567  cd apache-tomcat-8.5.91/
+  568  ll
+  569  cd webapps/
+  570  ll
+  571  rz -bye
+  572  cd ../
+  573  ll
+  574  ps -ef |grep etvauth
+  575  ps -ef |grep java
+  576  kill -9 5497
+  577  ll
+  578  ./bin/startup.sh 
+  579  cd webapps/
+  580  ll
+  581  rm -fr etvauth.zip 
+  582  ll
+  583  zip -r etvauth.zip etvauth/
+  584  ll
+  585  sz etvauth.zip 
+  586  vim /etc/rc.local 
+  587  cd /www/wwwroot/etv/web/
+  588  ll
+  589  rz -bye
+  590  ll
+  591  unzip etv.zip 
+  592  ll
+  593  cd /home/service/project/
+  594  ll
+  595  cd etv_bootserver/
+  596  ll
+  597  rz -bye
+  598  ll
+  599  sh +x start.sh restart
+  600  free -h
+  601  tail -f /home/service/project/etv_bootserver/logs/etv-0.0.1.out 
+  602  cd /home/service/project/
+  603  ll
+  604  cd etv-auth/
+  605  ll
+  606  cd apache-tomcat-8.5.91/
+  607  ll
+  608  set +o history;
+  609  set +o history;
+  610  cd /home/service/project/
+  611  ll
+  612  cd etv_bootserver/
+  613  ll
+  614  rz -bye
+  615  ll
+  616  sh +x start.sh restart
+  617  /home/service/project/etv_bootserver/logs/etv-0.0.1.out 
+  618  history
+  619  ls
+  620  cd /home/
+  621  ls
+  622  cd service/
+  623  ls
+  624  cd project/
+  625  ls
+  626  cd etv
+  627  ls
+  628  cd etv-auth/
+  629  ls
+  630  cd apache-tomcat-8.5.91/
+  631  ls
+  632  cd ..
+  633  ls
+  634  cd ..
+  635  ls
+  636  cd etv_bootserver/
+  637  ls
+  638  cat config/application-local.yml 
+  639  mysql
+  640  sudo netstat -lnp| grep 3306
+  641  mysql
+  642  ls
+  643  cd /backupsql/
+  644  ls
+  645  ls -hl 
+  646  ls -lh 
+  647  ls
+  648  cat 202308161030006bak.sql 
+  649  ls
+  650  cd ..
+  651  ls
+  652  cd goe
+  653  cd home/
+  654  ls
+  655  cd yskj/
+  656  ls
+  657  cd soft/
+  658  ls
+  659  cd ..
+  660  ls
+  661  cd service/
+  662  ls
+  663  cd project/
+  664  ls
+  665  cd esonCloud-customer/
+  666  ls
+  667  cd eson-gateway/
+  668  ls
+  669  cd ..
+  670  ls
+  671  ccd ..
+  672  cd ..
+  673  ;ls
+  674  ls
+  675  history
+  676  cat /conf/etv-custom.conf
+  677  ls
+  678  find -name 
+  679  find -name "etv-custom.conf"
+  680  cd ..
+  681  find -name "etv-custom.conf"
+  682  cd ..
+  683  find -name "etv-custom.conf"
+  684  cd /et
+  685  cd /etc/
+  686  find -name "etv-custom.conf"
+  687  cd /home/service/project/etv_bootserver/logs/etv-0.0.1.out
+  688  cat /home/service/project/etv_bootserver/logs/etv-0.0.1.out
+  689  sudo netstat -lnp| grep etcv
+  690  sudo netstat -lnp| grep etv
+  691  ls
+  692  ifconfig
+  693  netstat -lnp| grep 80
+  694  ps -aux
+  695  ps -aux | grep ngin
+  696  ps -aux | grep nginx
+  697  cd /home/service/
+  698  ls
+  699  cd project/
+  700  ls
+  701  cd esonCloud-customer/
+  702  ls
+  703  cd eson-auth/
+  704  ls
+  705  cd ..
+  706  ls
+  707  cd eson-customerManager/
+  708  ls
+  709  cat start.sh 
+  710  netstat -lnp| grep eson
+  711  netstat -lnp
+  712  ps -aux| grep nginx
+  713  netstat -lnp| grep 80
+  714  cat /var/log/gitlab/nginx/
+  715  cat /var/log/gitlab/nginx/access.log
+  716  ls
+  717  cd ..
+  718  ls
+  719  find -name "login-background.c8a29dd7.png"
+  720  cd ..
+  721  ls
+  722  find -name "login-background.c8a29dd7.png"
+  723  find -name "selectUserTreee.json"
+  724  nslookup www.customer.esoncloud.com
+  725  cd  /var/log/gitlab/nginx/
+  726  ls
+  727  cat config 
+  728  cat current 
+  729  ls
+  730  cd ..
+  731  ls
+  732  cd nginx/
+  733  ls
+  734  cat state 
+  735  history
+  736  ps -aux| grep java
+  737  netstat -lnp| grep java
+  738  cd /home/service/project/etv_bootserver/
+  739  ls
+  740  cd config/
+  741  ls
+  742  cat application-local.yml 
+  743  ls
+  744  cd ..
+  745  ls
+  746  cd upload/
+  747  ls
+  748  cd mo
+  749  cd monitorPath/
+  750  ls
+  751  cd ..
+  752  ls
+  753  cd movFilePath/
+  754  ls
+  755  cd 2023/0809/11/
+  756  ls
+  757  cd ..
+  758  ls
+  759  tree
+  760  yum install tree
+  761  ls
+  762  ls -lh srcImgPath/2023/0809/11/
+  763  ls -lh srcImgPath/2023/0809/12
+  764  ls -lh srcImgPath/2023/0809/15/168917
+  765  cd ..
+  766  l;s
+  767  ls
+  768  cd scenesource/sceneImage/
+  769  ls
+  770  pwd
+  771  ls
+  772  cd ..
+  773  ls
+  774  cd ..
+  775  ls
+  776  ;ls
+  777  ls
+  778  cd config/
+  779  ls
+  780  cat application-local.yml 
+  781  mysql 
+  782  mysql  -u root -p
+  783  ls
+  784  pwd
+  785  ls
+  786  mysqldump
+  787  yum install mysqldump
+  788  ls
+  789  cat /etc/issue
+  790  yum search mysqldump
+  791  ls
+  792  ps -aux| grep mysql
+  793  yum install mysqldump
+  794  yum install holland-mysqldump.noarch
+  795  mysqldump 
+  796  mysqldump  -u root -p Yskj@2020! eson_customer_mgr > eson_customer_mgr.sql
+  797  mysqldump  -u root -p  eson_customer_mgr > eson_customer_mgr.sql
+  798  ls
+  799  cat eson_customer_mgr.sql 
+  800  rm -rf eson_customer_mgr.sql 
+  801  cat application-local.yml 
+  802  netstat -lnp| grep 9376
+  803  ls
+  804  cd ..
+  805  ls
+  806  cd ..
+  807  ls
+  808  cd ..
+  809  l
+  810  spwd
+  811  ls
+  812  pwd
+  813  cd project/
+  814  ls
+  815  pwd
+  816  ls
+  817  cd etv-auth/
+  818  ls
+  819  cd apache-tomcat-8.5.91/
+  820  ls
+  821  cd conf/
+  822  ls
+  823  cat server.xml 
+  824  ls
+  825  cat web.xml 
+  826  ls
+  827  cd ..
+  828  ls
+  829  cd ..
+  830  ls
+  831  cd ..
+  832  ls
+  833  ps -aux| grep tomcat
+  834  ls
+  835  cd etv-auth/
+  836  ls
+  837  cd ..
+  838  ls
+  839  cd esonCloud-customer/eson-
+  840  ls
+  841  cd esonCloud-customer/
+  842  ls
+  843  cd ..
+  844  ls
+  845  cd etv_bootserver/
+  846  ls
+  847  cat logs/
+  848  cat logs/gc-etv-0.0.1-20230817111733.log 
+  849  cat logs/gc-etv-0.0.1-20230728091827.log 
+  850  ls
+  851  cd ..
+  852  ls
+  853  cd esonCloud-customer/
+  854  ls
+  855  cd eson-auth/
+  856  ls
+  857  cat arthas-output/
+  858  ls -lh arthas-output/
+  859  ls
+  860  cat logs/eson-auth/info.log 
+  861  cat logs/eson-auth/error.log 
+  862  cd ..
+  863  ls
+  864  cd ..
+  865  ls
+  866  cd etvLink/
+  867  ls
+  868  cd config/
+  869  ls
+  870  cat application.yml 
+  871  ps -aux| grep nginx
+  872  ls -lh /var/opt/gitlab/nginx/conf/
+  873  cat  /var/opt/gitlab/nginx/conf/nginx
+  874  cat  /var/opt/gitlab/nginx/conf/nginx.conf 
+  875  cat  /var/opt/gitlab/nginx/conf/etv-custom.conf 
+  876  curl http://127.0.0.1:9376/etv/
+  877  curl http://127.0.0.1:9376/
+  878  netstat -lnp| grep 9376
+  879  ps -aux| grep 9376
+  880  cat  /var/opt/gitlab/nginx/conf/gitlab-http.conf 
+  881  cat  /var/opt/gitlab/nginx/conf/eson-customer.conf 
+  882  netstat -lnp| grep 8099
+  883  ps -aux| grep 8099
+  884  ls -lh /home/nginx/customer/
+  885  cd /home/
+  886  ls
+  887  cd nginx/
+  888  ls
+  889  cd customer/
+  890  ls
+  891  cd ..
+  892  ls
+  893  cd etvauth/
+  894  ls
+  895  ls -la
+  896  ls
+  897  cd ..
+  898  ls
+  899  cd customer/
+  900  ls
+  901  cd html/
+  902  sl
+  903  ls -la
+  904  cd ..
+  905  ls
+  906  cd static/
+  907  sl
+  908  ls -la
+  909  cd ..
+  910  ls
+  911  cd ..
+  912  ls
+  913  histpru
+  914  history
+  915  cat /var/opt/gitlab/nginx/conf/eson-customer.conf
+  916  ls
+  917  cd ..
+  918  ls
+  919  cd service/
+  920  ls
+  921  cd project/
+  922  ls
+  923  cd esonCloud-customer/eson-
+  924  ls
+  925  cd esonCloud-customer/
+  926  ls
+  927  cd eson-ma
+  928  ls
+  929  cd eson-Ma
+  930  ls
+  931  cd eson-customerManager/
+  932  ls
+  933  cat logs/gc-eson-modules-customer-20230718184521.log 
+  934  ls
+  935  cd ..
+  936  ls
+  937  cd ..
+  938  ls
+  939  cd etv_bootserver/
+  940  ls
+  941  cd config/
+  942  ls
+  943  cat application-local.yml 
+  944  mysql -u root -p
+  945  ps -aux| grep mysql
+  946  service mysql  status
+  947  service mysql  restart
+  948  mysql -u root -p
+  949  ls -lh /var/lib/mysql/mysql.sock
+  950  yun remove mysql
+  951  yum remove mysqldump
+  952  yum search mysqlcump
+  953  yum search mysqldump
+  954  yum remove holland-mysqldump.noarch
+  955  service mysql  status
+  956  ls -lh /var/lib/
+  957  mkdir /var/lib/mysql/
+  958  ls
+  959  ls -lh /var/lib/mysql/mysql.sock
+  960  ls -lh /var/lib/mysql/
+  961  ls
+  962  service mysql  restart
+  963  ls -lh /var/lib/mysql/
+  964  history 
+  965  cd /home/service/project/etv_bootserver/
+  966  ls
+  967  ./start.sh  -h
+  968  ./start.sh  stop
+  969  ./start.sh  start
+  970  service mysql  status
+  971  netstat -lnp| grep mysql
+  972  mysql -u root -p
+  973  mysql -h localhost -u root -p
+  974  mysql -h 127.0.0.1 -u root -p
+  975  ls
+  976  cat config/application-local.yml 
+  977  mysql -h 127.0.0.1 -u root -p
+  978  yum search mysqldump
+  979  yum install holland-mysqldump.noarch
+  980  ls
+  981  mysqldump -h 127.0.0.1 -u root -p eson_customer_mgr > 1.sql
+  982  ls
+  983  cat 1.sql 
+  984  mysqldump -h 127.0.0.1 -u root -p eson_customer_mgr > eson_customer_mgr.sql
+  985  ls
+  986  rm -rf 1.sql 
+  987  pwd
+  988  ls
+  989  mysql -h 127.0.0.1 -u root -p
+  990  show databases;
+  991  mysql -h 127.0.0.1 -u root -p
+  992  mysqldump -h 127.0.0.1 -u root -p etv_touch > V.sql
+  993  mysqldump -h 127.0.0.1 -u root -p etv_touch > etv_touch.sql
+  994  mysqldump -h 127.0.0.1 -u root -p etvauthoriz > etvauthoriz.sql
+  995  mysql -h 127.0.0.1 -u root -p
+  996  show databases;
+  997  mysql -h 127.0.0.1 -u root -p
+  998  ls
+  999  exit
+ 1000  ls
+ 1001  cd ~/
+ 1002  ls
+ 1003  cd ~
+ 1004  ls
+ 1005  cd /home/
+ 1006  ls
+ 1007  cd service/
+ 1008  ls
+ 1009  cd ..
+ 1010  ls
+ 1011  cd service/
+ 1012  ls
+ 1013  cd ..
+ 1014  ls
+ 1015  cd us
+ 1016  cd yskj/
+ 1017  ls
+ 1018  ps -aux | grep nginx
+ 1019  cd  /var/opt/gitlab/nginx/
+ 1020  ls
+ 1021  pwd
+ 1022  ls
+ 1023  history > 1

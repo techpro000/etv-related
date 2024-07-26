@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.etv.manage.dao.CallPhoneMapper" >
+  <resultMap id="BaseResultMap" type="com.etv.manage.model.CallPhone" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="sn" property="sn" jdbcType="VARCHAR" />
+    <result column="cu_id" property="cuId" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="token" property="token" jdbcType="VARCHAR" />
+    <result column="activation_state" property="activationState" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, sn, cu_id, remark, token, activation_state, create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from etv_call_phone
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from etv_call_phone
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.etv.manage.model.CallPhone" >
+    insert into etv_call_phone (id, sn, cu_id, 
+      remark, token, activation_state, create_time,
+      update_time)
+    values (#{id,jdbcType=BIGINT}, #{sn,jdbcType=VARCHAR}, #{cuId,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR}, #{token,jdbcType=VARCHAR}, #{activationState,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP},
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.etv.manage.model.CallPhone" >
+    insert into etv_call_phone
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="sn != null" >
+        sn,
+      </if>
+      <if test="cuId != null" >
+        cu_id,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="token != null" >
+        token,
+      </if>
+      <if test="activationState != null" >
+        activationState,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="sn != null" >
+        #{sn,jdbcType=VARCHAR},
+      </if>
+      <if test="cuId != null" >
+        #{cuId,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="token != null" >
+        #{token,jdbcType=VARCHAR},
+      </if>
+      <if test="activationState != null" >
+        #{activationState,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.etv.manage.model.CallPhone" >
+    update etv_call_phone
+    <set >
+      <if test="sn != null" >
+        sn = #{sn,jdbcType=VARCHAR},
+      </if>
+      <if test="cuId != null" >
+        cu_id = #{cuId,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="token != null" >
+        token = #{token,jdbcType=VARCHAR},
+      </if>
+      <if test="activationState != null" >
+        activation_state = #{activationState,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.etv.manage.model.CallPhone" >
+    update etv_call_phone
+    set sn = #{sn,jdbcType=VARCHAR},
+      cu_id = #{cuId,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      token = #{token,jdbcType=VARCHAR},
+      activation_state = #{activationState,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  
+  
+  
+  <select id="selectCallPhoneTokenExistInfo" parameterType="String" resultType="int"> 
+  select 
+  count(1)
+  from etv_call_phone
+  where token = #{token,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="selectCallPhoneTokenInventory" resultMap="BaseResultMap">
+  select 
+   <include refid="Base_Column_List" />
+  from etv_call_phone
+  where (sn='' or ISNULL(sn))
+  order by id asc
+  </select>
+  
+  <select id="selectCallPhoneCustomerMachine" parameterType="String" resultType="int">
+  	select count(1)
+  	from etv_call_phone
+  	where cu_id = #{cuId,jdbcType=VARCHAR} and sn !=''
+  </select>
+  
+  
+  <select id="selectCallPhoneMachineList" parameterType="map" resultMap="BaseResultMap">
+ 	 select <include refid="Base_Column_List" />
+  	from etv_call_phone
+  	where cu_id = #{cuId,jdbcType=VARCHAR} and sn !=''
+  	<if test="sn!=null and sn!=''">
+  	and  sn like CONCAT(CONCAT('%', ltrim(rtrim(#{sn,jdbcType=VARCHAR}))),'%')
+  	</if>
+  </select>
+
+  <select id="selectCallPhoneMachineNum" parameterType="map" resultType="int">
+    select count(1)  from etv_call_phone
+    where cu_id = #{cuId,jdbcType=VARCHAR} and sn = #{sn,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="selectCustomerInfoByClNo" parameterType="String" resultType="com.etv.manage.model.Customer"> 
+  select 
+  cu.ID id, CU_PS_ID cuPsId, CU_NAME suName, CU_AUTH_NUM cuAuthNum, 
+  CU_PHONE cuPhone, CU_COMPANY_NAME cuCompanyName, CU_APPID cuAppid, 
+  CU_LAST_PHONE_FEE cuLastPhoneFee
+  from etv_call_phone cp
+  inner join etv_customer cu on cu.id=cp.cu_id
+  where cp.sn = #{clNo,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="selectCallPhoneToken" parameterType="String" resultMap="BaseResultMap">
+  select 
+  <include refid="Base_Column_List" />
+  from etv_call_phone 
+  where sn = #{clNo,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="selectCallPhoneLastFee" parameterType="String" resultType="String">
+   select 
+  cu.CU_LAST_PHONE_FEE lastPhoneFee
+  from etv_call_phone cp
+  inner join etv_customer cu on cp.cu_id=cu.id
+  where sn = #{clNo,jdbcType=VARCHAR}
+  </select>
+
+  <update id="updateActivationState" parameterType="java.lang.Long">
+    update etv_call_phone
+    set activation_state=1
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+</mapper>

@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.etv.manage.dao.WhiteboardOnlineMapper" >
+  <resultMap id="BaseResultMap" type="com.etv.manage.model.WhiteboardOnline" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="cu_id" property="cuId" jdbcType="VARCHAR" />
+    <result column="machine_no" property="machineNo" jdbcType="VARCHAR" />
+    <result column="mainboard_no" property="mainboardNo" jdbcType="VARCHAR" />
+    <result column="auth_state" property="authState" jdbcType="INTEGER" />
+    <result column="active_secret" property="activeSecret" jdbcType="VARCHAR" />
+    <result column="active_key" property="activeKey" jdbcType="VARCHAR" />
+    <result column="import_no" property="importNo" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.etv.manage.model.WhiteboardOnline" extends="BaseResultMap" >
+    <result column="remark" property="remark" jdbcType="LONGVARBINARY" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, cu_id, machine_no, mainboard_no, auth_state, active_secret, active_key, import_no, 
+    create_time, update_time
+  </sql>
+  <sql id="Blob_Column_List" >
+    remark
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from etv_whiteboard_online
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from etv_whiteboard_online
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.etv.manage.model.WhiteboardOnline" >
+    insert into etv_whiteboard_online (id, cu_id, machine_no, 
+      mainboard_no, auth_state, active_secret, 
+      active_key, import_no, create_time, 
+      update_time, remark)
+    values (#{id,jdbcType=BIGINT}, #{cuId,jdbcType=VARCHAR}, #{machineNo,jdbcType=VARCHAR}, 
+      #{mainboardNo,jdbcType=VARCHAR}, #{authState,jdbcType=INTEGER}, #{activeSecret,jdbcType=VARCHAR}, 
+      #{activeKey,jdbcType=VARCHAR}, #{importNo,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{remark,jdbcType=LONGVARBINARY})
+  </insert>
+  <insert id="insertSelective" parameterType="com.etv.manage.model.WhiteboardOnline" >
+    insert into etv_whiteboard_online
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="cuId != null" >
+        cu_id,
+      </if>
+      <if test="machineNo != null" >
+        machine_no,
+      </if>
+      <if test="mainboardNo != null" >
+        mainboard_no,
+      </if>
+      <if test="authState != null" >
+        auth_state,
+      </if>
+      <if test="activeSecret != null" >
+        active_secret,
+      </if>
+      <if test="activeKey != null" >
+        active_key,
+      </if>
+      <if test="importNo != null" >
+        import_no,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="cuId != null" >
+        #{cuId,jdbcType=VARCHAR},
+      </if>
+      <if test="machineNo != null" >
+        #{machineNo,jdbcType=VARCHAR},
+      </if>
+      <if test="mainboardNo != null" >
+        #{mainboardNo,jdbcType=VARCHAR},
+      </if>
+      <if test="authState != null" >
+        #{authState,jdbcType=INTEGER},
+      </if>
+      <if test="activeSecret != null" >
+        #{activeSecret,jdbcType=VARCHAR},
+      </if>
+      <if test="activeKey != null" >
+        #{activeKey,jdbcType=VARCHAR},
+      </if>
+      <if test="importNo != null" >
+        #{importNo,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=LONGVARBINARY},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.etv.manage.model.WhiteboardOnline" >
+    update etv_whiteboard_online
+    <set >
+      <if test="cuId != null" >
+        cu_id = #{cuId,jdbcType=VARCHAR},
+      </if>
+      <if test="machineNo != null" >
+        machine_no = #{machineNo,jdbcType=VARCHAR},
+      </if>
+      <if test="mainboardNo != null" >
+        mainboard_no = #{mainboardNo,jdbcType=VARCHAR},
+      </if>
+      <if test="authState != null" >
+        auth_state = #{authState,jdbcType=INTEGER},
+      </if>
+      <if test="activeSecret != null" >
+        active_secret = #{activeSecret,jdbcType=VARCHAR},
+      </if>
+      <if test="activeKey != null" >
+        active_key = #{activeKey,jdbcType=VARCHAR},
+      </if>
+      <if test="importNo != null" >
+        import_no = #{importNo,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=LONGVARBINARY},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.etv.manage.model.WhiteboardOnline" >
+    update etv_whiteboard_online
+    set cu_id = #{cuId,jdbcType=VARCHAR},
+      machine_no = #{machineNo,jdbcType=VARCHAR},
+      mainboard_no = #{mainboardNo,jdbcType=VARCHAR},
+      auth_state = #{authState,jdbcType=INTEGER},
+      active_secret = #{activeSecret,jdbcType=VARCHAR},
+      active_key = #{activeKey,jdbcType=VARCHAR},
+      import_no = #{importNo,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=LONGVARBINARY}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.etv.manage.model.WhiteboardOnline" >
+    update etv_whiteboard_online
+    set cu_id = #{cuId,jdbcType=VARCHAR},
+      machine_no = #{machineNo,jdbcType=VARCHAR},
+      mainboard_no = #{mainboardNo,jdbcType=VARCHAR},
+      auth_state = #{authState,jdbcType=INTEGER},
+      active_secret = #{activeSecret,jdbcType=VARCHAR},
+      active_key = #{activeKey,jdbcType=VARCHAR},
+      import_no = #{importNo,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  
+  
+   <select id="selectWhiteBoardOnlineByMachineNo" parameterType="String" resultMap="ResultMapWithBLOBs">
+  select  
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+  from etv_whiteboard_online
+  where machine_no = #{machineNo,jdbcType=VARCHAR} and cu_id = #{cuId,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="selectWhiteboardOnlineCustomerListPage" parameterType="map" resultType="map">
+  	SELECT
+			cu_Name cnName,CU_COMPANY_NAME companyName,CU_APPID appid,
+			CU_CREATE_TIME createTime,CU_PHONE phone,id cuId,
+		(SELECT
+			count(cu_id)
+		FROM
+			etv_whiteboard_online
+		WHERE
+			cu_id = cuId and auth_state = 0 and ISNULL(machine_no))  unusedAuthNum,
+		(SELECT
+			count(cu_id)
+		FROM
+			etv_whiteboard_online
+		WHERE cu_id = cuId ) totalAuthNum
+		FROM
+			etv_customer cus
+			<where>
+				<if test="psId != null">
+					CU_PS_ID  = #{psId}
+				</if>
+				<if test="cpName != null and cpName !=''">
+<!-- 					and CU_COMPANY_NAME  = #{cpName} -->
+					and CU_COMPANY_NAME like CONCAT(CONCAT('%',
+					ltrim(rtrim(#{cpName,jdbcType=VARCHAR}))),'%')
+				</if>
+				<if test="name!=null and name!=''">
+					and CU_NAME like CONCAT(CONCAT('%',
+					ltrim(rtrim(#{name,jdbcType=VARCHAR}))),'%')
+				</if>
+				<if test="phone != null and phone !=''">
+<!-- 					and CU_PHONE  = #{phone} -->
+					and CU_PHONE like CONCAT(CONCAT('%',
+					ltrim(rtrim(#{phone,jdbcType=VARCHAR}))),'%')
+				</if>
+				<if test="appid != null and appid !=''">
+<!-- 					and CU_APPID  = #{appid} -->
+					and  CU_APPID like CONCAT(CONCAT('%', ltrim(rtrim(#{appid,jdbcType=VARCHAR}))),'%') 
+				</if>
+			</where>
+  </select>
+  
+  <select id="selectNotUseWhiteBoardPoint" parameterType="String" resultMap="ResultMapWithBLOBs">
+   select  
+   <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+  from etv_whiteboard_online
+  where cu_id = #{cuId,jdbcType=VARCHAR} and auth_state=0 and (ISNULL(machine_no) or machine_no='') order by id asc
+  </select>
+  
+  <select id="selectPageWhiteBoardOnline" parameterType="map" resultType="com.etv.manage.model.vo.WhiteboardOnlineVo">
+  select 
+   id, cu_id cuId, machine_no machineNo , auth_state authState, active_secret activeSecret,
+    active_key activeKey, create_time createTime, update_time updateTime,CONVERT (remark USING utf8)remark
+    ,import_no importNo
+  from etv_whiteboard_online
+  where cu_id = #{cuId,jdbcType=VARCHAR}
+  <if test="machineNo!=null and machineNo!=''">
+  	and  machine_no like CONCAT(CONCAT('%', ltrim(rtrim(#{machineNo,jdbcType=VARCHAR}))),'%')
+  </if>
+  <if test="authState!=null">
+  	and auth_state = #{authState,jdbcType=INTEGER}
+  </if>
+  order by update_time desc
+  </select>
+  
+  <delete id="deleteWhiteBoardOnlinePoint" parameterType="map">
+	  delete from etv_whiteboard_online
+	  where id= #{id,jdbcType=INTEGER}  and cu_id = #{cuId,jdbcType=VARCHAR} 
+  </delete>
+  
+  <update id="clearWhiteBoardOnlinePoint" parameterType="map">
+	  update  etv_whiteboard_online
+	  set machine_no=null,
+	  active_secret=null,
+	  auth_state=0
+	  where id= #{id,jdbcType=INTEGER}  and cu_id = #{cuId,jdbcType=VARCHAR} 
+  </update>
+  
+  <update id="activeWhiteBoardOnlinePoint" parameterType="map">
+  	update  etv_whiteboard_online
+	 set auth_state=1,
+	 update_time=now()
+    where id= #{id,jdbcType=INTEGER}  and cu_id = #{cuId,jdbcType=VARCHAR} 
+  </update>
+  
+  <select id="selectDislineActiveMachine" parameterType="String" resultType="com.etv.manage.model.vo.WhiteboardOnlineExcelVo">
+  select 
+  machine_no machineNo, active_secret activeSecret, update_time updateTime
+  from etv_whiteboard_online
+  where cu_id = #{cuId,jdbcType=VARCHAR} 
+  <if test="importNo!=null and importNo!=''">
+  and import_no like CONCAT(CONCAT('%', ltrim(rtrim(#{importNo,jdbcType=VARCHAR}))),'%') 
+  </if>
+  </select>
+  
+  <select id="selectWhiteboardOnlinePointNum" parameterType="String" resultType="int">
+  select count(*)
+  from etv_whiteboard_online
+  where cu_id = #{cuId,jdbcType=VARCHAR} 
+  </select>
+</mapper>

@@ -1,0 +1,293 @@
+#局域网打包及私有云打包配置
+
+server:
+  port: 9376
+  is-master-server: true
+  servlet: 
+    context-path: /etv
+  tomcat:
+    basedir: /data/tmp
+spring: 
+  profiles:
+    active: dev
+  application:
+    name: dbutil
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  datasource:
+    master1:
+      host: mysql
+      port: 3306
+      jdbc-url: jdbc:mysql://localhost:${spring.datasource.master1.port}/etv_touch?useUnicode=true&zeroDateTimeBehavior=convertToNull&useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8
+      username: root
+      # ROYJROKFKM8W0BUMW40M3EFR803RCALP E0BB029C731BDD659FDAF2D0E595F608 esoncloud@etv&2019
+      #password: ENC(aDjTUfYV14wFpY3R3D12vuJYcWd6dZuW5CZiiWLZX/+IWfCZHVA1kCg5Gr/4Kdvb6ae/UAt+uHOaVelz8d+CTowr/4QdJUDjInwOX+lKU7A=)
+      password: Yskj@2020!
+      type: com.alibaba.druid.pool.DruidDataSource
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      hikari:
+      connection-timeout: 600000
+      maximum-pool-size: 100
+      max-lifetime: 1800000
+      minimum-idle: 20
+      validation-timeout: 3000
+      idle-timeout: 60000
+      connection-init-sql: SET NAMES utf8
+    master2: 
+      host: mysql
+      port: 3306
+      jdbc-url: jdbc:mysql://localhost:${spring.datasource.master1.port}/etv_touch?useUnicode=true&zeroDateTimeBehavior=convertToNull&useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8
+      username: root
+      # ROYJROKFKM8W0BUMW40M3EFR803RCALP E0BB029C731BDD659FDAF2D0E595F608 esoncloud@etv&2019
+      #password: ENC(aDjTUfYV14wFpY3R3D12vuJYcWd6dZuW5CZiiWLZX/+IWfCZHVA1kCg5Gr/4Kdvb6ae/UAt+uHOaVelz8d+CTowr/4QdJUDjInwOX+lKU7A=)
+      password: Yskj@2020!
+      type: com.alibaba.druid.pool.DruidDataSource
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      hikari:
+      connection-timeout: 600000
+      maximum-pool-size: 100
+      max-lifetime: 1800000
+      minimum-idle: 20
+      validation-timeout: 3000
+      idle-timeout: 60000
+      connection-init-sql: SET NAMES utf8
+    slave: 
+      host: mysql
+      port: 3306
+      jdbc-url: jdbc:mysql://localhost:${spring.datasource.master1.port}/etv_touch?useUnicode=true&zeroDateTimeBehavior=convertToNull&useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8
+      username: root
+      # ROYJROKFKM8W0BUMW40M3EFR803RCALP E0BB029C731BDD659FDAF2D0E595F608 esoncloud@etv&2019
+      #password: ENC(aDjTUfYV14wFpY3R3D12vuJYcWd6dZuW5CZiiWLZX/+IWfCZHVA1kCg5Gr/4Kdvb6ae/UAt+uHOaVelz8d+CTowr/4QdJUDjInwOX+lKU7A=)
+      password: Yskj@2020!
+      type: com.alibaba.druid.pool.DruidDataSource
+      driver-class-name: com.mysql.cj.jdbc.Driver   
+      hikari:
+      connection-timeout: 600000
+      maximum-pool-size: 100
+      max-lifetime: 1800000
+      minimum-idle: 20
+      validation-timeout: 3000
+      idle-timeout: 60000
+      connection-init-sql: SET NAMES utf8
+  messages: 
+    basename: i18n/message
+    cache-seconds: -1
+    encoding: UTF-8
+  redis: 
+    host: 127.0.0.1
+    port: 6379
+    password:
+    timeout: 100000
+    dbno1: 0
+    dbno2: 0
+    socket:
+      host: 127.0.0.1
+      port: 6379
+      password:
+      dbno: 1
+    pool:
+      max-idle: 8
+      min-idle: 0
+      max-active: 8
+      max-wait: -1
+  main: 
+    allow-bean-definition-overriding: true 
+  devtools:
+    remote: 
+      restart: 
+        enabled: true
+jasypt:
+  encryptor:
+    password: salt20220907
+        
+env:
+  entry-point: kettle/entrypoint.kjb
+  autoExecute: "YES"
+  from-dbs:
+    - FROM
+  to-dbs:
+    - TO
+  db-settings:
+    - name: FROM
+      host: localhost
+      port: 3306
+      user: root
+      password: Yskj@2020!
+      charset: utf8
+      dbName: etv_touch
+    - name: TO
+      host: localhost
+      port: 3306
+      user: root
+      password: Yskj@2020!
+      charset: utf8
+      dbName: efacecomparison
+   
+      
+pagehelper: 
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
+mybatis: 
+  type-aliases-package: com.etv.manage.model
+  mapper-locations: classpath:mapper/*.xml
+mapper:
+  mappers: com.etv.manage.utils.MyMapper
+  not-empty: false
+  identity: MYSQL
+
+
+#logging:
+#  level:
+#    com.etv.manage.dao: DEBUG 
+  # 设置logback.xml位置
+#  config: classpath:log/logback.xml
+  # 设置log4j.properties位置
+  # config: classpath:log4j.xml
+
+
+aes:
+  iv_key: yishengtech@2019
+  aes_key: yishengtechnologycompany20190411
+  
+  
+upload : 
+   savePath:
+      srcImgPath: upload/srcImgPath
+      voiceFilePath: upload/voiceFilePath
+      movFilePath: upload/movFilePath
+      docFilePath: upload/docFilePath
+      softPath: upload/softFilePath
+      minImgPath: upload/image/minImgPath
+      viewImgPath: upload/image/minImgPath
+      pdfPath: upload/pdfPath
+      wordTempPath: upload/wordTempPath
+      excelTempPath: upload/excelTempPath
+      pptTempPath: upload/pptTempPath
+      htmlPath: upload/htmlPath
+      gifPath: upload/gifPath
+      equipmentLog: upload/equipmentLogPath
+      serverAuthorize: /serverAuthorize
+      authClientFile: /authClientFile
+      mp4Path: upload/mp4Path
+      screeshotPath: upload/screeshotPath
+      importFilePath: upload/importFilePath
+      exportFilePath: upload/exportFilePath
+      warningVideoPath: upload/warningVideo
+      sceneImage: scenesource/sceneImage
+      tmpfilePath: upload/tmpfile
+      monitorPath: upload/monitorPath
+      agentClientAuth: upload/agentClientAuth
+      fullScreenshotPath: upload/fullScreenshot
+
+mqtt:
+  uri: tcp://127.0.0.1:1883
+  user: super
+  pass: esoncloud
+  isopen: false
+  d2s: 
+    chan: socket/sendcmd/
+    qos: 1
+  s2d: 
+    channel:
+      prefix: 
+    instance: 
+      #对每个客户端必须唯一
+      id: ${random.int}
+  websocket:
+     #局域网websocket是否需要转发到其他服务器
+     msgForward: false  
+  
+#微信公众号或者小程序等的appid
+wx: 
+  pay: 
+    appId: wxf4ecc15x46a05y3d74a
+    #微信支付商户号
+    mchId: 1586239051
+    #微信支付商户API密钥
+    apiKey: 61f5b352904411ea8x7d8y02fcdc4e74a12
+    #支付成功回调URL
+    notifyUrl: http://etv.ids.esoncloud.com/etv/webservice/payCallback
+    # p12证书的位置，可以指定绝对路径，也可以指定类路径（以classpath:开头）
+    keyPath:
+  scan:
+     #  微信扫一扫
+    domain-url: https://etv.idsapp.esoncloud.com/
+  token: 
+    token-url: https://api.weixin.qq.com/cgi-bin/token
+    ticket-url: https://api.weixin.qq.com/cgi-bin/ticket/getticket
+    appId: wxf4ecc1546a053d74
+    secret: 4d9947b76e919f82b5bbd668e5a3b058
+    
+    
+#腾讯IM调用
+tenxun: 
+  im:
+    api: 
+      sendmsg: https://console.tim.qq.com/v4/openim/sendmsg
+      queryOnlineStatus: https://console.tim.qq.com/v4/openim/query_online_status
+      accountImport: https://console.tim.qq.com/v4/im_open_login_svc/multiaccount_import
+         
+         
+database: 
+  backup:
+    databaseName: etv_touch
+    ip: localhost
+    tables: etv_personer etv_group etv_client etv_material_folder etv_mould_category etv_program_category etv_eqtask_category  etv_program_mould etv_equipment_task etv_client_eqtask etv_eqtask_mould  etv_scene etv_components etv_material etv_material_components  etv_material_set  etv_ram_info etv_resolution  etv_scene_mould etv_slave_personer etv_text_attribute etv_timed_task etv_city_code etv_company etv_font etv_help etv_instruction_constant etv_material_type 
+    mysqlpath:
+      linux: /usr/bin/
+    path:
+      export: /backupsql/
+      import: /backupsql/backup.sql
+  remove: 
+     person:
+       databaseName: etv_touch
+       ip: localhost
+       tables: etv_group_copy etv_client_copy  etv_material_folder_copy  etv_program_category_copy etv_eqtask_category_copy  etv_program_mould_copy etv_equipment_task_copy etv_client_eqtask_copy etv_eqtask_mould_copy  etv_scene_copy etv_components_copy etv_material_copy etv_material_components_copy  etv_text_attribute_copy etv_material_set_copy  etv_timed_task_copy etv_slave_personer_copy
+       path:
+         import: /backupsql/
+       
+       
+# 配置设备资源下载路径和web资源加载路径
+allocate: 
+  resource: 
+    download: 
+       url: 
+         web: 
+         device: 
+
+
+directional:
+  websocket:
+    url: 192.168.5.50:8135/ws/linksocket
+
+
+
+# 代码开关
+code: 
+  switch: 
+    # 设备是否允许注册
+    devicereg: true
+    # 账号同步新增 修改至新服务器
+    personinfosync: false
+    # 数据库结构是否同步
+    databasesync: false
+    env: local
+    #tenxun注册接口是否开启
+    tencentyun_reg: false
+    #开启多数据源
+    multi_database: true
+    # 限制上传素材大小
+    limit_upload_size:
+      isOpen: false
+      limitSize: 524288000
+    
+weather: 
+  hefeng: 
+    consumer_key: 95afb221972b4ed7baeb18d827b9a061
+    dev_consumer_key: 79ff082fed1746f7b6943c9178495ed8
+    weather_url: https://api.heweather.net/v7/weather/3d
+    city_code_url: https://geoapi.heweather.net/v2/city/lookup
+    airpm_url: https://api.heweather.net/v7/air/now

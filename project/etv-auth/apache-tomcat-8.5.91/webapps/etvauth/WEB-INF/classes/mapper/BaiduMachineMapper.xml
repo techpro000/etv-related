@@ -1,0 +1,389 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.etv.manage.dao.BaiduMachineMapper" >
+  <resultMap id="BaseResultMap" type="com.etv.manage.model.BaiduMachine" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="cu_id" property="cuId" jdbcType="VARCHAR" />
+    <result column="app_key" property="appKey" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="LONGVARCHAR" />
+    <result column="machine_no" property="machineNo" jdbcType="VARCHAR" />
+    <result column="auth_time" property="authTime" jdbcType="TIMESTAMP" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="auth_state" property="authState" jdbcType="VARCHAR" />
+    <result column="system_version" property="systemVersion" jdbcType="VARCHAR" />
+    <result column="auth_type" property="authType" jdbcType="VARCHAR" />
+    <result column="auth_os" property="authOs" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, cu_id, app_key, remark, machine_no, auth_time, create_time, auth_state, system_version, 
+    auth_type, auth_os
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from etv_baidu_machine
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from etv_baidu_machine
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.etv.manage.model.BaiduMachine" >
+    insert into etv_baidu_machine (id, cu_id, app_key, 
+      remark, machine_no, auth_time, 
+      create_time, auth_state, system_version, 
+      auth_type, auth_os)
+    values (#{id,jdbcType=BIGINT}, #{cuId,jdbcType=VARCHAR}, #{appKey,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=LONGVARCHAR}, #{machineNo,jdbcType=VARCHAR}, #{authTime,jdbcType=TIMESTAMP}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{authState,jdbcType=VARCHAR}, #{systemVersion,jdbcType=VARCHAR}, 
+      #{authType,jdbcType=VARCHAR}, #{authOs,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.etv.manage.model.BaiduMachine" >
+    insert into etv_baidu_machine
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="cuId != null" >
+        cu_id,
+      </if>
+      <if test="appKey != null" >
+        app_key,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="machineNo != null" >
+        machine_no,
+      </if>
+      <if test="authTime != null" >
+        auth_time,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="authState != null" >
+        auth_state,
+      </if>
+      <if test="systemVersion != null" >
+        system_version,
+      </if>
+      <if test="authType != null" >
+        auth_type,
+      </if>
+      <if test="authOs != null" >
+        auth_os,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="cuId != null" >
+        #{cuId,jdbcType=VARCHAR},
+      </if>
+      <if test="appKey != null" >
+        #{appKey,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="machineNo != null" >
+        #{machineNo,jdbcType=VARCHAR},
+      </if>
+      <if test="authTime != null" >
+        #{authTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="authState != null" >
+        #{authState,jdbcType=VARCHAR},
+      </if>
+      <if test="systemVersion != null" >
+        #{systemVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="authType != null" >
+        #{authType,jdbcType=VARCHAR},
+      </if>
+      <if test="authOs != null" >
+        #{authOs,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.etv.manage.model.BaiduMachine" >
+    update etv_baidu_machine
+    <set >
+      <if test="cuId != null" >
+        cu_id = #{cuId,jdbcType=VARCHAR},
+      </if>
+      <if test="appKey != null" >
+        app_key = #{appKey,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="machineNo != null" >
+        machine_no = #{machineNo,jdbcType=VARCHAR},
+      </if>
+      <if test="authTime != null" >
+        auth_time = #{authTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="authState != null" >
+        auth_state = #{authState,jdbcType=VARCHAR},
+      </if>
+      <if test="systemVersion != null" >
+        system_version = #{systemVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="authType != null" >
+        auth_type = #{authType,jdbcType=VARCHAR},
+      </if>
+      <if test="authOs != null" >
+        auth_os = #{authOs,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.etv.manage.model.BaiduMachine" >
+    update etv_baidu_machine
+    set cu_id = #{cuId,jdbcType=VARCHAR},
+      app_key = #{appKey,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=LONGVARCHAR},
+      machine_no = #{machineNo,jdbcType=VARCHAR},
+      auth_time = #{authTime,jdbcType=TIMESTAMP},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      auth_state = #{authState,jdbcType=VARCHAR},
+      system_version = #{systemVersion,jdbcType=VARCHAR},
+      auth_type = #{authType,jdbcType=VARCHAR},
+      auth_os = #{authOs,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  
+  <!--   -->
+  
+	<select id="selectExistInfo" resultType="int"
+		parameterType="map">
+		select count(1)
+		from etv_baidu_machine
+		where app_key = #{appKey,jdbcType=VARCHAR}
+	</select>
+  
+  <!--查询客户所在的百度授权信息 -->
+	<select id="selectBaiduAuthByCuId" parameterType="map"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from etv_baidu_machine
+		where cu_id = #{cuId,jdbcType=VARCHAR}
+		<if test="machineNo !=null and machineNo !=''">
+			and machine_no like CONCAT(CONCAT('%',
+			ltrim(rtrim(#{machineNo,jdbcType=VARCHAR}))),'%')
+		</if>
+		<!-- <if test="authOS !=null and authOS !=''">
+			and HR_AUTH_OS= #{authOS,jdbcType=INTEGER}
+		</if> -->
+		<if test="authState!=null and authState!=''">
+			and auth_state=#{authState}
+<!-- 			<choose> -->
+<!-- 				<when test="authState==1"> -->
+<!-- 					and AUTH_STATE='1' -->
+<!-- 				</when> -->
+<!-- 				<when test="authState==0"> -->
+<!-- 					and HR_ACTIV_STATE='0' and AUTH_STATE!='1' -->
+<!-- 				</when> -->
+<!-- 				<otherwise> -->
+<!-- 					and HR_ACTIV_STATE='-1' -->
+<!-- 				</otherwise> -->
+<!-- 			</choose> -->
+		</if>
+	</select>
+	
+	
+	<update id="updateAuthState" parameterType="list">
+		update etv_baidu_machine
+		set auth_state='0'
+		where id in
+		<foreach collection="ids" item="id" index="index" open="("
+			close=")" separator=",">
+			#{id,jdbcType=VARCHAR}
+		</foreach>
+	</update>
+	
+	<!--查询百度的客户 -->
+	<select id="selectPageBaiduCustomer" parameterType="string"
+		resultType="map">
+		select
+		ID id, CU_NAME name, CU_AUTH_NUM authNum, CU_PHONE phone,
+		CU_COMPANY_NAME companyName, CU_APPID appId,
+		CU_APP_KEY appKey, CU_CREATE_TIME createTime,CU_LAST_PHONE_FEE lastPhoneFee
+		from ETV_CUSTOMER
+		where 1=1
+		<if test="name!=null and name!=''">
+			and CU_NAME like CONCAT(CONCAT('%',
+			ltrim(rtrim(#{name,jdbcType=VARCHAR}))),'%')
+		</if>
+		<if test="psId!=null and psId!=''">
+			and CU_PS_ID =#{psId,jdbcType=VARCHAR}
+		</if>
+		<if test="companyName!=null and companyName!=''">
+			and CU_COMPANY_NAME like CONCAT(CONCAT('%',
+			ltrim(rtrim(#{companyName,jdbcType=VARCHAR}))),'%')
+		</if>
+		<if test="phone !=null and phone !=''">
+			and CU_PHONE like CONCAT(CONCAT('%',
+			ltrim(rtrim(#{phone,jdbcType=VARCHAR}))),'%')
+		</if>
+		<if test="appId !=null and appId !=''">
+			and  CU_APPID like CONCAT(CONCAT('%', ltrim(rtrim(#{appId,jdbcType=VARCHAR}))),'%') 
+		</if>
+		order by CU_CREATE_TIME desc
+	</select>
+	
+	
+	<select id="selectBaiduAuthNum" parameterType="string"
+		resultType="int">
+		select count(1)
+		from etv_baidu_machine
+		where CU_ID= #{cuId,jdbcType=VARCHAR}
+	</select>
+	
+	
+	<select id="selectBaiduUsedAuthNum" parameterType="string"
+		resultType="int">
+		select count(1)
+		from etv_baidu_machine
+		where cu_id= #{cuId,jdbcType=VARCHAR} and machine_no !=''
+	</select>
+	
+	
+	<update id="updateBaiduCleanKsData" parameterType="list">
+		update etv_baidu_machine
+		set auth_state='-1',
+		remark=null,
+		machine_no=null,
+		system_version=null
+		where id in
+		<foreach collection="ids" item="id" index="index" open="("
+			close=")" separator=",">
+			#{id,jdbcType=VARCHAR}
+		</foreach>
+	</update>
+	
+	
+	<update id="deleteBaiduBatchKsData" parameterType="list">
+		update etv_baidu_machine
+		set cu_id=null,
+		auth_state='-1',
+		remark=null,
+		machine_no=null,
+		system_version=null
+		where id in
+		<foreach collection="ids" item="id" index="index" open="("
+			close=")" separator=",">
+			#{id,jdbcType=VARCHAR}
+		</foreach>
+	</update>
+	
+	
+	<!--查询百度库存 -->
+	<select id="selectBaiduInventory"
+		resultType="com.etv.manage.model.vo.BaiduAuthVo">
+		select
+		id , APP_KEY appKey , REMARK remark,CREATE_TIME createTime
+		from etv_baidu_machine
+		where ISNULL(CU_ID)
+		order by id desc
+	</select>
+	
+	
+	<update id="updateBaiduCustomerId" parameterType="map">
+		update etv_baidu_machine
+		set cu_id=#{cuId,jdbcType=VARCHAR},
+		create_time=now()
+		where id=#{id,jdbcType=VARCHAR}
+	</update>
+	
+	<!--根据mac值查询授权信息 -->
+	<select id="selectBaiduByMac" parameterType="string"
+		resultMap="BaseResultMap">
+		select APP_KEY appKey,MACHINE_NO machineNo,SYSTEM_VERSION
+		systemVersion,bm.id id,
+		AUTH_STATE authState,AUTH_TYPE authType
+		from etv_baidu_machine bm
+		inner join ETV_CUSTOMER cu on bm.cu_id=cu.id
+		where mACHINE_NO = #{mac,jdbcType=VARCHAR} and cu.cu_APPID=
+		#{appId,jdbcType=VARCHAR} order by AUTH_TIME desc
+	</select>
+	
+	
+<!--查询剩余的授权信息 -->
+	<select id="selectLastBaiduAuthInfo" parameterType="String"
+		resultMap="BaseResultMap">
+		select bm.ID id , CU_ID cuId, APP_KEY appKey , REMARK remark,
+		MACHINE_NO machineNo, AUTH_TIME authTime,
+		 AUTH_STATE authState
+		from etv_baidu_machine bm
+		inner join ETV_CUSTOMER cu on bm.cu_id=cu.id
+		where cu.CU_APPID= #{appId,jdbcType=VARCHAR} and (bm.MACHINE_NO='' or
+		ISNULL(bm.MACHINE_NO)) 
+	</select>
+	
+	<select id="selectMaxNoAuthTimeBaiduMachine" parameterType="map"
+		resultMap="BaseResultMap">
+		select APP_KEY appKey,MACHINE_NO machineNo,SYSTEM_VERSION
+		systemVersion,bm.ID id,
+		 AUTH_STATE authState,AUTH_TYPE
+		authType,REMARK remark
+		from etv_baidu_machine bm
+		inner join ETV_CUSTOMER cu on bm.cu_id=cu.id
+		where MACHINE_NO = #{mac,jdbcType=VARCHAR} and cu.CU_APPID=
+		#{appId,jdbcType=VARCHAR} and AUTH_STATE !='1'
+		order by CREATE_TIME desc limit 0,1
+	</select>
+	
+	<select id="selectMaxAuthedTimeBaiduMachine" parameterType="map"
+		resultMap="BaseResultMap">
+		select APP_KEY appKey,MACHINE_NO machineNo,SYSTEM_VERSION
+		systemVersion,bm.ID id,
+		 AUTH_STATE authState,AUTH_TYPE authType
+		,REMARK remark
+		from etv_baidu_machine bm
+		inner join ETV_CUSTOMER cu on bm.cu_id=cu.id
+		where MACHINE_NO = #{mac,jdbcType=VARCHAR} and cu.CU_APPID=
+		#{appId,jdbcType=VARCHAR} and AUTH_STATE ='1'
+		order by AUTH_TIME desc limit 0,1
+	</select>
+	
+		<!--查询设备信息是否存在 -->
+	<select id="selectMachineExistByNoAndAppIdAndVersion"
+		parameterType="map" resultMap="BaseResultMap">
+		select bm.ID id , CU_ID cuId, APP_KEY appKey , REMARK remark,
+		MACHINE_NO machineNo, AUTH_TIME authTime,
+		 AUTH_STATE authState
+		from etv_baidu_machine bm
+		inner join ETV_CUSTOMER cu on bm.CU_ID=cu.id
+		where cu.CU_APPID= #{appId,jdbcType=VARCHAR} and SYSTEM_VERSION =
+		#{systemVersion,jdbcType=VARCHAR}
+		and MACHINE_NO=#{mac,jdbcType=VARCHAR}
+	</select>
+	
+	<update id="updateAuthCallbackState" parameterType="java.lang.Long">
+		update etv_baidu_machine
+		set AUTH_STATE='1',
+		AUTH_TIME=now()
+		where ID=#{id,jdbcType=VARCHAR}
+	</update>
+	
+		<!--去重判断 -->
+	<select id="selectExistNoSelfMachineNo" parameterType="map"
+		resultType="int">
+		select
+		count(1)
+		from etv_baidu_machine
+		where CU_ID = #{cuId,jdbcType=VARCHAR} and MACHINE_NO =
+		#{machineNo,jdbcType=VARCHAR} and ID!=#{id,jdbcType=VARCHAR}
+	</select>
+</mapper>

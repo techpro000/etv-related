@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.etv.manage.dao.AuthOperateLogMapper" >
+  <resultMap id="BaseResultMap" type="com.etv.manage.model.AuthOperateLog" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="customer_id" property="customerId" jdbcType="VARCHAR" />
+    <result column="ps_id" property="psId" jdbcType="VARCHAR" />
+    <result column="operate_detail" property="operateDetail" jdbcType="VARCHAR" />
+    <result column="auth_type" property="authType" jdbcType="VARCHAR" />
+    <result column="auth_num" property="authNum" jdbcType="INTEGER" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="os" property="os" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, customer_id, ps_id, operate_detail, auth_type, auth_num, remark, os, create_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from etv_auth_operate_log
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from etv_auth_operate_log
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.etv.manage.model.AuthOperateLog" >
+    insert into etv_auth_operate_log (id, customer_id, ps_id, 
+      operate_detail, auth_type, auth_num, 
+      remark, os, create_time
+      )
+    values (#{id,jdbcType=VARCHAR}, #{customerId,jdbcType=VARCHAR}, #{psId,jdbcType=VARCHAR}, 
+      #{operateDetail,jdbcType=VARCHAR}, #{authType,jdbcType=VARCHAR}, #{authNum,jdbcType=INTEGER}, 
+      #{remark,jdbcType=VARCHAR}, #{os,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.etv.manage.model.AuthOperateLog" >
+    insert into etv_auth_operate_log
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="customerId != null" >
+        customer_id,
+      </if>
+      <if test="psId != null" >
+        ps_id,
+      </if>
+      <if test="operateDetail != null" >
+        operate_detail,
+      </if>
+      <if test="authType != null" >
+        auth_type,
+      </if>
+      <if test="authNum != null" >
+        auth_num,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="os != null" >
+        os,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="customerId != null" >
+        #{customerId,jdbcType=VARCHAR},
+      </if>
+      <if test="psId != null" >
+        #{psId,jdbcType=VARCHAR},
+      </if>
+      <if test="operateDetail != null" >
+        #{operateDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="authType != null" >
+        #{authType,jdbcType=VARCHAR},
+      </if>
+      <if test="authNum != null" >
+        #{authNum,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="os != null" >
+        #{os,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.etv.manage.model.AuthOperateLog" >
+    update etv_auth_operate_log
+    <set >
+      <if test="customerId != null" >
+        customer_id = #{customerId,jdbcType=VARCHAR},
+      </if>
+      <if test="psId != null" >
+        ps_id = #{psId,jdbcType=VARCHAR},
+      </if>
+      <if test="operateDetail != null" >
+        operate_detail = #{operateDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="authType != null" >
+        auth_type = #{authType,jdbcType=VARCHAR},
+      </if>
+      <if test="authNum != null" >
+        auth_num = #{authNum,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="os != null" >
+        os = #{os,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.etv.manage.model.AuthOperateLog" >
+    update etv_auth_operate_log
+    set customer_id = #{customerId,jdbcType=VARCHAR},
+      ps_id = #{psId,jdbcType=VARCHAR},
+      operate_detail = #{operateDetail,jdbcType=VARCHAR},
+      auth_type = #{authType,jdbcType=VARCHAR},
+      auth_num = #{authNum,jdbcType=INTEGER},
+      remark = #{remark,jdbcType=VARCHAR},
+      os = #{os,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  
+  <!--自定义sql  -->
+  
+  <select id="selectPageAuthOperateLog" parameterType="map" resultType="com.etv.manage.model.vo.AuthOperateLogQueryVo">
+  select 
+  aol.id,cu.cu_name customerName,operate_detail operateDetail,ps_username userName
+  , auth_type authType, auth_num authNum, create_time createTime,remark,os
+  from etv_auth_operate_log aol
+  inner join etv_customer cu on cu.id=aol.customer_id
+  inner join etv_personer ps on ps.id=aol.ps_id
+  where customer_id = #{customerId,jdbcType=VARCHAR}
+  <if test="startTime !=null and startTime !=''">
+  and DATE_FORMAT(create_time,'%Y-%m-%d')&gt;=#{startTime,jdbcType=VARCHAR}
+  </if>
+  <if test="endTime !=null and endTime !=''">
+  and DATE_FORMAT(create_time,'%Y-%m-%d')&lt;=#{endTime,jdbcType=VARCHAR}
+  </if>
+  order by create_time desc
+  </select>
+  
+  <!--导出授权列表  -->
+  <select id="exportAuthOperateLogRec" parameterType="map" resultType="com.etv.manage.model.vo.AuthOperateLogExcelVo">
+	 select 
+	  aol.id,cu.cu_name customerName,operate_detail operateDetail,ps_username userName
+	  , auth_type authType, auth_num authNum, create_time createTime,remark,os
+	  from etv_auth_operate_log aol
+	  inner join etv_customer cu on cu.id=aol.customer_id
+	  inner join etv_personer ps on ps.id=aol.ps_id
+	  where 1=1
+	  <if test="startDate !=null and startDate !=''">
+	  	and DATE_FORMAT(create_time,'%Y-%m-%d')&gt;=#{startDate,jdbcType=VARCHAR}
+	  </if>
+	  <if test="endDate !=null and endDate !=''">
+	  	and DATE_FORMAT(create_time,'%Y-%m-%d')&lt;=#{endDate,jdbcType=VARCHAR}
+	  </if>
+	  <if test="type !=null and type !=''">
+	  	and auth_type  like CONCAT(CONCAT('%', ltrim(rtrim(#{type,jdbcType=VARCHAR}))),'%')
+	  </if>
+	  <if test="operateType !=null and operateType !=''">
+	  	and operate_detail  like CONCAT(CONCAT('%', ltrim(rtrim(#{operateType,jdbcType=VARCHAR}))),'%')
+	  </if>
+	  
+	  order by create_time desc
+  </select>
+  
+  <select id="selectPageAuthOperateLogDetail" parameterType="String" resultType="com.etv.manage.model.vo.AuthOperateLogQueryVo">
+	  select 
+	  aol.id,cu.cu_name customerName,operate_detail operateDetail,ps_username userName
+	  , auth_type authType, auth_num authNum, create_time createTime,remark,os
+	  from etv_auth_operate_log aol
+	  inner join etv_customer cu on cu.id=aol.customer_id
+	  inner join etv_personer ps on ps.id=aol.ps_id
+	  where 1=1
+	  <if test="startTime !=null and startTime !=''">
+	  	and DATE_FORMAT(create_time,'%Y-%m-%d')&gt;=#{startTime,jdbcType=VARCHAR}
+	  </if>
+	  <if test="endTime !=null and endTime !=''">
+	  	and DATE_FORMAT(create_time,'%Y-%m-%d')&lt;=#{endTime,jdbcType=VARCHAR}
+	  </if>
+	  order by create_time desc
+  </select>
+</mapper>

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.etv.manage.dao.FirmwareMapper">
+  <resultMap id="BaseResultMap" type="com.etv.manage.model.Firmware">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="cpu_type" jdbcType="VARCHAR" property="cpuType" />
+    <result column="mac" jdbcType="VARCHAR" property="mac" />
+    <result column="app_id" jdbcType="VARCHAR" property="appId" />
+    <result column="system_version" jdbcType="VARCHAR" property="systemVersion" />
+    <result column="supplier_code" jdbcType="VARCHAR" property="supplierCode" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="check_time" jdbcType="TIMESTAMP" property="checkTime" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id, cpu_type, app_id, mac, system_version, supplier_code,
+		create_time,
+		check_time
+  </sql>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from etv_firmware
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.etv.manage.model.Firmware">
+    insert into etv_firmware (id, cpu_type, mac, 
+      app_id, system_version, supplier_code, 
+      create_time, check_time
+      )
+    values (#{id,jdbcType=BIGINT}, #{cpuType,jdbcType=VARCHAR}, #{mac,jdbcType=VARCHAR}, 
+      #{appId,jdbcType=VARCHAR}, #{systemVersion,jdbcType=VARCHAR}, #{supplierCode,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{checkTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.etv.manage.model.Firmware">
+    update etv_firmware
+    set cpu_type = #{cpuType,jdbcType=VARCHAR},
+      mac = #{mac,jdbcType=VARCHAR},
+      app_id = #{appId,jdbcType=VARCHAR},
+      system_version = #{systemVersion,jdbcType=VARCHAR},
+      supplier_code = #{supplierCode,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      check_time = #{checkTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select id, cpu_type, mac, app_id, system_version, supplier_code, create_time,
+    check_time
+    from etv_firmware
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, cpu_type, mac, app_id, system_version, supplier_code, create_time,
+    check_time
+    from etv_firmware
+  </select>
+
+  <select id="selectFirmwareInfoPage" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM
+    etv_firmware where app_id=#{appId,jdbcType=VARCHAR}
+    <if test="mac != null and mac !=''">
+      and mac = #{mac}
+    </if>
+    <if test="cpuType != null and cpuType !=''">
+      and cpu_type = #{cpuType}
+    </if>
+  </select>
+
+  <update id="updateCheckTime" parameterType="map">
+    update etv_firmware
+    set check_time=now()
+    where mac = #{mac,jdbcType=VARCHAR} and app_id=#{appId,jdbcType=VARCHAR}
+  </update>
+
+  <select id="exportFirmwareInfo" parameterType="map"
+          resultType="com.etv.manage.model.vo.FirmwareExcelVo">
+    SELECT cpu_type cpuType, mac,
+    app_id appId, system_version systemVersion, supplier_code supplierCode,
+    create_time createTime, check_time checkTime
+    FROM
+    etv_firmware where  app_id=#{appId,jdbcType=VARCHAR}
+    <if test="cpuType != null and cpuType !=''">
+      and cpu_type = #{cpuType}
+    </if>
+  </select>
+
+  <select id="getFirmwareInfoByAppIdAndMac" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM
+    etv_firmware where  app_id = #{appId} and mac = #{mac}
+  </select>
+
+
+</mapper>

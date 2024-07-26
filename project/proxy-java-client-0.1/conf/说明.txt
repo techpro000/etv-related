@@ -1,0 +1,62 @@
+
+http://120.24.88.232:8090/lanproxy-config/#
+http://47.115.87.66:8090/lanproxy-config/#
+http://119.23.36.157:7090/lanproxy-config/#
+http://114.55.63.200:8090/lanproxy-config/#
+
+其它服务器的config.properties 配置
+========================A3测试服============================
+client.key=7f134b680cdf4b428700a7d178b867ce
+ssl.enable=false
+ssl.jksPath=test.jks
+ssl.keyStorePassword=123456
+
+server.host=47.115.87.66
+
+#default ssl port is 4993
+server.port=8110
+
+=======================杭州gate=============================
+
+client.key=052bde9fd20a4372862faa81296bb9b7
+ssl.enable=false
+ssl.jksPath=test.jks
+ssl.keyStorePassword=123456
+
+server.host=120.24.88.232
+
+#default ssl port is 4993
+server.port=8110
+
+===================私人8G=================================
+
+client.key=ff8105e986f848c4b3e461d44a432f43
+ssl.enable=false
+ssl.jksPath=test.jks
+ssl.keyStorePassword=123456
+
+server.host=119.23.36.157
+
+#default ssl port is 4993
+server.port=8110
+
+========================杭州test============================
+client.key=7469c7a90002458b8078b88082ff9f66
+ssl.enable=false
+ssl.jksPath=test.jks
+ssl.keyStorePassword=123456
+
+server.host=114.55.63.200
+
+#default ssl port is 4993
+server.port=8110
+
+
+
+
+
+
+
+
+
+

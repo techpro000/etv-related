@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.etv.manage.dao.MacInfoMapper">
+	<resultMap id="BaseResultMap"
+		type="com.etv.manage.model.MacInfo">
+		<id column="mac_id" property="macId" jdbcType="BIGINT" />
+		<result column="cpu_type" property="cpuType" jdbcType="VARCHAR" />
+		<result column="mac" property="mac" jdbcType="VARCHAR" />
+		<result column="sn" property="sn" jdbcType="VARCHAR" />
+		<result column="cpu_id" property="cpuId" jdbcType="VARCHAR" />
+		<result column="system_version" property="systemVersion"
+			jdbcType="VARCHAR" />
+		<result column="supplier_code" property="supplierCode"
+			jdbcType="VARCHAR" />
+		<result column="create_time" property="createTime"
+			jdbcType="TIMESTAMP" />
+		<result column="update_time" property="updateTime"
+			jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		mac_id, cpu_type, mac, sn,cpu_id, system_version, supplier_code,
+		create_time,
+		update_time
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from etv_mac_info
+		where mac_id = #{macId,jdbcType=BIGINT}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from
+		etv_mac_info
+		where mac_id = #{macId,jdbcType=BIGINT}
+	</delete>
+	<insert id="insert" parameterType="com.etv.manage.model.MacInfo">
+		insert into etv_mac_info
+		(mac_id, cpu_type, mac,
+		sn,cpu_id, system_version, supplier_code,
+		create_time,
+		update_time)
+		values (#{macId,jdbcType=BIGINT},
+		#{cpuType,jdbcType=VARCHAR},
+		#{mac,jdbcType=VARCHAR},
+		#{sn,jdbcType=VARCHAR},
+		#{cpuId,jdbcType=VARCHAR}, 
+		#{systemVersion,jdbcType=VARCHAR},
+		#{supplierCode,jdbcType=VARCHAR},
+		#{createTime,jdbcType=TIMESTAMP},
+		#{updateTime,jdbcType=TIMESTAMP})
+	</insert>
+	<insert id="insertSelective"
+		parameterType="com.etv.manage.model.MacInfo" useGeneratedKeys="true"
+		keyProperty="macId" keyColumn="mac_id">
+		insert into etv_mac_info
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="macId != null">
+				mac_id,
+			</if>
+			<if test="cpuType != null">
+				cpu_type,
+			</if>
+			<if test="mac != null">
+				mac,
+			</if>
+			<if test="sn != null">
+				sn,
+			</if>
+			<if test="cpuId != null">
+				cpu_id,
+			</if>
+			<if test="systemVersion != null">
+				system_version,
+			</if>
+			<if test="supplierCode != null">
+				supplier_code,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="updateTime != null">
+				update_time,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="macId != null">
+				#{macId,jdbcType=BIGINT},
+			</if>
+			<if test="cpuType != null">
+				#{cpuType,jdbcType=VARCHAR},
+			</if>
+			<if test="mac != null">
+				#{mac,jdbcType=VARCHAR},
+			</if>
+			<if test="sn != null">
+				#{sn,jdbcType=VARCHAR},
+			</if>
+			<if test="cpuId != null">
+				#{cpuId,jdbcType=VARCHAR},
+			</if>
+			<if test="systemVersion != null">
+				#{systemVersion,jdbcType=VARCHAR},
+			</if>
+			<if test="supplierCode != null">
+				#{supplierCode,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.etv.manage.model.MacInfo">
+		update etv_mac_info
+		<set>
+			<if test="cpuType != null">
+				cpu_type = #{cpuType,jdbcType=VARCHAR},
+			</if>
+			<if test="mac != null">
+				mac = #{mac,jdbcType=VARCHAR},
+			</if>
+			<if test="sn != null">
+				sn = #{sn,jdbcType=VARCHAR},
+			</if>
+			<if test="cpuId != null">
+				cpu_id = #{cpuId,jdbcType=VARCHAR},
+			</if>
+			<if test="systemVersion != null">
+				system_version = #{systemVersion,jdbcType=VARCHAR},
+			</if>
+			<if test="supplierCode != null">
+				supplier_code = #{supplierCode,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				update_time = #{updateTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where mac_id = #{macId,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.etv.manage.model.MacInfo">
+		update etv_mac_info
+		set cpu_type = #{cpuType,jdbcType=VARCHAR},
+		mac = #{mac,jdbcType=VARCHAR},
+		sn = #{sn,jdbcType=VARCHAR},
+		cpu_id = #{cpuId,jdbcType=VARCHAR},
+		system_version = #{systemVersion,jdbcType=VARCHAR},
+		supplier_code =	#{supplierCode,jdbcType=VARCHAR},
+		create_time = #{createTime,jdbcType=TIMESTAMP},
+		update_time = #{updateTime,jdbcType=TIMESTAMP}
+		where mac_id = #{macId,jdbcType=BIGINT}
+	</update>
+
+	<!-- -->
+	<select id="selectByMacAndSn" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from etv_mac_info
+		where
+		1=1
+		<if test="mac != null and mac != ''">
+			and mac = #{mac}
+		</if>
+		<if test="sn != null and sn != ''">
+			and sn = #{sn}
+		</if>
+		<if test="cpuId != null and cpuId != ''">
+			and cpu_id = #{cpuId}
+		</if>
+	</select>
+
+
+	<select id="selectMacInfoPage" resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM
+		etv_mac_info
+		<where>
+			<if test="mac != null and mac !=''">
+				mac = #{mac}
+			</if>
+			<if test="sn != null and sn !=''">
+				sn = #{sn}
+			</if>
+		</where>
+	</select>
+</mapper>

@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.etv.manage.dao.ServerMapper" >
+  <resultMap id="BaseResultMap" type="com.etv.manage.model.Server" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="SE_MAC" property="seMac" jdbcType="VARCHAR" />
+    <result column="SE_CREATE_TIME" property="seCreateTime" jdbcType="TIMESTAMP" />
+    <result column="SE_AUTHOVER_TIME" property="seAuthoverTime" jdbcType="TIMESTAMP" />
+    <result column="SE_AUTH_STATE" property="seAuthState" jdbcType="VARCHAR" />
+    <result column="SE_USER_NAME" property="seUserName" jdbcType="VARCHAR" />
+    <result column="SE_PHONE" property="sePhone" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, SE_MAC, SE_CREATE_TIME, SE_AUTHOVER_TIME, SE_AUTH_STATE, SE_USER_NAME, SE_PHONE
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from ETV_SERVER
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from ETV_SERVER
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.etv.manage.model.Server" >
+    insert into ETV_SERVER (ID, SE_MAC, SE_CREATE_TIME, 
+      SE_AUTHOVER_TIME, SE_AUTH_STATE, SE_USER_NAME, 
+      SE_PHONE)
+    values (#{id,jdbcType=INTEGER}, #{seMac,jdbcType=VARCHAR}, #{seCreateTime,jdbcType=TIMESTAMP}, 
+      #{seAuthoverTime,jdbcType=TIMESTAMP}, #{seAuthState,jdbcType=VARCHAR}, #{seUserName,jdbcType=VARCHAR}, 
+      #{sePhone,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.etv.manage.model.Server" >
+    insert into ETV_SERVER
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="seMac != null" >
+        SE_MAC,
+      </if>
+      <if test="seCreateTime != null" >
+        SE_CREATE_TIME,
+      </if>
+      <if test="seAuthoverTime != null" >
+        SE_AUTHOVER_TIME,
+      </if>
+      <if test="seAuthState != null" >
+        SE_AUTH_STATE,
+      </if>
+      <if test="seUserName != null" >
+        SE_USER_NAME,
+      </if>
+      <if test="sePhone != null" >
+        SE_PHONE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="seMac != null" >
+        #{seMac,jdbcType=VARCHAR},
+      </if>
+      <if test="seCreateTime != null" >
+        #{seCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="seAuthoverTime != null" >
+        #{seAuthoverTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="seAuthState != null" >
+        #{seAuthState,jdbcType=VARCHAR},
+      </if>
+      <if test="seUserName != null" >
+        #{seUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="sePhone != null" >
+        #{sePhone,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.etv.manage.model.Server" >
+    update ETV_SERVER
+    <set >
+      <if test="seMac != null" >
+        SE_MAC = #{seMac,jdbcType=VARCHAR},
+      </if>
+      <if test="seCreateTime != null" >
+        SE_CREATE_TIME = #{seCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="seAuthoverTime != null" >
+        SE_AUTHOVER_TIME = #{seAuthoverTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="seAuthState != null" >
+        SE_AUTH_STATE = #{seAuthState,jdbcType=VARCHAR},
+      </if>
+      <if test="seUserName != null" >
+        SE_USER_NAME = #{seUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="sePhone != null" >
+        SE_PHONE = #{sePhone,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.etv.manage.model.Server" >
+    update ETV_SERVER
+    set SE_MAC = #{seMac,jdbcType=VARCHAR},
+      SE_CREATE_TIME = #{seCreateTime,jdbcType=TIMESTAMP},
+      SE_AUTHOVER_TIME = #{seAuthoverTime,jdbcType=TIMESTAMP},
+      SE_AUTH_STATE = #{seAuthState,jdbcType=VARCHAR},
+      SE_USER_NAME = #{seUserName,jdbcType=VARCHAR},
+      SE_PHONE = #{sePhone,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  
+  
+  <!--èªå®ä¹çsql  -->
+  <!--æ¥è¯¢æå¡å¨ä¿¡æ¯åé¡µ  -->
+  <select id="selectPageSreverInfo" parameterType="map" resultMap="BaseResultMap">
+  	select
+    <include refid="Base_Column_List" />
+    from ETV_SERVER
+    where 1=1
+    <if test="phone!=null and phone!=''">
+    	and  SE_PHONE 
+    	like CONCAT(CONCAT('%', ltrim(rtrim(#{phone,jdbcType=VARCHAR}))),'%')
+    </if>
+    <if test="username!=null and username!=''">
+    	and SE_USER_NAME 
+		like CONCAT(CONCAT('%', ltrim(rtrim(#{username,jdbcType=VARCHAR}))),'%')
+    </if>
+    <if test="mac!=null and mac!=''">
+    	and SE_MAC 
+    	like CONCAT(CONCAT('%', ltrim(rtrim(#{mac,jdbcType=VARCHAR}))),'%')
+    </if>
+    order by SE_CREATE_TIME desc limit #{pageNo},#{pageSize}
+  </select>
+  
+  <!--æ¥è¯¢æå¡å¨çä¿¡æ¯çæ°é  -->
+  <select id="selectCountServer" parameterType="map" resultType="int">
+  	select
+    count(id)
+    from ETV_SERVER
+    where 1=1
+     <if test="phone!=null and phone!=''">
+    	and  SE_PHONE 
+    	like CONCAT(CONCAT('%', ltrim(rtrim(#{phone,jdbcType=VARCHAR}))),'%')
+    </if>
+    <if test="username!=null and username!=''">
+    	and SE_USER_NAME
+		like CONCAT(CONCAT('%', ltrim(rtrim(#{username,jdbcType=VARCHAR}))),'%')
+    </if>
+    <if test="mac!=null and mac!=''">
+    	and SE_MAC 
+    	like CONCAT(CONCAT('%', ltrim(rtrim(#{mac,jdbcType=VARCHAR}))),'%')
+    </if>
+  </select>
+  
+  
+  <select id="selectServerInfo" resultMap="BaseResultMap">
+  select 
+    <include refid="Base_Column_List" />
+    from ETV_SERVER
+  </select>
+</mapper>

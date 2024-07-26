@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Eface授权管理系统</title>
+
+<meta name="keywords" content="keyword1,keyword2,keyword3">
+<meta name="description" content="this is my page">
+<meta name="content-type" content="text/html; charset=UTF-8">
+<meta name="renderer" content="webkit">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, maximum-scale=1">
+<link rel="stylesheet" href="${webPath}js/layui/css/layui.css"  media="all">
+<style type="text/css">
+iframe {
+    position: absolute;
+    width: 100%;
+	height:100%;
+}
+.layui-tab-item.layui-show{
+	position:relative;
+	height:100%;
+}
+</style>
+</head>
+
+<body class="layui-layout-body">
+	<div class="layui-layout layui-layout-admin">
+		<div class="layui-header">
+			<div class="layui-logo">Eface授权管理系统</div>
+			<!-- 头部区域（可配合layui已有的水平导航） -->
+			
+			<ul class="layui-nav layui-layout-right">
+				<li class="layui-nav-item"><a href="javascript:;" > <img   src=""  id="img" class="layui-nav-img"><span id="userName"></span></a>
+					<dl class="layui-nav-child">
+						<dd>
+							<a href="javascript:jumpPage('个人信息','personerInfo.htm');">个人信息</a>
+						</dd>
+						<dd>
+							<a href="javascript:jumpPage('修改密码','${webPath}home/changepwd.html');">修改密码</a>
+						</dd>
+					</dl></li>
+				<li class="layui-nav-item"><a href="logout.htm">退出</a></li>
+			</ul>
+		</div>
+
+		<div class="layui-side layui-bg-black">
+			<div class="layui-side-scroll">				
+				<ul class="layui-nav layui-nav-tree" lay-filter="test">
+					<!-- <li class="layui-nav-item"><a href="">首页</a></li> -->
+					<li class="layui-nav-item customermanage"><a class="title" href="javascript:;">客户管理</a>
+						<dl class="layui-nav-child">
+							<dd class="">
+								<a href="javascript:jumpPage('客户列表','goCustomerLst.htm');">客户列表</a>
+							</dd>
+						</dl>
+					</li>
+					<li class="layui-nav-item layui-nav-itemed"><a class="title" href="javascript:;">授权管理</a>
+						<dl class="layui-nav-child">
+							<dd class="layui-this">
+								<a href="javascript:jumpPage('旷视授权','selectAllCustomer.htm');">旷视授权</a>
+							</dd>
+						</dl>
+						
+						<dl class="layui-nav-child">
+							<dd class="">
+								<a href="javascript:jumpPage('虹软授权','selectAllHrCustomer.htm');">虹软授权</a>
+							</dd>
+						</dl>
+						<dl class="layui-nav-child">
+							<dd class="">
+								<a href="javascript:jumpPage('报警电话','selectAllCallPhoneCustomer.htm');">报警电话</a>
+							</dd>
+						</dl>
+						<dl class="layui-nav-child auth-log">
+							<dd class="">
+								<a href="javascript:jumpPage('设备授权日志','selectAuthLog.htm');">设备授权日志</a>
+							</dd>
+						</dl>
+						<dl class="layui-nav-child authoperate-log">
+							<dd class="">
+								<a href="javascript:jumpPage('授权操作日志','goAuthOperateLogCus.htm');">授权操作日志</a>
+							</dd>
+						</dl>
+						<dl class="layui-nav-child repeat-auth">
+							<dd class="">
+								<a href="javascript:jumpPage('重复授权','goRepeatAuth.htm');">重复授权</a>
+							</dd>
+						</dl>
+					</li>
+					<li class="layui-nav-item upgrade"><a class="title" href="javascript:;">固件升级</a>
+						<dl class="layui-nav-child">
+							<dd class="">
+								<a href="javascript:jumpPage('升级','selectPageUpgradeInfo.htm');">升级</a>
+							</dd>
+						</dl>
+					</li>
+					<li class="layui-nav-item sellborad"><a class="title" href="javascript:;">售出主板</a>
+						<dl class="layui-nav-child">
+							<dd class="">
+								<a href="javascript:jumpPage('售出主板','goSellBoardHtml.htm');">售出主板</a>
+							</dd>
+						</dl>
+					</li>
+					<li class="layui-nav-item email"><a class="title" href="javascript:;">邮件推送</a>
+						<dl class="layui-nav-child">
+							<dd class="">
+								<a href="javascript:jumpPage('闸机用户','goEfaceUser.htm');">闸机用户</a>
+							</dd>
+						</dl>
+					</li>
+					<li class="layui-nav-item photoFrame"><a class="title" href="javascript:;">相框</a>
+						<dl class="layui-nav-child">
+							<dd class="">
+								<a href="javascript:jumpPage('相框客户','selectFrameUser.htm');">相框客户</a>
+							</dd>
+						</dl>
+					</li>
+				</ul>
+			</div>
+		</div>
+
+		<div class="layui-body">
+			<!-- 内容主体区域 -->
+			<!-- 内容主体区域 -->
+			<div class="layui-tab tab_box" lay-allowClose="true" lay-filter="content" style="height:100%;margin:0" >
+				 <ul class="layui-tab-title tab_nav"></ul>											
+				<div class="layui-tab-content" style="position:relative;height:calc(100% - 41px);box-sizing: border-box;"></div>
+			</div>
+		</div>
+
+		<div class="layui-footer">
+			<!-- 底部固定区域 -->
+			© 2021 亿晟科技有限公司
+		</div>
+	</div>
+	<#include '/pubJS.html'>
+	<script>
+	//JavaScript代码区域
+	var element;
+	function jumpPage(title,url,bool){//title标题，url链接地址，是否重新打开页面
+// 		console.log();
+	
+		if(bool==undefined) bool=false;
+		if(!tabArray.contains(title)){
+			
+			element.tabAdd('content', {
+			  title: title
+			  ,content: '<iframe frameborder="0"   src="'+url+'"></iframe>' //支持传入html
+			  ,id:title
+			});
+			console.log(element)
+			tabArray.push(title);
+		}else{
+			if(bool){
+// 				console.log(title);
+				element.tabDelete('content', title);
+				element.tabAdd('content', {
+				  title: title
+				  ,content: '<iframe frameborder="0"   src="'+url+'"></iframe>' //支持传入html
+				  ,id:title
+				});
+				tabArray.push(title);
+			}
+		}
+// 		console.log(tabArray);
+		element.tabChange('content', title);
+	}
+	
+	var tabArray=new Array();
+	Array.prototype.contains = function ( needle ) {
+	  for (i in this) {
+	    if (this[i] == needle) return true;
+	  }
+	  return false;
+	}
+	Array.prototype.removeByValue = function(val) {
+	  for(var i=0; i<this.length; i++) {
+	    if(this[i] == val) {
+	      this.splice(i, 1);
+	      break;
+	    }
+	  }
+	}
+	$(function(){
+		/* $(".layui-bg-black dd").hide();
+// 		$(".layui-bg-black .layui-nav-item a").hide();
+		$(".title").hide(); */
+		/* for(var i=0;i<authArr.length;i++){
+			debugger
+			var auth=authArr[i];
+			$("dd a").each(function(){
+				var href=$(this).attr("href");
+				if(href.indexOf(auth.menu_url)>0){
+					$(this).parent().show();
+				}
+			});
+			$(".title").each(function(){
+				if($(this).text() == auth.authority_name){
+					$(this).show();
+				}
+			});
+		} */
+		
+		layui.use(['element', 'layer' ], function(){
+			element = layui.element;
+			layer=layui.layer;
+			jumpPage("人脸识别/客户列表","selectAllCustomer.htm");
+			element.on('tabDelete(content)', function(data){
+			  //console.log(this.getAttribute('lay-id')); //当前Tab标题所在的原始DOM元素
+			  //console.log(data.index); //得到当前Tab的所在下标
+			  tabArray.splice(data.index,1);
+// 			  console.log(tabArray);
+			  //console.log(data.elem); //得到当前的Tab大容器
+			});
+		});
+		
+		 $.ajax({
+             type: "POST",
+             url: "findPersonInfo.json",
+             dataType: "json",
+             success: function(data) {
+                 if (data.bool) {
+                	var personer=data.personer;
+                	var roleInfo=data.roleInfo;
+                	$('#userName').html(personer.psName);
+                	$('#img').attr("src",''+personer.psHeadUrl=='' || personer.psHeadUrl==null?"http://t.cn/RCzsdCq":personer.psHeadUrl+'');
+                	//debugger
+                	if(personer.psRoId!='1'){
+                		$('.upgrade').attr("style","display:none");
+                		$('.auth-log').attr("style","display:none");
+                		$('.sellborad').attr("style","display:none");
+                		$('.email').attr("style","display:none");
+                		$('.customermanage').attr("style","display:none");
+                		$('.authoperate-log').attr("style","display:none");
+                		$('.repeat-auth').attr("style","display:none");
+                		$('.photoFrame').attr("style","display:none");
+                	}else{
+                		$('.upgrade').attr("style","");
+                		$('.auth-log').attr("style","");
+                		$('.sellborad').attr("style","");
+                		$('.email').attr("style","");
+                		$('.customermanage').attr("style","");
+                		$('.authoperate-log').attr("style","");
+                		$('.repeat-auth').attr("style","");
+                		$('.photoFrame').attr("style","");
+                	}
+                 } else {
+                 	layer.msg("查询失败！",{icon:2,time:2000});
+                 }
+             }
+         });
+	});
+	function open(parameter){
+		popup=layer.open(parameter);
+	 }
+	</script>
+</body>
+</html>

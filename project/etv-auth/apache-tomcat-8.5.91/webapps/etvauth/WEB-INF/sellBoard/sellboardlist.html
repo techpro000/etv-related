@@ -1,0 +1,276 @@
+<html>
+<head>
+<meta charset="utf-8">
+<title>设备列表</title>
+<meta name="renderer" content="webkit">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<link rel="stylesheet" href="${webPath}/css/upgradeFile/upgradeFile.css?12sd3">
+<#include 'pubCSS.html'>
+<style>
+.layui-table td, .layui-table th{
+	text-align: center;
+}
+ tobody{
+	height:600px;
+}
+.company{
+	  height:auto;
+	  overflow:visible;
+	  text-overflow:inherit;
+	  }
+
+</style>
+
+</head>
+
+<body class="layui-layout-body">
+   <div class="right-con">
+    <div class="con-top clearfix">
+      <div class="search-box clearfix">
+      <#if authId=='1'>
+				<form class="layui-form" action="" id="submit_query_form"
+					style="display: flex">
+
+					<div class="layui-form-item" style="display: flex;">
+						<label class="layui-form-label head-seach">设备编号：</label>
+						<div class="layui-input-inline custom-size" style="flex: 1">
+							<input type="text" name="mac" id="mac" value=""
+								placeholder="设备编号" autocomplete="off" class="layui-input">
+						</div>
+					</div>
+					<div class="layui-form-item" style="display: flex">
+						<label class="layui-form-label head-seach">日期选择：</label>
+						<div class="layui-input-inline custom-size">
+							<input type="text" class="layui-input" id="time" placeholder="~">
+						</div>
+					</div>
+					<div class="layui-form-item" style="display: flex">
+						<label class="layui-form-label head-seach">预装app：</label>
+						<div class="layui-input-inline custom-size">
+							<select name="useApp" lay-verify="" id="useApp">
+								<option value="">请选择</option>
+								<option value="EFACE">EFACE</option>
+								<option value="ETV">ETV</option>
+							</select>
+						</div>
+					</div>
+					<div class="layui-input-inline custom-size-btn">
+						<div class="layui-btn  layui-btn-sm"
+							onclick="selecedSellBoradPage('${actionName}')">搜索</div>
+					</div>
+				</form>
+				</#if>
+      </div>
+  	  <button data-method="offset" data-type="top" style="display:none" id="export" class="layui-btn layui-btn-sm add_admi">工具栏</button>
+    </div>
+    <div class="table-con">
+		<table class="layui-table" id="sellBoardList"  lay-filter="sellBoardList" >
+      	</table>
+    </div>
+    <input type="file" style="display:none" id='upFile'/>
+   </div>
+   <#include 'pubJS.html'>
+</body>
+<script type="text/html" id="btn">
+			{{#  if(d.authId == '1' ){ }}
+               	<button  class="layui-btn  layui-btn-sm layui-btn-normal  add_admi1" onclick="selecCustomerInfo('{{d.id}}')">编辑</button>
+				<button  class="layui-btn  layui-btn-sm layui-btn-normal " onclick="jumpAuthLog('{{d.cuAppid}}','日志')">日志</button> 
+				<button  class="layui-btn  layui-btn-sm  " onclick="jumpKuangShiEdit('{{d.id}}','-1','旷视授权旧')">旷视授权旧</button>
+				<button  class="layui-btn  layui-btn-sm  " onclick="jumpKuangShiNewEdit('{{d.id}}','1','旷视授权新')">旷视授权新</button>
+            {{#  } else{ }} 
+					<button  class="layui-btn  layui-btn-sm  " onclick="jumpKuangShiNewEdit('{{d.id}}','1','旷视授权新','{{d.authId}}')">旷视授权新</button>
+			{{#  } }}        
+</script>
+	
+<script type="text/javascript" src="${webPath}js/import_excel.js?sdsd"></script>
+<script type="text/javascript">
+	var element;
+	var layer;
+	var form;
+	var upload;
+	var laydate;
+	var webPath='${webPath}';
+	var jsonFiles;
+	var jsonFiles=new Array();
+	var table;
+	
+	layui.use(['form','element', 'layer','laydate','upload',"table"], function(){
+		  element = layui.element;
+		  layer = layui.layer;
+		  upload = layui.upload;
+		  table = layui.table;
+		  form = layui.form;
+		  laydate = layui.laydate;
+		  //监听折叠
+		  element.on('collapse(filter)', function(data){
+	
+		  });
+		  
+		  
+		  
+		//日期范围
+		  laydate.render({
+		    elem: '#time'
+		    ,range: true
+		  });
+	    
+		
+		
+		
+		
+		  //全选  
+	      form.on('checkbox(allChoose)', function(data){
+	          var child = $(data.elem).parents('table').find('tbody input[type="checkbox"]');  
+	          child.each(function(index, item){
+	            item.checked = data.elem.checked;
+	          });
+	          form.render('checkbox');  
+	      });  
+		  
+	      
+	      form.on('radio(type)', function(data){
+	    	 // 将一次性授权码框弹出
+	    	 if(data.value=='-1'){
+	    		 $('#activeKey').val('0');
+	    		 $('.active-key').attr('style','display:none');
+	    	 }else{
+	    		 $('#activeKey').val('');
+	    		 $('.active-key').removeAttr('style');
+	    	 }
+	    	  
+   		  });  
+	      
+	      
+	      /*新增修改弹框  */
+	      
+	  	$(document).on('click','.add_admi1',function() {
+	  		clearInput();
+	  		//$("input[name='type'][value='-1'").prop("checked",  true );
+		    $("input[name='type'][value='1']").prop("checked", true);
+		    form.render();
+	  		layer.open({
+	  			type : 1,
+	  			title : "售出主板",
+	  			skin : 'admi',
+	  			btn : [ '保存', '返回' ],
+	  			area : [ '630px', '480px' ],
+	  			content : $(".bomb_box1 "),
+	  			success : function(layero, index) {
+	  				    form.on('submit(formDate)', function(data) {
+	  					insertCustomer(data.field);
+	  					return false;
+	  				});
+	  			},
+	  			yes : function(index, layero) {
+	  				layero.find('.upgradeFile').click();
+	  			}
+	  		});
+	  	});
+	  		
+	      
+	      
+      	// table渲染
+  		var machineNo=$('#machineNo').val();
+		table.render({
+	    elem: '#sellBoardList'
+    	,toolbar: '#export'
+		,defaultToolbar: ['filter','exports', { //自定义头部工具栏右侧图标。如无需自定义，去除该参数即可
+		     		title: '导出当前分页下的数据'
+		          ,layEvent: 'LAYTABLE_TIPS'
+		          ,icon: 'layui-icon-tips'
+		        }]
+	    ,height: 600
+	  	,url:"getSellBoardPage.json"
+	    ,where: {
+	    	cuId: "${cuId}",
+	    	machineNo:machineNo,
+	    	type:"${type}"
+	    }
+		,limit:60
+ 		,method:"get"
+	    ,page: true //开启分页
+	    ,parseData: function(res){
+			return {
+	  			"count":res.data.total,
+	  			"code":res.code,
+				"data": res.data.list,//解析数据列表
+			};
+		},request: {
+ 		    pageName: 'pageNum' //页码的参数名称，默认：page
+ 		    ,limitName: 'pageSize' //每页数据量的参数名，默认：limit
+	  	},cols: [[ //表头
+	      {field: 'mac', width:200,title: '设备mac',align:'center'}
+	      ,{field: 'address', width:250,title: '地址',align:'center'}
+	      ,{field: 'longitude', width:150,title: '经度',align:'center'}
+	      ,{field: 'latitude', width:150, title: '纬度',align:'center'}
+	      ,{field: 'version', title: '固件版本',align:'center'}
+	      ,{field: 'useApp', minWidth:250,title: '预装app',align:'center'}
+	      ,{field: 'createTime',title: '创建时间',align:'center'}
+	      ]]
+	  });
+	      
+	});
+
+	/*清空input框  */
+	function clearInput() {
+		$(".bomb_box1").find("input").each(function() {
+			$(this).val("");
+		});
+		$(".bomb_box1").find("select").each(function() {
+			$(this).val("");
+		});
+		$(".bomb_box1").find("textarea").each(function() {
+			$(this).val("");
+		});
+	}
+	
+	
+	
+	
+	function selecedSellBoradPage(){
+		var mac=$('#mac').val();
+		var time=$('#time').val();
+		var useApp=$('#useApp').val();
+		table.render({
+		    elem: '#sellBoardList'
+	    	,toolbar: '#export'
+			,defaultToolbar: ['filter','exports', { //自定义头部工具栏右侧图标。如无需自定义，去除该参数即可
+			     		title: '导出当前分页下的数据'
+			          ,layEvent: 'LAYTABLE_TIPS'
+			          ,icon: 'layui-icon-tips'
+			        }]
+		    ,height: 600
+		  	,url:"getSellBoardPage.json"
+		    ,where: {
+		    	mac: mac,
+		    	time:time,
+		    	useApp:useApp
+		    }
+			,limit:60
+	 		,method:"get"
+		    ,page: true //开启分页
+		    ,parseData: function(res){
+				return {
+		  			"count":res.data.total,
+		  			"code":res.code,
+					"data": res.data.list,//解析数据列表
+				};
+			},request: {
+	 		    pageName: 'pageNum' //页码的参数名称，默认：page
+	 		    ,limitName: 'pageSize' //每页数据量的参数名，默认：limit
+		  	},cols: [[ //表头
+		      {field: 'mac', width:200,title: '设备mac',align:'center'}
+		      ,{field: 'address', width:250,title: '地址',align:'center'}
+		      ,{field: 'longitude', width:150,title: '经度',align:'center'}
+		      ,{field: 'latitude', width:150, title: '纬度',align:'center'}
+		      ,{field: 'version', title: '固件版本',align:'center'}
+		      ,{field: 'useApp', minWidth:250,title: '预装app',align:'center'}
+		      ,{field: 'createTime',title: '创建时间',align:'center'}
+		      ]]
+		  });
+		      
+	}
+	
+</script>
+</html>

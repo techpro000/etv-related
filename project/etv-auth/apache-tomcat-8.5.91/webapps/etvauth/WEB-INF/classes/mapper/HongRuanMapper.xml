@@ -1,0 +1,501 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.etv.manage.dao.HongRuanMapper" >
+  <resultMap id="BaseResultMap" type="com.etv.manage.model.HongRuan" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="HR_CU_ID" property="hrCuId" jdbcType="VARCHAR" />
+    <result column="HR_APP_KEY" property="hrAppKey" jdbcType="VARCHAR" />
+    <result column="HR_REMARK" property="hrRemark" jdbcType="LONGVARCHAR" />
+    <result column="HR_MACHINE_NO" property="hrMachineNo" jdbcType="VARCHAR" />
+    <result column="HR_COMPANY" property="hrCompany" jdbcType="VARCHAR" />
+    <result column="HR_AUTH_TIME" property="hrAuthTime" jdbcType="TIMESTAMP" />
+    <result column="HR_CREATE_TIME" property="hrCreateTime" jdbcType="TIMESTAMP" />
+    <result column="HR_ACTIV_STATE" property="hrActivState" jdbcType="VARCHAR" />
+    <result column="HR_AUTH_STATE" property="hrAuthState" jdbcType="VARCHAR" />
+    <result column="HR_SYSTEM_VERSION" property="hrSystemVersion" jdbcType="VARCHAR" />
+    <result column="HR_AUTH_TYPE" property="hrAuthType" jdbcType="VARCHAR" />
+    <result column="HR_AUTH_OS" property="hrAuthOs" jdbcType="INTEGER" />
+    <result column="HR_SORT" property="hrSort" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, HR_CU_ID, HR_APP_KEY, HR_REMARK, HR_MACHINE_NO, HR_COMPANY, HR_AUTH_TIME, HR_CREATE_TIME, 
+    HR_ACTIV_STATE, HR_AUTH_STATE, HR_SYSTEM_VERSION, HR_AUTH_TYPE, HR_AUTH_OS, HR_SORT
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from etv_hongruan
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from etv_hongruan
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.etv.manage.model.HongRuan" >
+    insert into etv_hongruan (ID, HR_CU_ID, HR_APP_KEY, 
+      HR_REMARK, HR_MACHINE_NO, HR_COMPANY, 
+      HR_AUTH_TIME, HR_CREATE_TIME, HR_ACTIV_STATE, 
+      HR_AUTH_STATE, HR_SYSTEM_VERSION, HR_AUTH_TYPE, 
+      HR_AUTH_OS, HR_SORT)
+    values (#{id,jdbcType=VARCHAR}, #{hrCuId,jdbcType=VARCHAR}, #{hrAppKey,jdbcType=VARCHAR}, 
+      #{hrRemark,jdbcType=LONGVARCHAR}, #{hrMachineNo,jdbcType=VARCHAR}, #{hrCompany,jdbcType=VARCHAR}, 
+      #{hrAuthTime,jdbcType=TIMESTAMP}, #{hrCreateTime,jdbcType=TIMESTAMP}, #{hrActivState,jdbcType=VARCHAR}, 
+      #{hrAuthState,jdbcType=VARCHAR}, #{hrSystemVersion,jdbcType=VARCHAR}, #{hrAuthType,jdbcType=VARCHAR}, 
+      #{hrAuthOs,jdbcType=INTEGER}, #{hrSort,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.etv.manage.model.HongRuan" >
+    insert into etv_hongruan
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="hrCuId != null" >
+        HR_CU_ID,
+      </if>
+      <if test="hrAppKey != null" >
+        HR_APP_KEY,
+      </if>
+      <if test="hrRemark != null" >
+        HR_REMARK,
+      </if>
+      <if test="hrMachineNo != null" >
+        HR_MACHINE_NO,
+      </if>
+      <if test="hrCompany != null" >
+        HR_COMPANY,
+      </if>
+      <if test="hrAuthTime != null" >
+        HR_AUTH_TIME,
+      </if>
+      <if test="hrCreateTime != null" >
+        HR_CREATE_TIME,
+      </if>
+      <if test="hrActivState != null" >
+        HR_ACTIV_STATE,
+      </if>
+      <if test="hrAuthState != null" >
+        HR_AUTH_STATE,
+      </if>
+      <if test="hrSystemVersion != null" >
+        HR_SYSTEM_VERSION,
+      </if>
+      <if test="hrAuthType != null" >
+        HR_AUTH_TYPE,
+      </if>
+      <if test="hrAuthOs != null" >
+        HR_AUTH_OS,
+      </if>
+      <if test="hrSort != null" >
+        HR_SORT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="hrCuId != null" >
+        #{hrCuId,jdbcType=VARCHAR},
+      </if>
+      <if test="hrAppKey != null" >
+        #{hrAppKey,jdbcType=VARCHAR},
+      </if>
+      <if test="hrRemark != null" >
+        #{hrRemark,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="hrMachineNo != null" >
+        #{hrMachineNo,jdbcType=VARCHAR},
+      </if>
+      <if test="hrCompany != null" >
+        #{hrCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="hrAuthTime != null" >
+        #{hrAuthTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="hrCreateTime != null" >
+        #{hrCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="hrActivState != null" >
+        #{hrActivState,jdbcType=VARCHAR},
+      </if>
+      <if test="hrAuthState != null" >
+        #{hrAuthState,jdbcType=VARCHAR},
+      </if>
+      <if test="hrSystemVersion != null" >
+        #{hrSystemVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="hrAuthType != null" >
+        #{hrAuthType,jdbcType=VARCHAR},
+      </if>
+      <if test="hrAuthOs != null" >
+        #{hrAuthOs,jdbcType=INTEGER},
+      </if>
+      <if test="hrSort != null" >
+        #{hrSort,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.etv.manage.model.HongRuan" >
+    update etv_hongruan
+    <set >
+      <if test="hrCuId != null" >
+        HR_CU_ID = #{hrCuId,jdbcType=VARCHAR},
+      </if>
+      <if test="hrAppKey != null" >
+        HR_APP_KEY = #{hrAppKey,jdbcType=VARCHAR},
+      </if>
+      <if test="hrRemark != null" >
+        HR_REMARK = #{hrRemark,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="hrMachineNo != null" >
+        HR_MACHINE_NO = #{hrMachineNo,jdbcType=VARCHAR},
+      </if>
+      <if test="hrCompany != null" >
+        HR_COMPANY = #{hrCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="hrAuthTime != null" >
+        HR_AUTH_TIME = #{hrAuthTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="hrCreateTime != null" >
+        HR_CREATE_TIME = #{hrCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="hrActivState != null" >
+        HR_ACTIV_STATE = #{hrActivState,jdbcType=VARCHAR},
+      </if>
+      <if test="hrAuthState != null" >
+        HR_AUTH_STATE = #{hrAuthState,jdbcType=VARCHAR},
+      </if>
+      <if test="hrSystemVersion != null" >
+        HR_SYSTEM_VERSION = #{hrSystemVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="hrAuthType != null" >
+        HR_AUTH_TYPE = #{hrAuthType,jdbcType=VARCHAR},
+      </if>
+      <if test="hrAuthOs != null" >
+        HR_AUTH_OS = #{hrAuthOs,jdbcType=INTEGER},
+      </if>
+      <if test="hrSort != null" >
+        HR_SORT = #{hrSort,jdbcType=INTEGER},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.etv.manage.model.HongRuan" >
+    update etv_hongruan
+    set HR_CU_ID = #{hrCuId,jdbcType=VARCHAR},
+      HR_APP_KEY = #{hrAppKey,jdbcType=VARCHAR},
+      HR_REMARK = #{hrRemark,jdbcType=LONGVARCHAR},
+      HR_MACHINE_NO = #{hrMachineNo,jdbcType=VARCHAR},
+      HR_COMPANY = #{hrCompany,jdbcType=VARCHAR},
+      HR_AUTH_TIME = #{hrAuthTime,jdbcType=TIMESTAMP},
+      HR_CREATE_TIME = #{hrCreateTime,jdbcType=TIMESTAMP},
+      HR_ACTIV_STATE = #{hrActivState,jdbcType=VARCHAR},
+      HR_AUTH_STATE = #{hrAuthState,jdbcType=VARCHAR},
+      HR_SYSTEM_VERSION = #{hrSystemVersion,jdbcType=VARCHAR},
+      HR_AUTH_TYPE = #{hrAuthType,jdbcType=VARCHAR},
+      HR_AUTH_OS = #{hrAuthOs,jdbcType=INTEGER},
+      HR_SORT = #{hrSort,jdbcType=INTEGER}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  
+   <!--自定义sql  -->
+
+	<!--根据mac值查询授权信息 -->
+	<select id="selectHongRuanByMac" parameterType="string"
+		resultMap="BaseResultMap">
+		select HR_APP_KEY hrAppKey,HR_MACHINE_NO hrMachineNo,HR_SYSTEM_VERSION
+		hrSystemVersion,hr.ID id,
+		HR_ACTIV_STATE hrActivState, HR_AUTH_STATE hrAuthState,HR_AUTH_TYPE hrAuthType
+		from ETV_HONGRUAN hr
+		inner join ETV_CUSTOMER cu on hr.hr_cu_id=cu.id
+		where HR_MACHINE_NO = #{mac,jdbcType=VARCHAR} and cu.CU_APPID=
+		#{appId,jdbcType=VARCHAR} order by HR_AUTH_TIME desc
+	</select>
+
+	<!--查询客户所在的虹软授权信息 -->
+	<select id="selectHongRuanInfoByCuId" parameterType="map"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from ETV_HONGRUAN
+		where HR_CU_ID = #{cuId,jdbcType=VARCHAR}
+		<if test="machineNo !=null and machineNo !=''">
+			and HR_MACHINE_NO like CONCAT(CONCAT('%',
+			ltrim(rtrim(#{machineNo,jdbcType=VARCHAR}))),'%')
+		</if>
+		<if test="authOS !=null and authOS !=''">
+			and HR_AUTH_OS= #{authOS,jdbcType=INTEGER}
+		</if>
+		<if test="authState!=null and authState!=''">
+			<choose>
+				<when test="authState==1">
+					and HR_AUTH_STATE='1'
+				</when>
+				<when test="authState==0">
+					and HR_ACTIV_STATE='0' and HR_AUTH_STATE!='1'
+				</when>
+				<otherwise>
+					and HR_ACTIV_STATE='-1'
+				</otherwise>
+			</choose>
+		</if>
+	</select>
+
+	<select id="selectExistInfo" resultType="int"
+		parameterType="map">
+		select count(1)
+		from ETV_HONGRUAN
+		where HR_APP_KEY = #{appKey,jdbcType=VARCHAR}
+	</select>
+
+	<!--设备设备号是否存在 -->
+	<select id="selectExistMachineNo" parameterType="map"
+		resultType="int">
+		select
+		count(id)
+		from ETV_HONGRUAN
+		where HR_CU_ID = #{cuId,jdbcType=VARCHAR} and HR_MACHINE_NO =
+		#{machineNo,jdbcType=VARCHAR}
+	</select>
+
+
+	<!--去重判断 -->
+	<select id="selectExistNoSelfMachineNo" parameterType="map"
+		resultType="int">
+		select
+		count(1)
+		from ETV_HONGRUAN
+		where HR_CU_ID = #{cuId,jdbcType=VARCHAR} and HR_MACHINE_NO =
+		#{machineNo,jdbcType=VARCHAR} and ID!=#{id,jdbcType=VARCHAR}
+	</select>
+
+	<!--查询虹软的客户 -->
+	<select id="selectPageHrCustomer" parameterType="string"
+		resultType="map">
+		select
+		ID id, CU_NAME name, CU_AUTH_NUM authNum, CU_PHONE phone,
+		CU_COMPANY_NAME companyName, CU_APPID appId,
+		CU_APP_KEY appKey, CU_CREATE_TIME createTime,CU_LAST_PHONE_FEE lastPhoneFee
+		from ETV_CUSTOMER
+		where 1=1
+		<if test="name!=null and name!=''">
+			and CU_NAME like CONCAT(CONCAT('%',
+			ltrim(rtrim(#{name,jdbcType=VARCHAR}))),'%')
+		</if>
+		<if test="psId!=null and psId!=''">
+			and CU_PS_ID =#{psId,jdbcType=VARCHAR}
+		</if>
+		<if test="companyName!=null and companyName!=''">
+			and CU_COMPANY_NAME like CONCAT(CONCAT('%',
+			ltrim(rtrim(#{companyName,jdbcType=VARCHAR}))),'%')
+		</if>
+		<if test="phone !=null and phone !=''">
+			and CU_PHONE like CONCAT(CONCAT('%',
+			ltrim(rtrim(#{phone,jdbcType=VARCHAR}))),'%')
+		</if>
+		<if test="appId !=null and appId !=''">
+			and  CU_APPID like CONCAT(CONCAT('%', ltrim(rtrim(#{appId,jdbcType=VARCHAR}))),'%') 
+		</if>
+		order by CU_CREATE_TIME desc
+	</select>
+
+	<select id="selectHrAuthNum" parameterType="string"
+		resultType="int">
+		select count(1)
+		from ETV_HONGRUAN
+		where HR_CU_ID= #{cuId,jdbcType=VARCHAR}
+	</select>
+
+	<select id="selectHrUsedAuthNum" parameterType="string"
+		resultType="int">
+		select count(1)
+		from ETV_HONGRUAN
+		where HR_CU_ID= #{cuId,jdbcType=VARCHAR} and HR_MACHINE_NO !=''
+	</select>
+
+	<update id="updateAuthState" parameterType="list">
+		update etv_hongruan
+		set HR_ACTIV_STATE='0'
+		where id in
+		<foreach collection="ids" item="id" index="index" open="("
+			close=")" separator=",">
+			#{id,jdbcType=VARCHAR}
+		</foreach>
+	</update>
+
+	<!--查询剩余的授权信息 -->
+	<select id="selectLastHongRuanAuthInfo" parameterType="String"
+		resultMap="BaseResultMap">
+		select hr.ID id , HR_CU_ID hrCuId, HR_APP_KEY hrAppKey , HR_REMARK hrRemark,
+		HR_MACHINE_NO hrMachineNo, HR_AUTH_TIME hrAuthTime,
+		HR_ACTIV_STATE hrActivState, HR_AUTH_STATE hrAuthState
+		from etv_hongruan hr
+		inner join ETV_CUSTOMER cu on hr.hr_cu_id=cu.id
+		where cu.CU_APPID= #{appId,jdbcType=VARCHAR} and (hr.HR_MACHINE_NO='' or
+		ISNULL(hr.HR_MACHINE_NO)) 
+		<if test="os!=null">
+		and HR_AUTH_OS= #{os,jdbcType=INTEGER}
+		</if>
+	</select>
+
+	<update id="updateAuthCallbackState" parameterType="String">
+		update etv_hongruan
+		set HR_AUTH_STATE='1',
+		HR_AUTH_TIME=now()
+		where ID=#{id,jdbcType=VARCHAR}
+	</update>
+
+	<!--查询设备信息是否存在 -->
+	<select id="selectMachineExistByNoAndAppIdAndVersion"
+		parameterType="map" resultMap="BaseResultMap">
+		select hr.ID id , HR_CU_ID hrCuId, HR_APP_KEY hrAppKey , HR_REMARK hrRemark,
+		HR_MACHINE_NO hrMachineNo, HR_AUTH_TIME hrAuthTime,
+		HR_ACTIV_STATE hrActivState, HR_AUTH_STATE hrAuthState
+		from etv_hongruan hr
+		inner join ETV_CUSTOMER cu on hr.hr_cu_id=cu.id
+		where cu.CU_APPID= #{appId,jdbcType=VARCHAR} and HR_SYSTEM_VERSION =
+		#{systemVersion,jdbcType=VARCHAR}
+		and HR_MACHINE_NO=#{mac,jdbcType=VARCHAR}
+	</select>
+
+
+	<!--根据mac值查询授权信息 -->
+	<select id="selectHongRuanByMacOld" parameterType="string"
+		resultType="map">
+		select HR_APP_KEY appKey,HR_MACHINE_NO mac from ETV_HONGRUAN
+		where HR_MACHINE_NO = #{mac,jdbcType=VARCHAR}
+	</select>
+
+	<update id="updateHrCleanKsData" parameterType="list">
+		update etv_hongruan
+		set HR_ACTIV_STATE='-1',
+		HR_REMARK=null,
+		HR_MACHINE_NO=null,
+		HR_SYSTEM_VERSION=null
+		where id in
+		<foreach collection="ids" item="id" index="index" open="("
+			close=")" separator=",">
+			#{id,jdbcType=VARCHAR}
+		</foreach>
+	</update>
+
+	<update id="deleteHrBatchKsData" parameterType="list">
+		update etv_hongruan
+		set HR_CU_ID=null,
+		HR_ACTIV_STATE='-1',
+		HR_REMARK=null,
+		HR_MACHINE_NO=null,
+		HR_SYSTEM_VERSION=null
+		where id in
+		<foreach collection="ids" item="id" index="index" open="("
+			close=")" separator=",">
+			#{id,jdbcType=VARCHAR}
+		</foreach>
+	</update>
+
+	<!--查询虹软库存 -->
+	<select id="selectHongRuanInventory"
+		resultType="com.etv.manage.model.vo.HongRuanVo">
+		select
+		id , HR_APP_KEY hrAppKey , HR_REMARK hrRemark,HR_CREATE_TIME hrCreateTime
+		,HR_AUTH_OS hrAuthOs
+		from etv_hongruan
+		where ISNULL(HR_CU_ID)
+		<if test="os!=null">
+		and HR_AUTH_OS=#{os,jdbcType=INTEGER}
+		</if>
+		order by HR_SORT desc
+	</select>
+
+	<update id="updateHongRuanCustomerId" parameterType="map">
+		update etv_hongruan
+		set HR_CU_ID=#{cuId,jdbcType=VARCHAR},
+		HR_CREATE_TIME=now()
+		where id=#{id,jdbcType=VARCHAR}
+	</update>
+
+	<select id="selectExportHongRuanInfo" parameterType="map"
+		resultType="com.etv.manage.model.vo.HongRuanExcelVo">
+		select
+		HR_APP_KEY appKey , HR_REMARK remark,HR_CREATE_TIME createTime
+		,HR_AUTH_STATE authState,HR_MACHINE_NO mac
+		from ETV_HONGRUAN
+		where HR_CU_ID = #{cuId,jdbcType=VARCHAR}
+		<if test="authState!=null and authState!=''">
+			<choose>
+				<when test="authState==1">
+					and HR_AUTH_STATE='1'
+				</when>
+				<when test="authState==0">
+					and HR_ACTIV_STATE='0' and HR_AUTH_STATE!='1'
+				</when>
+				<otherwise>
+					and HR_ACTIV_STATE='-1'
+				</otherwise>
+			</choose>
+		</if>
+	</select>
+
+
+	<select id="selectMaxNoAuthTimeMachine" parameterType="map"
+		resultMap="BaseResultMap">
+		select HR_APP_KEY hrAppKey,HR_MACHINE_NO hrMachineNo,HR_SYSTEM_VERSION
+		hrSystemVersion,hr.ID id,
+		HR_ACTIV_STATE hrActivState, HR_AUTH_STATE hrAuthState,HR_AUTH_TYPE
+		hrAuthType,HR_REMARK hrRemark
+		from ETV_HONGRUAN hr
+		inner join ETV_CUSTOMER cu on hr.hr_cu_id=cu.id
+		where HR_MACHINE_NO = #{mac,jdbcType=VARCHAR} and cu.CU_APPID=
+		#{appId,jdbcType=VARCHAR} and HR_AUTH_STATE !='1'
+		order by HR_CREATE_TIME desc limit 0,1
+	</select>
+
+	<select id="selectMaxAuthedTimeMachine" parameterType="map"
+		resultMap="BaseResultMap">
+		select HR_APP_KEY hrAppKey,HR_MACHINE_NO hrMachineNo,HR_SYSTEM_VERSION
+		hrSystemVersion,hr.ID id,
+		HR_ACTIV_STATE hrActivState, HR_AUTH_STATE hrAuthState,HR_AUTH_TYPE hrAuthType
+		,HR_REMARK hrRemark
+		from ETV_HONGRUAN hr
+		inner join ETV_CUSTOMER cu on hr.hr_cu_id=cu.id
+		where HR_MACHINE_NO = #{mac,jdbcType=VARCHAR} and cu.CU_APPID=
+		#{appId,jdbcType=VARCHAR} and HR_AUTH_STATE ='1'
+		order by HR_AUTH_TIME desc limit 0,1
+	</select>
+
+	<!--查询所有的授权的设备 -->
+	<select id="selectAllHongRuanMachine" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from ETV_HONGRUAN
+		where HR_MACHINE_NO!='' and HR_AUTH_TYPE='1'
+	</select>
+
+	<update id="udpdateMachineCompany" parameterType="map">
+		update ETV_HONGRUAN
+		set HR_COMPANY=#{companyName,jdbcType=VARCHAR}
+		where id=#{id,jdbcType=VARCHAR}
+	</update>
+
+	<select id="exportHongRuanInfoAuthRec" parameterType="map"
+		resultType="com.etv.manage.model.vo.HongRuanRecExcelVo">
+		select
+		cu.CU_NAME customerName,HR_MACHINE_NO clNo,HR_AUTH_TIME authTime,
+		HR_CREATE_TIME createTime,HR_AUTH_STATE authState,HR_REMARK remark
+		from ETV_HONGRUAN hr
+		inner join ETV_CUSTOMER cu on hr.HR_CU_ID=cu.id
+		where 1=1
+		<if test="type==0">
+			and  HR_CREATE_TIME &lt;= #{endDate} and HR_CREATE_TIME &gt;= #{startDate}
+		</if>
+		<if test="type==1">
+			and HR_AUTH_TIME &lt;=#{endDate} and HR_AUTH_TIME &gt;= #{startDate}
+		</if>
+	</select>
+	
+	<select id="selectMaxHongruanSort" resultType="int">
+	select 
+	max(HR_SORT)
+	from ETV_HONGRUAN
+	</select>
+</mapper>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.etv.manage.dao.YxzClientMapper">
+  <resultMap id="BaseResultMap" type="com.etv.manage.model.YxzClient">
+    <id column="mobile" jdbcType="VARCHAR" property="mobile" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="client_number" jdbcType="VARCHAR" property="clientNumber" />
+    <result column="client_pwd" jdbcType="VARCHAR" property="clientPwd" />
+    <result column="login_token" jdbcType="VARCHAR" property="loginToken" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from etv_yzx_client
+    where mobile = #{mobile,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.etv.manage.model.YxzClient">
+    insert into etv_yzx_client (mobile, user_id, client_number, 
+      client_pwd, login_token, create_time
+      )
+    values (#{mobile,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{clientNumber,jdbcType=VARCHAR}, 
+      #{clientPwd,jdbcType=VARCHAR}, #{loginToken,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.etv.manage.model.YxzClient">
+    update etv_yzx_client
+    set user_id = #{userId,jdbcType=VARCHAR},
+      client_number = #{clientNumber,jdbcType=VARCHAR},
+      client_pwd = #{clientPwd,jdbcType=VARCHAR},
+      login_token = #{loginToken,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where mobile = #{mobile,jdbcType=VARCHAR}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select mobile, user_id, client_number, client_pwd, login_token, create_time
+    from etv_yzx_client
+    where mobile = #{mobile,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select mobile, user_id, client_number, client_pwd, login_token, create_time
+    from etv_yzx_client
+  </select>
+</mapper>

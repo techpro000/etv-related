@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.etv.manage.dao.EmailMapper" >
+  <resultMap id="BaseResultMap" type="com.etv.manage.model.Email" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="company_name" property="companyName" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="body_temperature" property="bodyTemperature" jdbcType="VARCHAR" />
+    <result column="body_name" property="bodyName" jdbcType="VARCHAR" />
+    <result column="body_equipment" property="bodyEquipment" jdbcType="VARCHAR" />
+    <result column="body_photo_url" property="bodyPhotoUrl" jdbcType="VARCHAR" />
+    <result column="body_alarm_time" property="bodyAlarmTime" jdbcType="VARCHAR" />
+    <result column="send_state" property="sendState" jdbcType="VARCHAR" />
+    <result column="send_callback" property="sendCallback" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, user_name, company_name, email, body_temperature, body_name, body_equipment, 
+    body_photo_url, body_alarm_time, send_state, send_callback, create_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from etv_email
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from etv_email
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.etv.manage.model.Email" >
+    insert into etv_email (id, user_name, company_name, 
+      email, body_temperature, body_name, 
+      body_equipment, body_photo_url, body_alarm_time, 
+      send_state, send_callback, create_time
+      )
+    values (#{id,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{companyName,jdbcType=VARCHAR}, 
+      #{email,jdbcType=VARCHAR}, #{bodyTemperature,jdbcType=VARCHAR}, #{bodyName,jdbcType=VARCHAR}, 
+      #{bodyEquipment,jdbcType=VARCHAR}, #{bodyPhotoUrl,jdbcType=VARCHAR}, #{bodyAlarmTime,jdbcType=VARCHAR}, 
+      #{sendState,jdbcType=VARCHAR}, #{sendCallback,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.etv.manage.model.Email" >
+    insert into etv_email
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userName != null" >
+        user_name,
+      </if>
+      <if test="companyName != null" >
+        company_name,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="bodyTemperature != null" >
+        body_temperature,
+      </if>
+      <if test="bodyName != null" >
+        body_name,
+      </if>
+      <if test="bodyEquipment != null" >
+        body_equipment,
+      </if>
+      <if test="bodyPhotoUrl != null" >
+        body_photo_url,
+      </if>
+      <if test="bodyAlarmTime != null" >
+        body_alarm_time,
+      </if>
+      <if test="sendState != null" >
+        send_state,
+      </if>
+      <if test="sendCallback != null" >
+        send_callback,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="companyName != null" >
+        #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="bodyTemperature != null" >
+        #{bodyTemperature,jdbcType=VARCHAR},
+      </if>
+      <if test="bodyName != null" >
+        #{bodyName,jdbcType=VARCHAR},
+      </if>
+      <if test="bodyEquipment != null" >
+        #{bodyEquipment,jdbcType=VARCHAR},
+      </if>
+      <if test="bodyPhotoUrl != null" >
+        #{bodyPhotoUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="bodyAlarmTime != null" >
+        #{bodyAlarmTime,jdbcType=VARCHAR},
+      </if>
+      <if test="sendState != null" >
+        #{sendState,jdbcType=VARCHAR},
+      </if>
+      <if test="sendCallback != null" >
+        #{sendCallback,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.etv.manage.model.Email" >
+    update etv_email
+    <set >
+      <if test="userName != null" >
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="companyName != null" >
+        company_name = #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="bodyTemperature != null" >
+        body_temperature = #{bodyTemperature,jdbcType=VARCHAR},
+      </if>
+      <if test="bodyName != null" >
+        body_name = #{bodyName,jdbcType=VARCHAR},
+      </if>
+      <if test="bodyEquipment != null" >
+        body_equipment = #{bodyEquipment,jdbcType=VARCHAR},
+      </if>
+      <if test="bodyPhotoUrl != null" >
+        body_photo_url = #{bodyPhotoUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="bodyAlarmTime != null" >
+        body_alarm_time = #{bodyAlarmTime,jdbcType=VARCHAR},
+      </if>
+      <if test="sendState != null" >
+        send_state = #{sendState,jdbcType=VARCHAR},
+      </if>
+      <if test="sendCallback != null" >
+        send_callback = #{sendCallback,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.etv.manage.model.Email" >
+    update etv_email
+    set user_name = #{userName,jdbcType=VARCHAR},
+      company_name = #{companyName,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      body_temperature = #{bodyTemperature,jdbcType=VARCHAR},
+      body_name = #{bodyName,jdbcType=VARCHAR},
+      body_equipment = #{bodyEquipment,jdbcType=VARCHAR},
+      body_photo_url = #{bodyPhotoUrl,jdbcType=VARCHAR},
+      body_alarm_time = #{bodyAlarmTime,jdbcType=VARCHAR},
+      send_state = #{sendState,jdbcType=VARCHAR},
+      send_callback = #{sendCallback,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  
+    <!--自定义sql  -->
+  
+  <select id="selectAllSendEmailPag" parameterType="map" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from etv_email 
+    where user_name = #{userName,jdbcType=VARCHAR}
+    <if test="state!=null and state!=''">
+    and send_state = #{state,jdbcType=VARCHAR}
+    </if>
+    order by create_time desc
+  </select>
+</mapper>

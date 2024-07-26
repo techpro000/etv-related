@@ -1,0 +1,441 @@
+<html>
+<head>
+<meta charset="utf-8">
+<title>腾讯客户列表</title>
+<meta name="renderer" content="webkit">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<link rel="stylesheet" href="${webPath}/css/upgradeFile/upgradeFile.css?12sd3">
+<#include 'pubCSS.html'>
+<style>
+.layui-table td, .layui-table th{
+	text-align: center;
+}
+ tobody{
+	height:600px;
+}
+</style>
+
+</head>
+
+<body class="layui-layout-body">
+   <div class="right-con">
+    <div class="con-top clearfix">
+      <div class="search-box clearfix">
+      <#if authId=='1'>
+        <form class="layui-form" action="" id="submit_query_form">
+          <div class="layui-form-item">
+            <div class="layui-input-inline custom-size">
+              <input type="text" name="companyName" id="companyName" value="${companyName}" placeholder="公司名" autocomplete="off" class="layui-input">
+            </div>
+            <div class="layui-input-inline custom-size">
+              <input type="text" name="seachPhone" id="seachPhone" value="${seachPhone}" placeholder="手机号" autocomplete="off" class="layui-input">
+            </div>
+            <div style="width:auto;" class="layui-input-inline custom-size-btn">
+              <div class="layui-btn" onclick="selecedTenxunCustomerPage('${actionName}')">搜索</div>
+            </div>
+          </div>
+        </form>
+        </#if>
+      </div>
+      <#if authId=='1'>
+       <form class="layui-form" action="" id="submit_query_form1" style="display:flex">
+		   	<div class="layui-form-item">
+			    <label style="width:auto;" class="layui-form-label">导出类型</label>
+			    <div style="width:135px;" class="layui-input-block">
+			      <select name="type" id="type" lay-filter="type">
+			        <option value="1">已分配</option>
+			        <option value="2" >已授权</option>
+			      </select>
+			    </div>
+			  </div>
+			  	<div style="float:right;" class="layui-inline">
+	      		<label style="width:auto;" class="layui-form-label">导出时间</label>
+		        <div style="width:100px;" class="layui-input-inline">
+		           <input type="text" class="layui-input" id="time" placeholder="yyyy-MM">
+		        </div>
+		   	   </div>
+		   	   <span data-method="offset" data-type="top" class="layui-btn layui-btn-sm add_admi" onclick="exportHongruan()">导出</span>
+	     	   
+		  </form>
+  	  </#if>
+    </div>
+    <div class="table-con">
+		<table class="layui-table" id="hrCustomerList"  lay-filter="hrCustomerList" >
+      	</table>
+    </div>
+    <input type="file" style="display:none" id='upFile'/>
+   </div>
+   <#include 'pubJS.html'>
+</body>
+
+
+
+<!--弹框结束-->
+	<!--虹软列表开始-->
+<div class="bomb_box1">
+	<form class="layui-form  action="" >
+
+		<div class="layui-form-item total-num">
+			<label class="layui-form-label ">当前总点数：</label>
+			 <input type="hidden"  id="id" name="id">
+			<div class="layui-input-inline textarea_width">
+				<span id="authToalNum" style="color: #A9A9A9; line-height: 30px;"></span>
+			</div>
+		</div>
+		<div class="layui-form-item auth-num" >
+			<label class="layui-form-label ">编辑点数：</label>
+			<div class="layui-input-inline textarea_width">
+				<input type="text" name="authNum" id="authNum"
+					class="layui-input title" placeholder="减少点数时加上减号“-”">
+			</div>
+		</div>
+		<div class="layui-form-item auth-num" >
+			<label class="layui-form-label ">备注：</label>
+			<div class="layui-input-inline textarea_width">
+				<input type="text" name="remark" id="remark" class="layui-input title">
+			</div>
+		</div>
+		<div class="layui-form-item active-key" style="display:none">
+			<label class="layui-form-label ">一次性授权码：</label>
+			<div class="layui-input-inline textarea_width;"style="display:flex;width:288px">
+				<input type="text" name="activeKey" id="activeKey"
+					class="layui-input title"  style="flex:1;margin-right:10px" autocomplete="off">
+					<div class="layui-btn layui-btn-sm" onClick="random()">生成</div>
+			</div>
+		</div>
+		<div class="layui-form-item operatePwd">
+			<label class="layui-form-label ">操作密码：</label>
+			<div class="layui-input-inline textarea_width">
+				<input type="password" name="operatePwd" id="operatePwd"
+					placeholder=" " class="layui-input title">
+			</div>
+		</div>
+		<div class="layui-form-item for_but ">
+			<button class="layui-btn hongruanAuth" lay-submit=""
+				lay-filter="formDate" style="display: none">保存</button>
+		</div>
+	</form>
+</div>
+<!--弹框结束-->
+<script type="text/javascript" src="${webPath}js/import_excel.js?sdsd"></script>
+<script type="text/html" id="btn">
+			{{#  if(${authId} == '1' ){ }}
+               	<button  class="layui-btn  layui-btn-sm layui-btn-normal    add_admi1" onclick="replay('{{d.totalNum}}','{{d.id}}')">编辑</button>
+				<button  class="layui-btn  layui-btn-sm   " onclick="jumpTenxunEdit('{{d.id}}','腾讯设备授权列表')">腾讯设备列表</button>
+            {{#  } else{ }} 
+					<button  class="layui-btn  layui-btn-sm layui-btn-normal  " onclick="jumpTenxunEdit('{{d.id}}','腾讯设备授权列表')">腾讯设备列表</button>
+			{{#  } }}  
+</script>
+<script type="text/javascript">
+	var element;
+	var layer;
+	var form;
+	var upload;
+	var laydate;
+	var webPath='${webPath}';
+	var jsonFiles;
+	var jsonFiles=new Array();
+	var table;
+	
+	layui.use(['form','element', 'layer','laydate','upload',"table"], function(){
+		  element = layui.element;
+		  layer = layui.layer;
+		  upload = layui.upload;
+		  table = layui.table;
+		  form = layui.form;
+		  laydate = layui.laydate;
+		  //监听折叠
+		  element.on('collapse(filter)', function(data){
+	
+		  });
+		  
+		  
+		  
+		//日期范围
+		  laydate.render({
+		    elem: '#rentTime'
+		    ,range: true
+		  });
+	    
+		//日期范围
+		  laydate.render({
+		    elem: '#paymentTime'
+		    ,range: true
+		  });
+		
+		//年月选择器
+		  laydate.render({
+		    elem: '#time'
+// 		    ,value: new Date().getFullYear() + "-" + (new Date().getMonth()+1)
+		    ,type: 'month'
+		  });
+		
+		  //全选  
+	      form.on('checkbox(allChoose)', function(data){
+	          var child = $(data.elem).parents('table').find('tbody input[type="checkbox"]');  
+	          child.each(function(index, item){
+	            item.checked = data.elem.checked;
+	          });
+	          form.render('checkbox');  
+	      });  
+		  
+	      
+	      
+	      table.render({
+	  	    elem: '#hrCustomerList'
+	      	,toolbar: '#export'
+	  		,defaultToolbar: ['filter','exports', { //自定义头部工具栏右侧图标。如无需自定义，去除该参数即可
+	  		     		title: '导出当前分页下的数据'
+	  		          ,layEvent: 'LAYTABLE_TIPS'
+	  		          ,icon: 'layui-icon-tips'
+	  		        }]
+	  	    ,height: 'full-130'
+	  	  	,url:"selectAllTengxunCustomer.json"
+	  	    ,where: {
+	  	    	cuId: "${cuId}"
+	  	    }
+	  		,limit:60
+	   		,method:"get"
+	  	    ,page: true //开启分页
+	  	    ,parseData: function(res){
+	  			return {
+	  	  			"count":res.data.sumNum,
+	  	  			"code":res.code,
+	  				"data": res.data.list,//解析数据列表
+	  			};
+	  		},request: {
+	   		    pageName: 'pageNum' //页码的参数名称，默认：page
+	   		    ,limitName: 'pageSize' //每页数据量的参数名，默认：limit
+	  	  	},cols: [[ //表头
+	  	      {field: 'name', width:200,title: '客户名',align:'center'}
+	  	      ,{field: 'phone',width:150, title: '手机号',align:'center'}
+	  	      ,{field: 'appId', width:120,title: 'APPID',align:'center'}
+	  	      ,{field: 'companyName', width:250,title: '公司名',align:'center'}
+	  	      ,{field: 'totalNum', width:80, title: '总点数',align:'center'}
+	  	      ,{field: 'lastNum',width:100, title: '剩余点数',align:'center'}
+	  	      ,{field: 'createTime', width:200,title: '创建时间',align:'center'}
+	  	      ,{field: '', minWidth:250,title: '操作',templet:'#btn',align:'center'}
+	  	      ]]
+	  	  });
+	 });    
+	   
+	
+	 // 松开键盘事件
+	$("#authNum").keyup(function () {      // 按键弹起时触发的事件；  
+		var authNum=$("#authNum").val();
+		var pattern = /^-[1-9]\d*$/; 
+		var flag=authNum.match(pattern); 
+		if(flag){
+			$('#activeKey').val('0');
+			$('.active-key').attr('style','display:none');
+		}else{
+			$('#activeKey').val('');
+    		$('.active-key').removeAttr('style');
+		}
+ 	});  
+	
+	
+	function jumpTenxunEdit(cuId,title){
+			window.parent.jumpPage(title,"selectTenxunMachineList.htm?cuId="+cuId,true);
+  	}
+	
+	
+	function jumpAuthLog(appId,title){
+		window.parent.jumpPage(title,"selectAuthLog.htm?appId="+appId,true);
+	}
+	
+	function jumpInventory(title){
+		window.parent.jumpPage(title,"goHongRuanInventory.htm",true);
+	}
+	
+	$(document).on('click','.add_admi1',function() {
+  		
+	    form.render();
+  		layer.open({
+  			type : 1,
+  			title : "腾讯授权",
+  			skin : 'admi',
+  			btn : [ '保存', '返回' ],
+  			area : [ '600px', '500px' ],
+  			content : $(".bomb_box1 "),
+  			success : function(layero, index) {
+  				    form.on('submit(formDate)', function(data) {
+  				    	inserAllottTenxunAuth(data.field);
+  					return false;
+  				});
+  			},
+  			yes : function(index, layero) {
+  				layero.find('.hongruanAuth').click();
+  			}
+  		});
+  	});
+
+	
+	/*新增虹软授权码 */
+	function insertHongRuanMachine(date) {
+		$.ajax({
+			url : 'insertTenxunMachine.json',
+			data : date,
+			dataType : 'json',
+			type : 'post',
+			success : function(data) {
+				if (data.code == 0) {
+					layer.msg('保存成功！', {
+						icon : 1,
+						time : 1000
+					}, function() {
+						layer.closeAll();
+						location.reload();
+					});
+				} else {
+					layer.msg(data.msg, {
+						icon : 2,
+						time : 1000
+					});
+				}
+			}
+		});
+	}
+
+	function replay(authToalNum,cuId){
+		$('#authToalNum').text(authToalNum);
+		$('#id').val(cuId);
+	}
+	
+	
+
+	
+
+	
+
+	/*清空input框  */
+	function clearInput() {
+		$(".bomb_box1").find("input").each(function() {
+			$(this).val("");
+		});
+		$(".bomb_box1").find("select").each(function() {
+			$(this).val("");
+		});
+		$(".bomb_box1").find("textarea").each(function() {
+			$(this).val("");
+		});
+	}
+	
+	function selecedTenxunCustomerPage(){
+		var companyName=$('#companyName').val();
+		var phone=$('#seachPhone').val();
+		table.render({
+	  	    elem: '#hrCustomerList'
+	      	,toolbar: '#export'
+	  		,defaultToolbar: ['filter','exports', { //自定义头部工具栏右侧图标。如无需自定义，去除该参数即可
+	  		     		title: '导出当前分页下的数据'
+	  		          ,layEvent: 'LAYTABLE_TIPS'
+	  		          ,icon: 'layui-icon-tips'
+	  		        }]
+	  	    ,height: 'full-115'
+	  	  	,url:"selectAllTengxunCustomer.json"
+	  	    ,where: {
+	  	    	cuId: "${cuId}",
+	  	    	companyName:companyName,
+	  	    	phone:phone
+	  	    }
+	  		,limit:60
+	   		,method:"get"
+	  	    ,page: true //开启分页
+	  	    ,parseData: function(res){
+	  			return {
+	  	  			"count":res.data.sumNum,
+	  	  			"code":res.code,
+	  				"data": res.data.list,//解析数据列表
+	  			};
+	  		},request: {
+	   		    pageName: 'pageNum' //页码的参数名称，默认：page
+	   		    ,limitName: 'pageSize' //每页数据量的参数名，默认：limit
+	  	  	},cols: [[ //表头
+	  	      {field: 'name', width:200,title: '客户名',align:'center'}
+	  	      ,{field: 'phone',width:150, title: '手机号',align:'center'}
+	  	      ,{field: 'appId', width:120,title: 'APPID',align:'center'}
+	  	      ,{field: 'companyName', width:250,title: '公司名',align:'center'}
+	  	      ,{field: 'totalNum', width:80, title: '总点数',align:'center'}
+	  	      ,{field: 'lastNum',width:100, title: '剩余点数',align:'center'}
+	  	      ,{field: 'createTime', width:200,title: '创建时间',align:'center'}
+	  	      ,{field: '', minWidth:250,title: '操作',templet:'#btn',align:'center'}
+	  	      ]]
+	  	  });
+	}
+	
+	
+	
+	function inserAllottTenxunAuth(date){
+		date.cuId=date.id;
+		$.ajax({
+			url : 'insertTenxunMachine.json',
+			data : date,
+			dataType : 'json',
+			type : 'post',
+			success : function(data) {
+				if (data.code == 0) {
+					layer.msg('保存成功！', {
+						icon : 1,
+						time : 1000
+					}, function() {
+						layer.closeAll();
+						location.reload();
+					});
+				} else {
+					layer.msg(data.msg, {
+						icon : 2,
+						time : 1000
+					});
+				}
+			}
+		});
+	}
+	
+	
+	function exportHongruan(){
+		var type=$('#type').val();
+		if(type==null || type==''){
+			layer.alert('请选择导出类型！');
+			return;
+		}
+		var time=$('#time').val();
+		if(time==null || time==''){
+			layer.alert('请选择时间！');
+			return;
+		}
+		
+		location.href="exportHongRuanInfoAuthRec.json?type="+type+"&dateStr="+time;
+	}
+	
+	
+	function random(){
+		var randomVal=uuid('32','16');
+		$('#activeKey').val(randomVal);
+	}
+	
+	
+	//**指定长度和进制的UUID  len长度   radix进制
+	function uuid(len, radix) {
+	    var chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'.split('');
+	    var uuid = [], i;
+	    radix = radix || chars.length;
+	    if (len) {
+	        for (i = 0; i < len; i++) uuid[i] = chars[0 | Math.random()*radix];
+	    } else {
+	        var r;
+	        uuid[8] = uuid[13] = uuid[18] = uuid[23] = '-';
+	        uuid[14] = '4';
+	        for (i = 0; i < 36; i++) {
+	            if (!uuid[i]) {
+	                r = 0 | Math.random()*16;
+	                uuid[i] = chars[(i == 19) ? (r & 0x3) | 0x8 : r];
+	            }
+	        }
+	    }
+	    return uuid.join('');
+	}
+	
+</script>
+</html>

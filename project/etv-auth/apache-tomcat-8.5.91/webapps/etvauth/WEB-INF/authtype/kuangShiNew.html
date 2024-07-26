@@ -1,0 +1,711 @@
+<html>
+<head>
+<meta charset="utf-8">
+<title>旷视新设备列表</title>
+<meta name="renderer" content="webkit">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<link rel="stylesheet" href="${webPath}/css/upgradeFile/upgradeFile.css?v=dss3d">
+<#include 'pubCSS.html'>
+
+</head>
+<body class="layui-layout-body">
+   <div class="right-con">
+    <div class="con-top clearfix">
+      <div class="search-box clearfix">
+				<form class="layui-form" action="" id="submit_query_form"
+					style="display: flex">
+					<div class="layui-form-item" style="display: flex">
+						<label class="layui-form-label head-seach">设备mac：</label>
+						<div class="layui-input-inline custom-size" style="flex: 1">
+							<input type="hidden" id="cuId" value="${cuId}"> <input
+								type="hidden" id="type" value="${type}"> <input
+								type="text" name="machineNo" id="machineNo" value=""
+								placeholder="设备编号" autocomplete="off" class="layui-input">
+						</div>
+					</div>
+					<div class="layui-form-item" style="display: flex">
+						<label class="layui-form-label head-seach">授权状态：</label>
+						<div class="layui-input-inline custom-size" style="flex: 1">
+							<select name="authStateSou" lay-verify="" id="authStateSou">
+								<option value="">请选择</option>
+								<option value="1">已授权</option>
+								<option value="0">已激活</option>
+								<option value="-1">未激活</option>
+							</select>
+						</div>
+					</div>
+
+					<div class="layui-form-item" style="display: flex">
+						<label class="layui-form-label head-seach">授权来源：</label>
+						<div class="layui-input-inline custom-size" style="flex: 1">
+							<select name="authOS" lay-verify="" id="authOS">
+								<option value="">请选择</option>
+								<option value="1">Android</option>
+								<option value="2">Linux</option>
+							</select>
+						</div>
+					</div>
+					<div class="layui-input-inline custom-size-btn">
+						<div class="layui-btn layui-btn-sm"
+							onclick="selecKuangShiInfo('${cuId}')">搜索</div>
+					</div>
+				</form>
+			</div>
+      <#if authId=='1'>
+       <button data-method="offset"  class="layui-btn layui-btn-sm   add_admi " onclick="editMachine()">编辑</button>
+       <button data-method="offset"  class="layui-btn layui-btn-sm layui-btn-danger add_admi" onclick="deleteBatchData()">批量删除</button>
+       <button data-method="offset"  class="layui-btn layui-btn-sm  layui-btn-danger add_admi" onclick="cleanBatchData()">批量清除</button>
+      </#if> 
+      <button data-method="offset"  class="layui-btn layui-btn-sm add_admi" onclick="updateBatchState()">批量激活</button>
+      <#if type=='-1'>
+      <button data-method="offset" data-type="top" class="layui-btn layui-btn-sm add_admi" onclick="selectLastAuthNum('${cuId}')">新增mac</button>
+      </#if>
+      <button data-method="offset" data-type="top" style="display:none" id="export" class="layui-btn layui-btn-sm add_admi">工具栏</button>
+    </div>
+    <div class="table-con">
+      <table class="layui-table" id="kuangShiList"  lay-filter="kuangShiList" >
+      </table>
+    </div>
+   </div>
+   <#include 'pubJS.html'> <!--旷世列表开始-->
+	<div class="bomb_box" style="padding: 20px;">
+		<form class="layui-form  action="">
+			<div class="table-con">
+				<div class="layui-form-item " pane=" ">
+					<label class="layui-form-label ">设备mac：</label>
+					<input type="hidden" id="id" name="id" >
+					<div class="layui-input-inline textarea_width">
+						<input type="text" name="maNo" id="maNo" class="layui-input title" lay-verify="required">
+					</div>
+				</div>
+			</div>
+			<div class="layui-form-item for_but ">
+				<button class="layui-btn editMachineNo" lay-submit=""
+					lay-filter="editMachineNo" style="display: none">保存</button>
+			</div>
+		</form>
+	</div>
+	
+	<!--弹框结束-->
+	
+	<!--编辑开始-->
+<div class="bomb_box1">
+	<form class="layui-form  action="">
+		<input type="hidden" id="id" name="id" >
+		<div class="layui-form-item active-key" >
+			<label class="layui-form-label ">mac：</label>
+			<div class="layui-input-inline textarea_width">
+				<input type="text" name="mac" id="mac" class="layui-input title" placeholder="" lay-verify="required" >
+			</div>
+		</div>
+		<div class="layui-form-item " pane=" ">
+			<label class="layui-form-label ">备注：</label>
+			<div class="layui-input-inline textarea_width">
+				<input type="text" name="remark" id="remark" class="layui-input title" >
+			</div>
+		</div>
+		<div class="layui-form-item active-key" >
+			<label class="layui-form-label ">操作密码：</label>
+			<div class="layui-input-inline textarea_width">
+				<input type="text" value="" id="username" name="username" autocomplete="off"  style="display:none;">
+				<input type="password" value="" id="password" name="password" autocomplete="no"  style="display:none;">
+				<input type="password" name="operatePwd" id="operatePwd" class="layui-input title" placeholder="" lay-verify="required" >
+			</div>
+		</div>
+		<div class="layui-form-item for_but ">
+			<button class="layui-btn editMachineNo" lay-submit="" lay-filter="formDate" style="display: none">保存</button>
+		</div>
+	</form>
+</div>
+
+<!--编辑开始-->
+<div class="bomb_box2">
+	<form class="layui-form  action="">
+		<div class="layui-form-item active-key" >
+			<label class="layui-form-label ">操作密码：</label>
+			<div class="layui-input-inline textarea_width">
+				<input type="hidden" name="ksauthId" id="ksauthId" value="">
+				<input type="text" value="" id="username" name="username" autocomplete="off"  style="display:none;">
+				<input type="password" value="" id="password" name="password" autocomplete="no"  style="display:none;">
+				<input type="password" name="operatePwd" id="operatePwd" class="layui-input title" placeholder="" lay-verify="required" >
+			</div>
+		</div>
+		<div class="layui-form-item for_but ">
+			<button class="layui-btn offlineAuth" lay-submit="" lay-filter="offlineAuth" style="display: none">保存</button>
+		</div>
+	</form>
+</div>
+
+</body>
+<script type="text/javascript" src="${webPath}js/import_excel.js?sdsd"></script>
+<script type="text/html" id="authState">
+			 {{#  if(d.maAuthState == 1 ){ }}
+               <button type="button" class="layui-btn layui-btn-sm layui-btn-radius">已授权</button> 
+              {{#  } else{ }} 
+					{{# if(d.maActivState == 0){ }}
+               			<button type="button" class="layui-btn layui-btn-sm layui-btn-normal layui-btn-radius ">已激活</button> 
+              		{{#  }else{ }}   
+			 			 <button type="button" class="layui-btn layui-btn-sm layui-btn-warm layui-btn-radius ">未激活</button> 
+			 		{{#  } }}
+			{{#  } }}        
+</script>
+<script type="text/html" id="btn">
+		  {{#  if(d.maAuthState == 1){ }}
+			  <button data-method="offset"  class="layui-btn layui-btn-sm  layui-btn-disabled" >激活</button>
+          {{#  } else { }}
+				{{# if(d.maActivState == 0){ }}
+					<button data-method="offset"  class="layui-btn layui-btn-sm  layui-btn-disabled" >激活</button>
+				{{#  } else	{ }}	
+					{{#  if(d.maNo != null && d.maNo!='' ){ }}
+						<button data-method="offset"  class="layui-btn layui-btn-sm   " onclick="updateAuthState('{{d.id}}')">激活</button>
+              		{{#  } else { }}
+						<button data-method="offset"  class="layui-btn layui-btn-sm  layui-btn-disabled" >激活</button>
+					{{#  } }} 
+				{{#  } }}  
+		{{#  } }}
+
+	{{# if(${authId} == '1'){ }}
+ 		{{#  if(d.maAuthState == 1){ }}
+			  <button data-method="offset"  class="layui-btn layui-btn-sm  layui-btn-disabled" >离线授权</button>
+          {{#  } else { }}
+				{{# if(d.maActivState == 0){ }}
+					<button data-method="offset"  class="layui-btn layui-btn-sm " onclick="offlineAuth('{{d.id}}')">离线授权</button>
+				{{#  } else	{ }}	
+					{{#  if(d.maNo != null && d.maNo!='' ){ }}
+						<button data-method="offset"  class="layui-btn layui-btn-sm   " onclick="offlineAuth('{{d.id}}')">离线授权</button>
+              		{{#  } else { }}
+						<button data-method="offset"  class="layui-btn layui-btn-sm  layui-btn-disabled" >离线授权</button>
+					{{#  } }} 
+				{{#  } }}  
+		{{#  } }}
+	{{#  } }}
+</script>
+<script type="text/html" id="checkbox">
+			  {{#  if(d.maNo != null && d.maNo!='' && d.maActivState=='-1'){ }}
+              	<input type="checkbox" lay-skin="primary" name="layTableCheckbox">
+              {{#  } else { }}
+					{{# if(d.maAuthState=='1'){ }}
+						<input type="checkbox" disabled lay-skin="primary" name="layTableCheckbox" >
+					{{#  } else if(d.maActivState=='0' || d.maActivState=='-1'){ }}	
+						{{# if(${authId} == '1'){ }}
+			  		 		<input type="checkbox" lay-skin="primary" name="layTableCheckbox">
+						{{#  } else	{ }}
+					 		<input type="checkbox" disabled lay-skin="primary" name="layTableCheckbox" >
+						{{#  } }}
+					{{#  } }}
+               {{#  } }}
+</script>
+<script type="text/html" id="authOs">
+			  {{#  if(d.maAuthOs == 1 ){ }}
+					Android
+              {{#  } else{ }} 
+					Linux
+			{{#  } }}        
+</script>
+
+<script type="text/javascript">
+	var element;
+	var layer;
+	var form;
+	var upload;
+	var laydate;
+	var webPath='${webPath}';
+	var jsonFiles;
+	var jsonFiles=new Array();
+	var table;
+	
+	layui.use(['form','element', 'layer','laydate','upload',"table"], function(){
+		
+		  element = layui.element;
+		  layer = layui.layer;
+		  upload = layui.upload;
+		  table = layui.table;
+		  form = layui.form;
+		  laydate = layui.laydate;
+		  //监听折叠
+		  element.on('collapse(filter)', function(data){
+	
+		  });
+		  
+		  
+		  
+	      // 修改旷视设备编号
+	      /*=========修改虹软设备编号结束==============  */
+	       
+	      var machineNo=$('#machineNo').val();
+			table.render({
+		    elem: '#kuangShiList'
+	    	,toolbar: '#export'
+			,defaultToolbar: ['filter','exports', { //自定义头部工具栏右侧图标。如无需自定义，去除该参数即可
+			     		title: '导出当前分页下的数据'
+			          ,layEvent: 'LAYTABLE_TIPS'
+			          ,icon: 'layui-icon-tips'
+			        }]
+		    ,height: 600
+		  	,url:"selectAuthMachineList.json"
+		    ,where: {
+		    	cuId: "${cuId}",
+		    	machineNo:machineNo,
+		    	type:"${type}"
+		    }
+			,limit:60
+	 		,method:"get"
+		    ,page: true //开启分页
+		    ,parseData: function(res){
+				return {
+		  			"count":res.data.total,
+		  			"code":res.code,
+					"data": res.data.list //解析数据列表
+				};
+			},request: {
+	 		    pageName: 'pageNum' //页码的参数名称，默认：page
+	 		    ,limitName: 'pageSize' //每页数据量的参数名，默认：limit
+		  	},cols: [[ //表头
+		  	   {field: 'id',templet:"#checkbox",width: '3%'}
+		      ,{field: 'maNo', title: '设备mac',minWidth:150,align:'center'}
+		      ,{field: 'maSystmeVersion', title: '固件版本',align:'center'}
+		      ,{field: 'maCompany', title: '设备公司',align:'center'}
+		      ,{field: 'maActiveKey', title: '授权秘钥',align:'center'}
+		      ,{field: 'maRemark', title: '备注',align:'center'}
+		      ,{field: 'maAuthTime', title: '授权时间',align:'center'}
+		      ,{field: 'maAuthOs', title: '授权来源',align:'center',templet:'#authOs'}
+		      ,{field: 'maCreateTime', title: '创建时间',sort: true, unresize: true,align:'center'}
+		      ,{field: 'maAuthState', title: '授权状态', minWidth:100, templet:'#authState',align:'center'}
+		      ,{field: '', title: '操作',templet:'#btn',align:'center',minWidth:200}
+		      ]]
+		  });
+			
+			
+			
+			
+			
+	});
+	
+	
+	/*批量激活  */
+	function updateBatchState(){
+		var checkVal = layui.table.checkStatus('kuangShiList').data;
+		if(checkVal.length<1){
+			layer.alert("请勾选设备mac!");
+			return ;
+		}
+		layer.confirm('请再次确认您要授权的mac号？', {
+            btn: ['确定','取消'], //按钮
+        }, function(){
+			
+			var ids='';
+			var idArry=[];
+			for(var i in checkVal ){
+				idArry[i]=checkVal[i].id
+			}
+			var param={"ids":idArry};
+			$.ajax({
+	  			url:'updateAuthState.json',
+	  			data:param,
+	  			dataType:'json',
+	  			type:'post',
+	  			success:function(data){
+	  				if (data.code==0) {
+	  					layer.msg('修改成功！', {icon : 1,time : 500
+	  					},function(){
+	  						layer.closeAll();
+							location.reload();
+	  					});
+	  				} else {
+	  					layer.msg(data.msg, {icon : 2,time : 1000
+	  					},function(){
+	  						layer.closeAll();
+	  					});
+	  				}
+	  			}
+	  		});
+        })
+	}
+
+	
+	function deleteBatchData(){
+		var checkVal = layui.table.checkStatus('kuangShiList').data;
+		if(checkVal.length<1){
+			layer.alert("请勾选设备mac!");
+			return ;
+		}
+		
+		layer.confirm('确定删除？', {
+            btn: ['确定','取消'], //按钮
+        }, function(){
+			
+			var ids='';
+			var idArry=[];
+			for(var i in checkVal ){
+				idArry[i]=checkVal[i].id
+			}
+			var param={"ids":idArry};
+			$.ajax({
+	  			url:'deleteBatchKsData.json',
+	  			data:param,
+	  			dataType:'json',
+	  			type:'post',
+	  			success:function(data){
+	  				if (data.code==0) {
+	  					layer.msg('修改成功！', {icon : 1,time : 500
+	  					},function(){
+	  						layer.closeAll();
+							location.reload();
+	  					});
+	  				} else {
+	  					layer.msg(data.msg, {icon : 2,time : 1000
+	  					},function(){
+	  						layer.closeAll();
+	  					});
+	  				}
+	  			}
+	  		});
+        })
+	}
+	
+	function cleanBatchData(){
+		var checkVal = layui.table.checkStatus('kuangShiList').data;
+		if(checkVal.length<1){
+			layer.alert("请勾选设备mac!");
+			return ;
+		}
+		
+		layer.confirm('确定清除数据？', {
+            btn: ['确定','取消'], //按钮
+        }, function(){
+			
+			var ids='';
+			var idArry=[];
+			for(var i in checkVal ){
+				idArry[i]=checkVal[i].id
+			}
+			var param={"ids":idArry};
+			$.ajax({
+	  			url:'updateCleanKsData.json',
+	  			data:param,
+	  			dataType:'json',
+	  			type:'post',
+	  			success:function(data){
+	  				if (data.code==0) {
+	  					layer.msg('修改成功！', {icon : 1,time : 500
+	  					},function(){
+	  						layer.closeAll();
+							location.reload();
+	  					});
+	  				} else {
+	  					layer.msg(data.msg, {icon : 2,time : 1000
+	  					},function(){
+	  						layer.closeAll();
+	  					});
+	  				}
+	  			}
+	  		});
+        })
+	}
+	
+	
+	 /* 单个激活 */
+	 function updateAuthState(id){
+		 layer.confirm('请再次确认您要授权的mac号？', {
+            btn: ['确定','取消'], //按钮
+        }, function(){
+			 var ids=[];
+			 ids[0]=id;
+			 var param={'ids':ids};
+			 $.ajax({
+		  			url:'updateAuthState.json',
+		  			data:param,
+		  			dataType:'json',
+		  			type:'post',
+		  			success:function(data){
+		  				if (data.code==0) {
+		  					layer.msg(data.msg, {icon : 1,time : 500
+		  					},function(){
+		  						layer.closeAll();
+								location.reload();
+		  					});
+		  				} else {
+		  					layer.msg(data.msg, {icon : 2,time : 1000
+		  					},function(){
+		  						layer.closeAll();
+		  					});
+		  				}
+		  			}
+		  		});
+        })
+	 }
+	
+	 /*离线授权  */
+	 function offlineAuth(id){
+		 $('#ksauthId').val(id);
+		 layer.open({
+	  			type : 1,
+	  			title : "输入",
+	  			skin : 'admi',
+	  			btn : [ '保存', '返回' ],
+	  			area : [ '550px', '200px' ],
+	  			content : $(".bomb_box2 "),
+	  			success : function(layero, index) {
+					    	form.on('submit(offlineAuth)', function(data) {
+	  						updateOfflineAuthKuangshiMachine(data.field);
+	  						return false;
+	  				});
+	  			},
+	  			yes : function(index, layero) {
+	  				layero.find('.offlineAuth').click();
+	  			}
+	  		});
+	 }
+	 
+	 
+	 function updateOfflineAuthKuangshiMachine(param){
+		 $.ajax({
+	  			url:'updateOfflineAuthKuangshiMachine.json',
+	  			data:param,
+	  			dataType:'json',
+	  			type:'post',
+	  			success:function(data){
+	  				if (data.code==0) {
+	  					layer.msg(data.msg, {icon : 1,time : 500
+	  					},function(){
+	  						layer.closeAll();
+							location.reload();
+	  					});
+	  				} else {
+	  					layer.msg(data.msg, {icon : 2,time : 1000
+	  					},function(){
+	  						layer.closeAll();
+	  					});
+	  				}
+	  			}
+	  		});
+	 }
+	 
+	 function editMachine(){
+			var checkVal = layui.table.checkStatus('kuangShiList').data;
+			
+			if(checkVal.length<1){
+				layer.alert("请勾选设备mac!");
+				return ;
+			}
+			
+			$('#id').val(checkVal[0].id);
+		 	$('#mac').val(checkVal[0].maNo);
+		 	$('#remark').val(checkVal[0].maRemark);
+			layer.open({
+	  			type : 1,
+	  			title : "修改",
+	  			skin : 'admi',
+	  			btn : [ '保存', '返回' ],
+	  			area : [ '620px', '390px' ],
+	  			content : $(".bomb_box1 "),
+	  			success : function(layero, index) {
+					    	form.on('submit(formDate)', function(data) {
+					    		updateMachineInfo(data.field);
+	  						return false;
+	  				});
+	  			},
+	  			yes : function(index, layero) {
+	  				layero.find('.editMachineNo').click();
+	  			}
+	  		});
+	 }
+	 
+	 
+	 
+	/*编辑设备mac弹窗  */
+	 function editMachineNo(maNo,id){
+			$('#id').val(id);
+			 $('#maNo').val(maNo);
+			 form.render(); 
+			 layer.open({
+		  			type : 1,
+		  			title : "编辑mac",
+		  			skin : 'admi',
+		  			btn : [ '保存','关闭' ],
+		  			area : [ '595px', '300px' ],
+		  			content : $(".bomb_box "),
+		  			success : function(layero, index) {
+		  				form.on('submit(editMachineNo)', function(data) {
+		  					updateMachineNo(data.field);
+							return false;
+						});
+		  			},
+		  			yes : function(index, layero) {
+						layero.find('.editMachineNo').click();
+					}
+		  		});
+	 }
+	
+	/* 编辑设备mac */
+	 function updateMachineInfo(data){
+		 
+		  var cuId= $('#cuId').val();
+	   	  $.ajax({
+	 			url:'updateKuangShiInfo.json',
+	 			data:{'id':data.id,"machineNo":data.maNo,"cuId":cuId},
+	 			dataType:'json',
+	 			type:'post',
+	 			success:function(data){
+	 				if (data.code==0) {
+	 					layer.msg(data.msg, {icon : 1,time : 1000
+	 					},function(){
+	  						layer.closeAll();
+							location.reload();
+	  					});
+	 				} else {
+	 					layer.msg(data.msg, {icon : 2,time : 1000
+	 					},function(){
+	 						table.reload('kuangShiList',{
+	 						where:{
+	 							cuId:cuId
+	 						}	
+	 						})
+	 					});
+	 				}
+	 			}
+	 		});	
+	 }
+	 
+	 
+	
+	
+	
+	 
+	/*新增旷视授权设备  */
+	function insertKuangShiMachine(data){
+		var cuId=$('#cuId').val();
+		 $.ajax({
+	  			url:'insertKuangShiMachine.json',
+	  			data:{'cuId':cuId,"machineNo":data.machineNo},
+	  			dataType:'json',
+	  			type:'post',
+	  			success:function(data){
+	  				if (data.code==0) {
+	  					layer.msg('保存成功！', {icon : 1,time : 500
+	  					},function(){
+	  						layer.closeAll();
+							location.reload();
+	  					});
+	  				} else {
+	  					layer.msg(data.msg, {icon : 2,time : 1000
+	  					},function(){
+	  						layer.closeAll();
+	  					});
+	  				}
+	  			}
+	  		});	
+	
+	}
+	
+	/* /*查询设备授权剩余点数  */
+	/* function selectLastAuthNum(cuId){
+		$.ajax({
+  			url:'selectLastAuthNum.json',
+  			data:{'cuId':cuId},
+  			dataType:'json',
+  			type:'post',
+  			success:function(data){
+  				if (data.code==0) {
+  					var authNum=data.data
+  					if(authNum<1){
+  						layer.closeAll();
+  						layer.msg('授权点数不足！', {icon : 2,time : 2000
+	  					});
+  						return;
+  					}
+  					$('#authNum').text(data.data);
+  					clickAddMachine();
+  				} else {
+  					layer.msg(data.msg, {icon : 2,time : 2000
+  					});
+  				}
+  			}
+  		});	
+	}  */
+	
+	
+	/*删除设备  */
+	function deleteMachineNo(id){
+		 var cuId=$('#cuId').val();
+		 layer.confirm('确定要删除mac？', {
+             btn: ['确定','取消'], //按钮
+         }, function(){
+             $.ajax({
+       			url:'deleteMachineNo.json',
+       			data:{'id':id},
+       			dataType:'json',
+       			type:'post',
+       			success:function(data){
+       				if (data.code==0) {
+       					layer.closeAll();
+       					layer.msg(data.msg, {icon : 1,time : 1000
+       					},function(){
+       					 location.reload();
+       						
+       					});
+       					
+       				} else {
+       					layer.msg(data.msg, {icon : 2,time : 1000
+       					});
+       				}
+       			}
+       		});	
+         });
+	}
+	
+	
+	
+	/* 查询旷视授权设备列表 */
+    function selecKuangShiInfo(id){
+    		var machineNo=$('#machineNo').val();
+    		var authState=$('#authStateSou').val();
+    		var authOS=$('#authOS').val();
+    		var type=$('#type').val();
+   			table.render({
+			    elem: '#kuangShiList'
+		    	,toolbar: '#export'
+				,defaultToolbar: ['filter', 'exports',{ //自定义头部工具栏右侧图标。如无需自定义，去除该参数即可
+				      title: '导出当前分页下的数据'
+				          ,layEvent: 'LAYTABLE_TIPS'
+				          ,icon: 'layui-icon-tips'
+				        }]
+			    ,height: 600
+			  	,url:"selectAuthMachineList.json"
+			    ,where: {
+			    	cuId: id,
+			    	machineNo:machineNo,
+			    	type:type,
+			    	authState:authState,
+			    	authOS:authOS
+			    }
+   				,limit:60
+		 		,method:"get"
+			    ,page: true //开启分页
+			    ,parseData: function(res){
+					return {
+	 		  			"count":res.data.total,
+	 		  			"code":res.code,
+						"data": res.data.list //解析数据列表
+					};
+				},request: {
+		 		    pageName: 'pageNum' //页码的参数名称，默认：page
+		 		    ,limitName: 'pageSize' //每页数据量的参数名，默认：limit
+	 		  	},cols: [[ //表头
+	 		  		   {field: 'id',templet:"#checkbox",width: '3%'}
+	 		  		   ,{field: 'maNo', title: '设备mac',minWidth:150}
+	 			      ,{field: 'maSystmeVersion', title: '固件版本'}
+	 			      ,{field: 'maCompany', title: '设备公司',align:'center'}
+	 			      ,{field: 'maActiveKey', title: '授权秘钥'}
+	 			     ,{field: 'maRemark', title: '备注',align:'center'}
+	 			      ,{field: 'maAuthTime', title: '授权时间'}
+	 			      ,{field: 'maCreateTime', title: '创建时间',sort: true, unresize: true}
+	 			     ,{field: 'maAuthOs', title: '授权来源',align:'center',templet:'#authOs'}
+	 			     ,{field: 'maAuthState', title: '授权状态', minWidth:100, templet:'#authState'}
+	 			      ,{field: '', title: '操作',templet:'#btn',minWidth:200}
+				]]
+			  });
+	}
+	
+	</script>

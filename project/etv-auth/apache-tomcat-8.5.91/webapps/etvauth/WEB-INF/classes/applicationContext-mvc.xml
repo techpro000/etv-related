@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+	http://www.springframework.org/schema/context 
+	http://www.springframework.org/schema/context/spring-context.xsd
+	http://www.springframework.org/schema/mvc 
+	http://www.springframework.org/schema/mvc/spring-mvc.xsd
+	http://www.springframework.org/schema/aop 
+	http://www.springframework.org/schema/aop/spring-aop.xsd"
+	default-lazy-init="true">
+	<!-- 开始注解的方式 -->
+	<mvc:annotation-driven>
+	<mvc:message-converters>
+	<!--将时间戳转换成日期格式  -->  
+            <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">  
+                <property name="objectMapper">  
+                    <bean class="com.fasterxml.jackson.databind.ObjectMapper">  
+                        <property name="dateFormat">  
+                            <bean class="java.text.SimpleDateFormat">  
+                                <constructor-arg type="java.lang.String" value="yyyy-MM-dd HH:mm:ss" />  
+                            </bean>  
+                            
+                        </property>  
+                        <!-- 时区指定 -->
+                        <property name="timeZone" value="GMT+8" />
+                    </bean>  
+                </property>  
+            </bean>  
+        </mvc:message-converters>  
+    </mvc:annotation-driven>
+	<!-- 扫描 -->
+	<context:component-scan base-package="com.etv.manage.controller,com.etv.manage.clientApi"></context:component-scan>
+	<mvc:resources location="/" mapping="/**/*.png"/> 
+	<mvc:resources location="/" mapping="/**/*.ico"/>
+	<mvc:resources location="/" mapping="/**/*.gif"/> 
+	<mvc:resources location="/" mapping="/**/*.jpg"/> 
+	<mvc:resources location="/" mapping="/**/*.js"/>
+	<mvc:resources location="/" mapping="/**/*.css"/>
+	<mvc:resources location="/" mapping="/**/*.html"/>
+	<mvc:resources location="/" mapping="/**/*.txt"/>
+	<mvc:resources location="/" mapping="/**/*.ttf"/>
+	<mvc:resources location="/" mapping="/**/*.woff"/>
+	<!--开启AOP自动代理 -->
+	<aop:aspectj-autoproxy proxy-target-class="true" />
+	<!-- 开启aop，对类代理 -->
+	<aop:config proxy-target-class="true"></aop:config>
+	
+	
+	<!-- 针对freemarker的视图配置 -->  
+    <bean id="viewResolver"  
+        class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">  
+        <property name="cache" value="true" />
+        <property name="prefix" value="" />  
+        <property name="suffix" value=".html" />  
+        <property name="contentType" value="text/html;charset=UTF-8"></property>  
+        <!-- 结果是请求和会话属性都被复制到模板的属性集中，可以使用FreeMarker的表达式语言来访问并显示 -->
+        <property name="requestContextAttribute" value="request" />  
+        <property name="exposeSpringMacroHelpers" value="true" />  
+        <property name="exposeRequestAttributes" value="true" />  
+        <property name="exposeSessionAttributes" value="true" />  
+    </bean> 
+	<!-- 配置freeMarker视图解析器 -->  
+    <bean id="freemarkerConfig"  
+        class="com.etv.manage.freeMarker.ShiroTagFreeMarkerConfigurer">  
+        <property name="templateLoaderPath" value="/" />  
+        <property name="freemarkerSettings">  
+            <props>  
+                <prop key="template_update_delay">0</prop>  
+                <prop key="default_encoding">UTF-8</prop>  
+                <prop key="number_format">,###.##</prop>  
+                <prop key="datetime_format">yyyy-MM-dd</prop>  
+                <prop key="classic_compatible">true</prop>  
+                <prop key="template_exception_handler">ignore</prop>  
+            </props>  
+        </property>  
+    </bean> 
+     
+	<!-- 2016年4月新增 JSON视图配置,输出对象转JSON支持 避免IE执行AJAX时，返回JSON出现下载文件 -->
+	<bean id="messageConverter"
+		class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+		<property name="supportedMediaTypes">
+			<list>
+				<value>application/json; charset=UTF-8</value>
+				<value>text/html; charset=UTF-8</value>
+				<value>text/javascript; charset=UTF-8</value>
+			</list>
+		</property>
+	</bean>
+	
+
+
+	<!-- SpringMVC在超出上传文件限制时,会抛出org.springframework.web.multipart.MaxUploadSizeExceededException -->
+	<!-- 该异常是SpringMVC在检查上传的文件信息时抛出来的,而且此时还没有进入到Controller方法中 -->
+	<bean id="exceptionResolver"
+		class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+		<property name="exceptionMappings">
+			<props>
+				<!-- 遇到MaxUploadSizeExceededException异常时,自动跳转到/WEB-INF/jsp/error_fileupload.jsp页面 -->
+				<prop
+					key="org.springframework.web.multipart.MaxUploadSizeExceededException">error_fileupload</prop>
+			</props>
+		</property>
+	</bean>
+	
+	
+
+	<!--文件上传设置 -->
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize">
+			<value>10995116277760</value><!-- 文件上传最大为10M -->
+		</property>
+		<property name="maxInMemorySize" value="4096" />
+	</bean>
+	
+	
+	
+	<bean class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean" id="contentNegotiationManagerFactoryBean">
+             <property name="favorPathExtension" value="false"/>
+             <property name="favorParameter" value="false"/>
+             <property name="ignoreAcceptHeader" value="false"/>
+             <property name="mediaTypes">
+                <map>  
+                  <entry key="xml" value="application/xml"/>  
+                  <entry key="json" value="application/json"/>  
+                  <entry key="xls" value="application/vnd.ms-excel"/>
+              	</map>
+             </property>
+      </bean>
+      <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter" id="mappingJacksonHttpMessageConverter">
+             <property name="supportedMediaTypes">
+                 <list>
+                     <value>text/html;charset=UTF-8</value>
+                 </list>
+             </property>
+      </bean>
+      <bean id="annotationMethodHandlerAdapter" class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+             <property name="messageConverters">
+                 <list>
+                     <ref bean="mappingJacksonHttpMessageConverter"/>
+                 </list>
+             </property>
+      </bean>
+
+	  <bean id="exceptionHandler" class="com.etv.manage.exception.MyExceptionHandler"/>   
+      
+</beans>

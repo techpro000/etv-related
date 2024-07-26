@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:task="http://www.springframework.org/schema/task" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:cache="http://www.springframework.org/schema/cache"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+		                   http://www.springframework.org/schema/beans/spring-beans-4.0.xsd 
+		                   http://www.springframework.org/schema/tx 
+		                   http://www.springframework.org/schema/tx/spring-tx-4.0.xsd 
+		                   http://www.springframework.org/schema/jee 
+		                   http://www.springframework.org/schema/jee/spring-jee-4.0.xsd 
+		                   http://www.springframework.org/schema/aop 
+		                   http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+		                   http://www.springframework.org/schema/task
+		                   http://www.springframework.org/schema/task/spring-task-4.0.xsd
+		                   http://www.springframework.org/schema/context 
+		                   http://www.springframework.org/schema/context/spring-context-4.0.xsd
+		                   http://www.springframework.org/schema/cache
+		                   http://www.springframework.org/schema/cache/spring-cache-4.2.xsd">
+
+	<!-- 属性文件读入 -->
+	<bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath*:jdbc.properties</value>
+				<value>classpath*:log4j.properties</value>
+			</list>
+		</property>
+	</bean>
+	<!-- 自动扫描组件 -->
+	<context:component-scan base-package="com.etv.manage.*"/>
+	<!-- 开启aop，对类代理 -->
+	 <!-- <aop:config proxy-target-class="true"></aop:config>  -->
+	
+
+	<!-- 开启AOP监听 只对当前配置文件有效 -->
+	<aop:aspectj-autoproxy />
+	
+    
+    <bean id="exceptionHandler" class="com.etv.manage.aop.ExceptionAspect" />
+	
+	<aop:config>
+    	<aop:aspect ref="exceptionHandler" order="4">
+    		<aop:pointcut id="exceptionService" expression="execution(* com.etv.manage.service.impl.*.*(..))" />
+    		<aop:after-throwing pointcut-ref="exceptionService" method="afterThrowing" throwing="e"/>
+    	</aop:aspect>
+    </aop:config>
+    
+    
+    <bean id="logHandler" class="com.etv.manage.aop.LogAspect" />
+	<bean id="clientLogHandler" class="com.etv.manage.aop.ClientLogHandler" />
+	<aop:config>
+    	<aop:aspect ref="logHandler" order="5">
+    		<aop:pointcut id="logController" expression="execution(* com.etv.manage.controller.*.*(..))" />
+    		<aop:before pointcut-ref="logController" method="before"/>
+    	</aop:aspect>
+    </aop:config>
+    
+ 	<aop:config>
+    	<aop:aspect ref="clientLogHandler" order="6">
+    		<aop:pointcut id="clientLogController" expression="execution(* com.etv.manage.clientApi.ApiServer.*(..))" />
+            <aop:around pointcut-ref="clientLogController" method="around"/>
+    	</aop:aspect>
+    </aop:config>
+	
+	<bean id="SpringContextHolderUtil" class="com.etv.manage.utils.tool.SpringContextHolder" lazy-init="false" />
+</beans>

@@ -1,0 +1,6 @@
+project/etv_bootserver/etv-0.0.1.jar filter=lfs diff=lfs merge=lfs -text
+project/etv_bootserver/etvauthoriz.sql filter=lfs diff=lfs merge=lfs -text
+project/esonCloud-customer/eson-gateway/eson-gateway.jar filter=lfs diff=lfs merge=lfs -text
+project/esonCloud-customer/eson-auth/eson-auth.jar filter=lfs diff=lfs merge=lfs -text
+project/esonCloud-customer/eson-sys/eson-modules-system.jar filter=lfs diff=lfs merge=lfs -text
+project/esonCloud-customer/eson-customerManager/eson-modules-customer.jar filter=lfs diff=lfs merge=lfs -text

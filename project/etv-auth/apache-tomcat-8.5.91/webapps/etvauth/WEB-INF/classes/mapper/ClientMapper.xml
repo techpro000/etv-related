@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.etv.manage.dao.ClientMapper" >
+  <resultMap id="BaseResultMap" type="com.etv.manage.model.Client" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="CL_NO" property="clNo" jdbcType="VARCHAR" />
+    <result column="CL_OWNER" property="clOwner" jdbcType="VARCHAR" />
+    <result column="CL_PHONE" property="clPhone" jdbcType="VARCHAR" />
+    <result column="CL_AUTH_STATE" property="clAuthState" jdbcType="VARCHAR" />
+    <result column="CL_CREATE_TIME" property="clCreateTime" jdbcType="TIMESTAMP" />
+    <result column="Cl_UPDATE_TIME" property="clUpdateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, CL_NO, CL_OWNER, CL_PHONE, CL_AUTH_STATE, CL_CREATE_TIME, Cl_UPDATE_TIME
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from ETV_CLIENT
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from ETV_CLIENT
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.etv.manage.model.Client" >
+    insert into ETV_CLIENT (ID, CL_NO, CL_OWNER, 
+      CL_PHONE, CL_AUTH_STATE, CL_CREATE_TIME, 
+      Cl_UPDATE_TIME)
+    values (#{id,jdbcType=INTEGER}, #{clNo,jdbcType=VARCHAR}, #{clOwner,jdbcType=VARCHAR}, 
+      #{clPhone,jdbcType=VARCHAR}, #{clAuthState,jdbcType=VARCHAR}, #{clCreateTime,jdbcType=TIMESTAMP}, 
+      #{clUpdateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.etv.manage.model.Client" >
+    insert into ETV_CLIENT
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="clNo != null" >
+        CL_NO,
+      </if>
+      <if test="clOwner != null" >
+        CL_OWNER,
+      </if>
+      <if test="clPhone != null" >
+        CL_PHONE,
+      </if>
+      <if test="clAuthState != null" >
+        CL_AUTH_STATE,
+      </if>
+      <if test="clCreateTime != null" >
+        CL_CREATE_TIME,
+      </if>
+      <if test="clUpdateTime != null" >
+        Cl_UPDATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="clNo != null" >
+        #{clNo,jdbcType=VARCHAR},
+      </if>
+      <if test="clOwner != null" >
+        #{clOwner,jdbcType=VARCHAR},
+      </if>
+      <if test="clPhone != null" >
+        #{clPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="clAuthState != null" >
+        #{clAuthState,jdbcType=VARCHAR},
+      </if>
+      <if test="clCreateTime != null" >
+        #{clCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="clUpdateTime != null" >
+        #{clUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.etv.manage.model.Client" >
+    update ETV_CLIENT
+    <set >
+      <if test="clNo != null" >
+        CL_NO = #{clNo,jdbcType=VARCHAR},
+      </if>
+      <if test="clOwner != null" >
+        CL_OWNER = #{clOwner,jdbcType=VARCHAR},
+      </if>
+      <if test="clPhone != null" >
+        CL_PHONE = #{clPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="clAuthState != null" >
+        CL_AUTH_STATE = #{clAuthState,jdbcType=VARCHAR},
+      </if>
+      <if test="clCreateTime != null" >
+        CL_CREATE_TIME = #{clCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="clUpdateTime != null" >
+        Cl_UPDATE_TIME = #{clUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.etv.manage.model.Client" >
+    update ETV_CLIENT
+    set CL_NO = #{clNo,jdbcType=VARCHAR},
+      CL_OWNER = #{clOwner,jdbcType=VARCHAR},
+      CL_PHONE = #{clPhone,jdbcType=VARCHAR},
+      CL_AUTH_STATE = #{clAuthState,jdbcType=VARCHAR},
+      CL_CREATE_TIME = #{clCreateTime,jdbcType=TIMESTAMP},
+      Cl_UPDATE_TIME = #{clUpdateTime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <!--自定义sql  -->
+  
+  
+  <!--分页查询 -->
+  <select id="selectPageClient" parameterType="map" resultMap="BaseResultMap">
+  	select 
+    <include refid="Base_Column_List" />
+    from ETV_CLIENT
+    where 1=1
+    <if test="telephone!=null and telephone!=''">
+    	and  CL_PHONE 
+    	like CONCAT(CONCAT('%', ltrim(rtrim(#{telephone,jdbcType=VARCHAR}))),'%')
+    </if>
+    <if test="username!=null and username!=''">
+    	and CL_OWNER 
+		like CONCAT(CONCAT('%', ltrim(rtrim(#{username,jdbcType=VARCHAR}))),'%')
+    </if>
+    <if test="clientNo!=null and clientNo!=''">
+    	and CL_NO 
+    	like CONCAT(CONCAT('%', ltrim(rtrim(#{clientNo,jdbcType=VARCHAR}))),'%')
+    </if>
+      order by CL_CREATE_TIME desc limit #{pageNo},#{pageSize}
+  </select>
+  
+  <!--查询分页数量  -->
+  <select id="selectCountClient" parameterType="map" resultType="int">
+  	select count(id)
+    from ETV_CLIENT
+    where 1=1
+    <if test="telephone!=null and telephone!=''">
+    	and  CL_PHONE 
+    	like CONCAT(CONCAT('%', ltrim(rtrim(#{telephone,jdbcType=VARCHAR}))),'%')
+    </if>
+    <if test="username!=null and username!=''">
+    	and CL_OWNER 
+		like CONCAT(CONCAT('%', ltrim(rtrim(#{username,jdbcType=VARCHAR}))),'%')
+    </if>
+    <if test="clientNo!=null and clientNo!=''">
+    	and CL_NO 
+    	like CONCAT(CONCAT('%', ltrim(rtrim(#{clientNo,jdbcType=VARCHAR}))),'%')
+    </if>
+  </select>
+  
+  <!--批量新增设备  -->
+  <insert id="insertBatchClient">
+  insert into ETV_CLIENT (CL_NO, CL_OWNER, 
+      CL_PHONE, CL_AUTH_STATE, CL_CREATE_TIME, 
+      Cl_UPDATE_TIME)
+    values
+     <foreach collection ="clientList" item="client" index= "index" separator =",">
+         (
+         #{client.clNo}, #{client.clOwner},
+         #{client.clPhone},
+         #{client.clAuthState},
+         #{client.clCreateTime}, #{client.clUpdateTime}
+         )
+     </foreach >
+  </insert>
+  
+  <!--根据客户名和手机号查询设备信息 -->
+  <select id="selectAuthClientByNameAndPhone" parameterType="map" resultType="map">
+	  select CL_NO as clNo, CL_OWNER as userName, 
+      CL_PHONE as phone, CL_AUTH_STATE as authState
+      from ETV_CLIENT
+	  where CL_PHONE=#{phone,jdbcType=VARCHAR}
+	  and CL_OWNER=#{userName,jdbcType=VARCHAR}
+  </select>
+  
+  <!--根据设备编号和用户名查询设备是否授权过  -->
+  <select id="selectClientInfoByClNoAndName" parameterType="map" resultMap="BaseResultMap">
+  	select 
+    <include refid="Base_Column_List" />
+    from ETV_CLIENT
+    where CL_NO = #{clNo,jdbcType=VARCHAR} and CL_OWNER=#{name,jdbcType=VARCHAR}
+  </select>
+  
+  <!--批量修改授权状态 -->
+	 <update id="updateBatchAuthStateByClNo" >
+	  update ETV_CLIENT
+  			set CL_AUTH_STATE=1 
+  			where ID in 
+		<foreach collection="ids" item="id"  open="(" close=")" separator=",">
+       		#{id,jdbcType=INTEGER}
+	 	</foreach>
+	 </update>
+	 
+	 <!--导出授权设备查询  -->
+	<select id="exportAuthClient" resultType="map" parameterType="map">
+		select 
+	     CL_NO as clNo, CL_OWNER as userName,
+     	 CL_PHONE as phone, CL_AUTH_STATE as authState
+	    from ETV_CLIENT
+	    where 1=1
+	    <if test="telephone!=null and telephone!=''">
+	    	and  CL_PHONE 
+	    	like CONCAT(CONCAT('%', ltrim(rtrim(#{telephone,jdbcType=VARCHAR}))),'%')
+	    </if>
+	    <if test="username!=null and username!=''">
+	    	and CL_OWNER 
+			like CONCAT(CONCAT('%', ltrim(rtrim(#{username,jdbcType=VARCHAR}))),'%')
+	    </if>
+	    <if test="clientNo!=null and clientNo!=''">
+	    	and CL_NO 
+	    	like CONCAT(CONCAT('%', ltrim(rtrim(#{clientNo,jdbcType=VARCHAR}))),'%')
+	    </if>
+	      order by CL_CREATE_TIME desc
+	</select> 
+	 
+	 <!--批量查询设备信息 -->
+	 <select id="selectBatchClInfoById" resultType="map">
+	 	select 
+	    CL_NO as clNo, CL_OWNER as userName, 
+      	CL_PHONE as phone, CL_AUTH_STATE as authState
+	    from ETV_CLIENT where id in
+	 	<foreach collection="ids" item="id"  open="(" close=")" separator=",">
+       		#{id,jdbcType=INTEGER}
+	 	</foreach>
+	 </select>
+	 
+	 
+	  <!--根据设备编号和用户名查询设备是否授权过  -->
+  <select id="selectClientInfoByClNo" parameterType="string" resultMap="BaseResultMap">
+  	select 
+    <include refid="Base_Column_List" />
+    from ETV_CLIENT
+    where CL_NO = #{clNo,jdbcType=VARCHAR}
+  </select>
+</mapper>

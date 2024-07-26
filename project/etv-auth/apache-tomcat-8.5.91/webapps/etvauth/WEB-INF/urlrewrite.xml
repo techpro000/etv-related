@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE urlrewrite PUBLIC "-//tuckey.org//DTD UrlRewrite 2.6//EN"
+        "http://tuckey.org/res/dtds/urlrewrite2.6.dtd">
+<urlrewrite>
+
+
+	
+	<rule>
+		<note>通用跳转</note>
+		<from>^/([a-z_=0-9A-Z/]+).html$</from>
+		<to type="forward">/jump.htm?viewName=$1</to>
+	</rule>	
+	<rule>
+		<note>通用跳转1</note>
+		<from>^/([a-z_=0-9A-Z/]+).html([A-Za-z0-9;\-\=]+)$</from>
+		<to type="forward">/jump.htm?viewName=$1</to>
+	</rule>	
+	<rule>
+		<note>首页</note>
+		<from>^/$</from>
+		<to type="forward">/jump.htm?viewName=index</to>
+	</rule>
+	<rule>
+		<note>首页2</note>
+		<from>^/;JSESSIONID=([a-z0-9-]+)$</from>
+		<to type="forward">/jump.htm?viewName=index</to>
+	</rule>
+	
+	
+</urlrewrite>
+

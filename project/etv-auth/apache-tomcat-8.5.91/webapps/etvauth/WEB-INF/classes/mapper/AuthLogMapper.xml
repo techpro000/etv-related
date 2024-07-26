@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.etv.manage.dao.AuthLogMapper" >
+  <resultMap id="BaseResultMap" type="com.etv.manage.model.AuthLog" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="APP_ID" property="appId" jdbcType="VARCHAR" />
+    <result column="MACHINE_NO" property="machineNo" jdbcType="VARCHAR" />
+    <result column="SYSTEM_VERSION" property="systemVersion" jdbcType="VARCHAR" />
+    <result column="AUTH_TYPE" property="authType" jdbcType="VARCHAR" />
+    <result column="AUTH_ACTIVE_KEY" property="authActiveKey" jdbcType="VARCHAR" />
+    <result column="AUTH_STATE" property="authState" jdbcType="VARCHAR" />
+    <result column="IS_REPEAT_AUTH" property="isRepeatAuth" jdbcType="INTEGER" />
+    <result column="IS_NEW" property="isNew" jdbcType="INTEGER" />
+    <result column="RESULT_CODE" property="resultCode" jdbcType="INTEGER" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.etv.manage.model.AuthLog" extends="BaseResultMap" >
+    <result column="RESULT_MSG" property="resultMsg" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, APP_ID, MACHINE_NO, SYSTEM_VERSION, AUTH_TYPE, AUTH_ACTIVE_KEY, AUTH_STATE, IS_REPEAT_AUTH, 
+    IS_NEW, RESULT_CODE, CREATE_TIME
+  </sql>
+  <sql id="Blob_Column_List" >
+    RESULT_MSG
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from etv_auth_log
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from etv_auth_log
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.etv.manage.model.AuthLog" >
+    insert into etv_auth_log (ID, APP_ID, MACHINE_NO, 
+      SYSTEM_VERSION, AUTH_TYPE, AUTH_ACTIVE_KEY, 
+      AUTH_STATE, IS_REPEAT_AUTH, IS_NEW, 
+      RESULT_CODE, CREATE_TIME, RESULT_MSG
+      )
+    values (#{id,jdbcType=VARCHAR}, #{appId,jdbcType=VARCHAR}, #{machineNo,jdbcType=VARCHAR}, 
+      #{systemVersion,jdbcType=VARCHAR}, #{authType,jdbcType=VARCHAR}, #{authActiveKey,jdbcType=VARCHAR}, 
+      #{authState,jdbcType=VARCHAR}, #{isRepeatAuth,jdbcType=INTEGER}, #{isNew,jdbcType=INTEGER}, 
+      #{resultCode,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{resultMsg,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.etv.manage.model.AuthLog" >
+    insert into etv_auth_log
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="appId != null" >
+        APP_ID,
+      </if>
+      <if test="machineNo != null" >
+        MACHINE_NO,
+      </if>
+      <if test="systemVersion != null" >
+        SYSTEM_VERSION,
+      </if>
+      <if test="authType != null" >
+        AUTH_TYPE,
+      </if>
+      <if test="authActiveKey != null" >
+        AUTH_ACTIVE_KEY,
+      </if>
+      <if test="authState != null" >
+        AUTH_STATE,
+      </if>
+      <if test="isRepeatAuth != null" >
+        IS_REPEAT_AUTH,
+      </if>
+      <if test="isNew != null" >
+        IS_NEW,
+      </if>
+      <if test="resultCode != null" >
+        RESULT_CODE,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="resultMsg != null" >
+        RESULT_MSG,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="appId != null" >
+        #{appId,jdbcType=VARCHAR},
+      </if>
+      <if test="machineNo != null" >
+        #{machineNo,jdbcType=VARCHAR},
+      </if>
+      <if test="systemVersion != null" >
+        #{systemVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="authType != null" >
+        #{authType,jdbcType=VARCHAR},
+      </if>
+      <if test="authActiveKey != null" >
+        #{authActiveKey,jdbcType=VARCHAR},
+      </if>
+      <if test="authState != null" >
+        #{authState,jdbcType=VARCHAR},
+      </if>
+      <if test="isRepeatAuth != null" >
+        #{isRepeatAuth,jdbcType=INTEGER},
+      </if>
+      <if test="isNew != null" >
+        #{isNew,jdbcType=INTEGER},
+      </if>
+      <if test="resultCode != null" >
+        #{resultCode,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="resultMsg != null" >
+        #{resultMsg,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.etv.manage.model.AuthLog" >
+    update etv_auth_log
+    <set >
+      <if test="appId != null" >
+        APP_ID = #{appId,jdbcType=VARCHAR},
+      </if>
+      <if test="machineNo != null" >
+        MACHINE_NO = #{machineNo,jdbcType=VARCHAR},
+      </if>
+      <if test="systemVersion != null" >
+        SYSTEM_VERSION = #{systemVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="authType != null" >
+        AUTH_TYPE = #{authType,jdbcType=VARCHAR},
+      </if>
+      <if test="authActiveKey != null" >
+        AUTH_ACTIVE_KEY = #{authActiveKey,jdbcType=VARCHAR},
+      </if>
+      <if test="authState != null" >
+        AUTH_STATE = #{authState,jdbcType=VARCHAR},
+      </if>
+      <if test="isRepeatAuth != null" >
+        IS_REPEAT_AUTH = #{isRepeatAuth,jdbcType=INTEGER},
+      </if>
+      <if test="isNew != null" >
+        IS_NEW = #{isNew,jdbcType=INTEGER},
+      </if>
+      <if test="resultCode != null" >
+        RESULT_CODE = #{resultCode,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="resultMsg != null" >
+        RESULT_MSG = #{resultMsg,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.etv.manage.model.AuthLog" >
+    update etv_auth_log
+    set APP_ID = #{appId,jdbcType=VARCHAR},
+      MACHINE_NO = #{machineNo,jdbcType=VARCHAR},
+      SYSTEM_VERSION = #{systemVersion,jdbcType=VARCHAR},
+      AUTH_TYPE = #{authType,jdbcType=VARCHAR},
+      AUTH_ACTIVE_KEY = #{authActiveKey,jdbcType=VARCHAR},
+      AUTH_STATE = #{authState,jdbcType=VARCHAR},
+      IS_REPEAT_AUTH = #{isRepeatAuth,jdbcType=INTEGER},
+      IS_NEW = #{isNew,jdbcType=INTEGER},
+      RESULT_CODE = #{resultCode,jdbcType=INTEGER},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      RESULT_MSG = #{resultMsg,jdbcType=LONGVARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.etv.manage.model.AuthLog" >
+    update etv_auth_log
+    set APP_ID = #{appId,jdbcType=VARCHAR},
+      MACHINE_NO = #{machineNo,jdbcType=VARCHAR},
+      SYSTEM_VERSION = #{systemVersion,jdbcType=VARCHAR},
+      AUTH_TYPE = #{authType,jdbcType=VARCHAR},
+      AUTH_ACTIVE_KEY = #{authActiveKey,jdbcType=VARCHAR},
+      AUTH_STATE = #{authState,jdbcType=VARCHAR},
+      IS_REPEAT_AUTH = #{isRepeatAuth,jdbcType=INTEGER},
+      IS_NEW = #{isNew,jdbcType=INTEGER},
+      RESULT_CODE = #{resultCode,jdbcType=INTEGER},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  
+  
+  <!--自定义sql  -->
+  
+  <!--查询授权日志  -->
+  <select id="selectAuthLogByAppId" parameterType="String" resultType="map">
+  select APP_ID appId, MACHINE_NO machineNo, SYSTEM_VERSION sysVersion, AUTH_TYPE authType,
+   CREATE_TIME createTime, cu.CU_NAME customerName,RESULT_MSG resultMsg,AUTH_STATE authState, 
+   AUTH_ACTIVE_KEY authActiveKey,RESULT_CODE resultCode,IFNULL(IS_REPEAT_AUTH,'0') isRepeatAuth,cu.id cuId
+  from ETV_AUTH_LOG lg 
+  left join ETV_CUSTOMER cu on cu.CU_APPID=lg.APP_ID
+  where 1=1
+  <if test="appId!=null and appId!=''">
+  	and cu.CU_APPID=#{appId,jdbcType=VARCHAR} 
+  </if>
+  <if test="activeKey !=null and activeKey !=''">
+  	and AUTH_ACTIVE_KEY=#{activeKey,jdbcType=VARCHAR} 
+  </if>
+   <if test="resCode !=null and resCode !=''">
+   and RESULT_CODE=#{resCode,jdbcType=VARCHAR} 
+  </if>
+   <if test="callBack !=null and callBack !=''">
+   and AUTH_STATE=#{callBack,jdbcType=VARCHAR} 
+  </if>
+   <if test="machineNo !=null and machineNo !=''">
+   and MACHINE_NO like CONCAT(CONCAT('%', ltrim(rtrim(#{machineNo,jdbcType=VARCHAR}))),'%')
+  </if>
+  <if test="isRepeatAuth !=null and isRepeatAuth !=''">
+   and IS_REPEAT_AUTH = #{isRepeatAuth,jdbcType=INTEGER}
+  </if>
+  order by CREATE_TIME desc
+  </select>
+  
+  <!--修改授权回调的状态  -->
+  <update id="updateBackAuthLog" parameterType="string" >
+  	update ETV_AUTH_LOG
+  	set AUTH_STATE = '1'
+  	<if test="isRepeatAuth!=null">
+  	,IS_REPEAT_AUTH=#{isRepeatAuth,jdbcType=INTEGER}
+  	</if>
+  	where ID= #{logId,jdbcType=VARCHAR}
+  </update>
+  
+  
+  <select id="selectNewCreateAuthLog"  parameterType="map" resultMap="BaseResultMap">
+   select max(CREATE_TIME),id
+  	from ETV_AUTH_LOG
+  	where APP_ID=#{appId,jdbcType=VARCHAR} and MACHINE_NO=#{machineNo,jdbcType=VARCHAR} 
+  	<if test="systemVersion!=null and systemVersion!=''">
+  		and SYSTEM_VERSION=#{systemVersion,jdbcType=VARCHAR}
+  	</if>
+  </select>
+  
+  <!--查询设备设备授权成功的次数  -->
+  <select id="selectmMachineNoAuthSuccessNum" parameterType="map" resultType="int">
+  select count(1) from ETV_AUTH_LOG
+  where APP_ID=#{appId,jdbcType=VARCHAR} and MACHINE_NO=#{machineNo,jdbcType=VARCHAR} 
+  and AUTH_STATE='1' and IS_NEW=1 and SYSTEM_VERSION=#{systemVersion,jdbcType=VARCHAR}
+  </select>
+  
+  
+  
+</mapper>

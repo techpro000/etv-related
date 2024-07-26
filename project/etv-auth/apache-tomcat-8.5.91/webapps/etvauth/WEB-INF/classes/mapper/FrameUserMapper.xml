@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.etv.manage.dao.FrameUserMapper" >
+  <resultMap id="BaseResultMap" type="com.etv.manage.model.FrameUser" >
+    <id column="ID" property="id" jdbcType="BIGINT" />
+    <result column="ACCOUNT_NAME" property="accountName" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="COMPANY" property="company" jdbcType="VARCHAR" />
+    <result column="CREATE_TIMR" property="createTimr" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, ACCOUNT_NAME, REMARK, COMPANY, CREATE_TIMR
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from photo_frame_user
+    where ID = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from photo_frame_user
+    where ID = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.etv.manage.model.FrameUser" >
+    insert into photo_frame_user (ID, ACCOUNT_NAME, REMARK, 
+      COMPANY, CREATE_TIMR)
+    values (#{id,jdbcType=BIGINT}, #{accountName,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
+      #{company,jdbcType=VARCHAR}, #{createTimr,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.etv.manage.model.FrameUser" >
+  <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">  
+          SELECT LAST_INSERT_ID() AS ID    
+    </selectKey>
+    insert into photo_frame_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="accountName != null" >
+        ACCOUNT_NAME,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+      <if test="company != null" >
+        COMPANY,
+      </if>
+      <if test="createTimr != null" >
+        CREATE_TIMR,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="accountName != null" >
+        #{accountName,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="company != null" >
+        #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="createTimr != null" >
+        #{createTimr,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.etv.manage.model.FrameUser" >
+    update photo_frame_user
+    <set >
+      <if test="accountName != null" >
+        ACCOUNT_NAME = #{accountName,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="company != null" >
+        COMPANY = #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="createTimr != null" >
+        CREATE_TIMR = #{createTimr,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.etv.manage.model.FrameUser" >
+    update photo_frame_user
+    set ACCOUNT_NAME = #{accountName,jdbcType=VARCHAR},
+      REMARK = #{remark,jdbcType=VARCHAR},
+      COMPANY = #{company,jdbcType=VARCHAR},
+      CREATE_TIMR = #{createTimr,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  
+  
+  <select id="selectAllFrameUser" parameterType="String" resultMap="BaseResultMap">  
+  select  
+  <include refid="Base_Column_List" />
+  from photo_frame_user
+  </select>
+</mapper>

@@ -1,0 +1,227 @@
+<html>
+<head>
+<meta charset="utf-8">
+<title>个人信息</title>
+<meta name="renderer" content="webkit">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<link rel="stylesheet" href="css/style.css" media="all">
+<#include 'pubCSS.html'>
+<style>
+	.fl{ float: left;}
+	.fr{ float: right;}
+	.user-img{ width: 100px; height: 100px;}
+	.userinfo .info-list{ margin-bottom: 40px;}
+	.userinfo .title{  width: 100px; display: inline-block; color: #666;}
+	.userinfo .info-list .addinfo{ font-style: normal; margin-left: 40px; color: #ff0000;}
+	.userinfo .info-list .update-btn{ margin-left: 40px; width: 80px; height: 36px; text-align: center; line-height: 36px; border: 1px solid #ccc; display: inline-block; border-radius: 4px;} 
+    .update-box{ padding: 20px;}
+    .update-box .input-txt{ width: 60%; }
+    .update-box .update-list{ margin-bottom: 20px;}
+    .update-box .update-list .input-yzm{ width: 160px;}
+    .layui-word-aux{ color: #000!important;}
+    .showTip { width: 60%; }
+</style>
+</head>
+
+<body class="layui-layout-body">
+	<div class="right-con">
+		<div class="userinfo clearfix">
+			<div class="info-list"><span class="title">登入账号：</span><span class="info">${personer.psUsername?default('')}</span><a href="javascript:void(0)" class="update-btn" id="btn3">修改</a><i class="addinfo">*修改完账号将需要重新登入</i></div>
+			<div class="info-list"><span class="title">公司名：</span><span class="info personerName">${personer.psName?default('')}</span> <a href="javascript:void(0)" class="update-btn" id="btn1">修改</a></div>
+			<div class="info-list"><span class="title">手机号：</span><span class="info">${personer.psPhone?default('')}</span>  <a href="javascript:void(0)" class="update-btn"  id="btn2">修改</a> <i class="addinfo">*手机号是确保客户找到你的唯一凭证</i></div>
+			<div class="info-list" id="container"><span class="title">当前头像</span>
+				<a id="test2" href="javascript:void(0);"  class='layui-btn layui-btn-primary' ><i class="layui-icon">&#xe67c;</i>替换头像</a>
+				<!-- <a id="postfiles" href="javascript:void(0);" class='layui-btn '><i class="layui-icon">&#xe67c;</i>开始上传</a> -->
+				<div class="layui-upload-list">
+					<div class="layui-upload-list clearfix" id="ossfile">
+						<div class="upload-img-items" id="demo2">
+							 <img src="${personer.psHeadUrl}">
+							<div class="block-bg"></div>
+						</div>
+					</div>
+				</div>
+				<pre id="console"></pre>
+			</div>
+		</div>
+	</div>
+	<div class="popup-con" id="popup-con1" style="display: none;">
+		<form class="layui-form  action="">
+			<div class="update-box">
+				<div class="update-list">
+				   <input type="text" name="companyName"  id="companyName" lay-verify="required" placeholder="公司名" autocomplete="off" class="layui-input input-txt">
+				</div>
+			</div>
+			<div class="layui-form-item for_but ">
+				<div class="layui-btn updateName" lay-submit="" lay-filter="updateName" style="display:none">修改</div>
+			</div>
+		</form>
+	</div>
+	
+	<div class="popup-con" id="popup-con4" style="display: none;">
+		<form class="layui-form  action="">
+			<div class="update-box">
+				<div class="update-list">
+				   <input type="text" name="userName"  id="userName" lay-verify="required" placeholder="账号" autocomplete="off" class="layui-input input-txt">
+				</div>
+			</div>
+			<div class="layui-form-item for_but ">
+				<div class="layui-btn updateUserName" lay-submit="" lay-filter="updateUserName" style="display:none">修改</div>
+			</div>
+		</form>
+	</div>
+	<div class="popup-con" id="popup-con3" style="display: none;">
+		<form class="layui-form  action="">
+			<div class="update-box layui-form-item">
+				<div class="update-list" id="phone">
+					<input type="text" name="newPhone" id="newPhone"  lay-verify="required" placeholder="新的手机号" autocomplete="off" class="layui-input input-yzm">
+				</div>
+			</div>
+			<div class="layui-form-item for_but ">
+				<div class="layui-btn updatePhone" lay-submit=""
+					lay-filter="updatePhone" style="display:none">确定</div>
+			</div>
+		</form>
+	</div>
+<#include 'pubJS.html'>
+<script>
+var element;
+var layer;
+var form;
+var laydate;
+var webPath='${webPath}';
+var jsonFiles;
+var jsonFiles=new Array();
+var upload;
+layui.use(['form','element', 'layer','laydate','upload'], function(){	
+	form = layui.form;
+	layer = layui.layer;
+	laydate = layui.laydate;
+	upload = layui.upload;
+	element = layui.element;
+	
+	
+		$('#btn1').on('click', function(){
+			$('#personerName').val('');
+		    layer.open({
+		      type: 1
+		        ,offset: 'auto'
+		        ,area: ['400px', 'auto']
+		        ,title:'修改真实姓名'
+		        ,content: $('#popup-con1')
+		        ,btn: ['确定','取消']
+		        ,btnAlign: 'r'
+		        ,shade: 0.3
+		        ,success:function(layero, index){
+		        	form.on('submit(updateName)', function(data){
+		        		updatePersonerInfo(data.field);
+			        	return false;
+			       });
+		        }
+		        ,yes: function(index, layero){
+		        	layero.find('.updateName').click();
+		        }
+		    });
+	    });
+	    
+	    $('#btn2').on('click', function(){
+		    layer.open({
+		      type: 1
+		        ,offset: 'auto'
+		        ,area: ['400px', 'auto']
+		        ,title:'修改手机号'
+		        ,content: $('#popup-con3')
+		        ,btn: ['下一步','取消']
+		        ,btnAlign: 'r'
+		        ,shade: 0.3
+		        ,success:function(layero, index){
+		        	form.on('submit(updatePhone)', function(data){
+		        		updatePersonerInfo(data.field);
+			        	return false;
+			       });
+		        }
+		        ,yes: function(index, layero){
+		        	layero.find('.updatePhone').click();
+		        }
+		    });
+	    });
+	    
+	    
+	    $('#btn3').on('click', function(){
+		    layer.open({
+		      type: 1
+		        ,offset: 'auto'
+		        ,area: ['400px', 'auto']
+		        ,title:'修改登入账号'
+		        ,content: $('#popup-con4')
+		        ,btn: ['保存','取消']
+		        ,btnAlign: 'r'
+		        ,shade: 0.3
+		        ,success:function(layero, index){
+		        	form.on('submit(updateUserName)', function(data){
+		        		updatePersonerInfo(data.field);
+			        	return false;
+			       });
+		        }
+		        ,yes: function(index, layero){
+		        	layero.find('.updateUserName').click();
+		        }
+		    });
+	    });
+	    
+	    
+	    //多图片上传
+	     upload.render({
+	      elem: '#test2'
+	      ,url: 'uploadHeadPicture.json' //改成您自己的上传接口
+	      ,multiple: true
+	      ,before: function(obj){
+	        //预读本地文件示例，不支持ie8
+	        obj.preview(function(index, file, result){
+	        	debugger
+	          $('#demo2').html('<img src="'+ result +'" alt="'+ file.name +'" class="layui-upload-img">')
+	        });
+	      }
+	      ,done: function(res){
+	        //上传完毕
+	      }
+	    });
+});
+	
+	
+	
+	/*修改用户姓名  */
+	function updatePersonerInfo(data){
+		var userName=data.userName;
+		var phone=data.newPhone;
+		var name=data.companyName;
+		
+		
+		$.ajax({
+			url:'updatePersonerInfo.json',
+			data:{"userName":userName,"phone":phone,"name":name},
+			dataType:'json',
+			type:'post',
+			success:function(data){
+				layer.closeAll();
+				if (data.code==0) {
+					$('.companyName').html($('#companyName').val());
+					layer.msg('修改成功！', {icon : 1,time : 1000},function(){
+						if(userName!=null && userName!=''){
+							location.href="logout.htm";
+						}
+						location.reload();
+					});	 
+				} else {
+					layer.msg('修改失败！', {icon : 2,time : 2000});
+				}
+			}
+		});
+	}
+	
+	
+	 
+	 
+</script>
+</body>
+</html>

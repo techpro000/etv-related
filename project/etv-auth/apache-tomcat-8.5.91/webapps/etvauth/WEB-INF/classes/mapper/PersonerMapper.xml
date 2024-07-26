@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.etv.manage.dao.PersonerMapper" >
+  <resultMap id="BaseResultMap" type="com.etv.manage.model.Personer" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="PS_RO_ID" property="psRoId" jdbcType="INTEGER" />
+    <result column="PS_USERNAME" property="psUsername" jdbcType="VARCHAR" />
+    <result column="PS_NAME" property="psName" jdbcType="VARCHAR" />
+    <result column="PS_PHONE" property="psPhone" jdbcType="VARCHAR" />
+    <result column="PS_PASSWORD" property="psPassword" jdbcType="VARCHAR" />
+    <result column="PS_STATE" property="psState" jdbcType="VARCHAR" />
+    <result column="PS_CREATE_TIME" property="psCreateTime" jdbcType="TIMESTAMP" />
+    <result column="PS_UPDATE_TIME" property="psUpdateTime" jdbcType="TIMESTAMP" />
+    <result column="PS_SALT" property="psSalt" jdbcType="VARCHAR" />
+    <result column="PS_OPERATE_PWD" property="psOperatePwd" jdbcType="VARCHAR" />
+    <result column="PS_HEAD_URL" property="psHeadUrl" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, PS_RO_ID, PS_USERNAME, PS_NAME, PS_PHONE, PS_PASSWORD, PS_STATE, PS_CREATE_TIME, 
+    PS_UPDATE_TIME, PS_SALT, PS_OPERATE_PWD, PS_HEAD_URL
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from etv_personer
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from etv_personer
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.etv.manage.model.Personer" >
+    insert into etv_personer (ID, PS_RO_ID, PS_USERNAME, 
+      PS_NAME, PS_PHONE, PS_PASSWORD, 
+      PS_STATE, PS_CREATE_TIME, PS_UPDATE_TIME, 
+      PS_SALT, PS_OPERATE_PWD, PS_HEAD_URL
+      )
+    values (#{id,jdbcType=VARCHAR}, #{psRoId,jdbcType=INTEGER}, #{psUsername,jdbcType=VARCHAR}, 
+      #{psName,jdbcType=VARCHAR}, #{psPhone,jdbcType=VARCHAR}, #{psPassword,jdbcType=VARCHAR}, 
+      #{psState,jdbcType=VARCHAR}, #{psCreateTime,jdbcType=TIMESTAMP}, #{psUpdateTime,jdbcType=TIMESTAMP}, 
+      #{psSalt,jdbcType=VARCHAR}, #{psOperatePwd,jdbcType=VARCHAR}, #{psHeadUrl,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.etv.manage.model.Personer" >
+    insert into etv_personer
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="psRoId != null" >
+        PS_RO_ID,
+      </if>
+      <if test="psUsername != null" >
+        PS_USERNAME,
+      </if>
+      <if test="psName != null" >
+        PS_NAME,
+      </if>
+      <if test="psPhone != null" >
+        PS_PHONE,
+      </if>
+      <if test="psPassword != null" >
+        PS_PASSWORD,
+      </if>
+      <if test="psState != null" >
+        PS_STATE,
+      </if>
+      <if test="psCreateTime != null" >
+        PS_CREATE_TIME,
+      </if>
+      <if test="psUpdateTime != null" >
+        PS_UPDATE_TIME,
+      </if>
+      <if test="psSalt != null" >
+        PS_SALT,
+      </if>
+      <if test="psOperatePwd != null" >
+        PS_OPERATE_PWD,
+      </if>
+      <if test="psHeadUrl != null" >
+        PS_HEAD_URL,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="psRoId != null" >
+        #{psRoId,jdbcType=INTEGER},
+      </if>
+      <if test="psUsername != null" >
+        #{psUsername,jdbcType=VARCHAR},
+      </if>
+      <if test="psName != null" >
+        #{psName,jdbcType=VARCHAR},
+      </if>
+      <if test="psPhone != null" >
+        #{psPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="psPassword != null" >
+        #{psPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="psState != null" >
+        #{psState,jdbcType=VARCHAR},
+      </if>
+      <if test="psCreateTime != null" >
+        #{psCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="psUpdateTime != null" >
+        #{psUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="psSalt != null" >
+        #{psSalt,jdbcType=VARCHAR},
+      </if>
+      <if test="psOperatePwd != null" >
+        #{psOperatePwd,jdbcType=VARCHAR},
+      </if>
+      <if test="psHeadUrl != null" >
+        #{psHeadUrl,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.etv.manage.model.Personer" >
+    update etv_personer
+    <set >
+      <if test="psRoId != null" >
+        PS_RO_ID = #{psRoId,jdbcType=INTEGER},
+      </if>
+      <if test="psUsername != null" >
+        PS_USERNAME = #{psUsername,jdbcType=VARCHAR},
+      </if>
+      <if test="psName != null" >
+        PS_NAME = #{psName,jdbcType=VARCHAR},
+      </if>
+      <if test="psPhone != null" >
+        PS_PHONE = #{psPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="psPassword != null" >
+        PS_PASSWORD = #{psPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="psState != null" >
+        PS_STATE = #{psState,jdbcType=VARCHAR},
+      </if>
+      <if test="psCreateTime != null" >
+        PS_CREATE_TIME = #{psCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="psUpdateTime != null" >
+        PS_UPDATE_TIME = #{psUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="psSalt != null" >
+        PS_SALT = #{psSalt,jdbcType=VARCHAR},
+      </if>
+      <if test="psOperatePwd != null" >
+        PS_OPERATE_PWD = #{psOperatePwd,jdbcType=VARCHAR},
+      </if>
+      <if test="psHeadUrl != null" >
+        PS_HEAD_URL = #{psHeadUrl,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.etv.manage.model.Personer" >
+    update etv_personer
+    set PS_RO_ID = #{psRoId,jdbcType=INTEGER},
+      PS_USERNAME = #{psUsername,jdbcType=VARCHAR},
+      PS_NAME = #{psName,jdbcType=VARCHAR},
+      PS_PHONE = #{psPhone,jdbcType=VARCHAR},
+      PS_PASSWORD = #{psPassword,jdbcType=VARCHAR},
+      PS_STATE = #{psState,jdbcType=VARCHAR},
+      PS_CREATE_TIME = #{psCreateTime,jdbcType=TIMESTAMP},
+      PS_UPDATE_TIME = #{psUpdateTime,jdbcType=TIMESTAMP},
+      PS_SALT = #{psSalt,jdbcType=VARCHAR},
+      PS_OPERATE_PWD = #{psOperatePwd,jdbcType=VARCHAR},
+      PS_HEAD_URL = #{psHeadUrl,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  
+  <!--根据用户名查询用户信息  -->
+  <select id="findPersonByUserName" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    SELECT 
+    <include refid="Base_Column_List" />
+    FROM ETV_PERSONER
+    where PS_USERNAME = #{username,jdbcType=VARCHAR}
+  </select>
+  
+  <update id="updateHeadPictureById" parameterType="map">
+  	update ETV_PERSONER
+  	set PS_HEAD_URL=#{headerUrl,jdbcType=VARCHAR}
+  	where ID=#{id,jdbcType=VARCHAR}
+  </update>
+  
+  <!--修改人员信息  -->
+  <update id="updatePersonerInfo" parameterType="map">
+  update ETV_PERSONER
+  set 
+   <if test="userName!=null and userName!=''">
+    PS_USERNAME= #{userName,jdbcType=VARCHAR},
+   </if>
+   <if test="name !=null and name !=''">
+    PS_NAME = #{name,jdbcType=VARCHAR},
+   </if>
+   <if test="phone!=null and phone !=''">
+    PS_PHONE = #{phone,jdbcType=VARCHAR}
+   </if>
+   where ID = #{psId,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="selectUserNameExist" parameterType="string" resultType="int">
+  select count(1)
+  from ETV_PERSONER
+  where PS_USERNAME = #{userName,jdbcType=VARCHAR}
+  </select>
+</mapper>

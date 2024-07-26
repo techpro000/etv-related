@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.etv.manage.dao.EfaceUserMapper" >
+  <resultMap id="BaseResultMap" type="com.etv.manage.model.EfaceUser" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="company_name" property="companyName" jdbcType="VARCHAR" />
+    <result column="day_limit_send_num" property="dayLimitSendNum" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, user_name, company_name, day_limit_send_num, create_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from etv_eface_user
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from etv_eface_user
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.etv.manage.model.EfaceUser" >
+    insert into etv_eface_user (id, user_name, company_name, 
+      day_limit_send_num, create_time)
+    values (#{id,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{companyName,jdbcType=VARCHAR}, 
+      #{dayLimitSendNum,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.etv.manage.model.EfaceUser" >
+    insert into etv_eface_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userName != null" >
+        user_name,
+      </if>
+      <if test="companyName != null" >
+        company_name,
+      </if>
+      <if test="dayLimitSendNum != null" >
+        day_limit_send_num,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="companyName != null" >
+        #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="dayLimitSendNum != null" >
+        #{dayLimitSendNum,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.etv.manage.model.EfaceUser" >
+    update etv_eface_user
+    <set >
+      <if test="userName != null" >
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="companyName != null" >
+        company_name = #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="dayLimitSendNum != null" >
+        day_limit_send_num = #{dayLimitSendNum,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.etv.manage.model.EfaceUser" >
+    update etv_eface_user
+    set user_name = #{userName,jdbcType=VARCHAR},
+      company_name = #{companyName,jdbcType=VARCHAR},
+      day_limit_send_num = #{dayLimitSendNum,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  
+   <!--自定义sql  -->
+  
+  <select id="selectEfaceUserByUsername" parameterType="String" resultMap="BaseResultMap">
+  select 
+   <include refid="Base_Column_List" />
+  from etv_eface_user
+  where user_name = #{userName,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="selectEfaceUserPage" parameterType="map" resultMap="BaseResultMap">
+  select 
+   <include refid="Base_Column_List" />
+  from etv_eface_user
+  where 1=1
+  <if test="userName!=null and userName!=''">
+  and user_name like CONCAT(CONCAT('%', ltrim(rtrim(#{userName,jdbcType=VARCHAR}))),'%')  
+  </if>
+  <if test="companyName!=null and companyName!=''">
+  and company_name like CONCAT(CONCAT('%', ltrim(rtrim(#{companyName,jdbcType=VARCHAR}))),'%')  
+  </if>
+  order by create_time desc
+  </select>
+  
+</mapper>

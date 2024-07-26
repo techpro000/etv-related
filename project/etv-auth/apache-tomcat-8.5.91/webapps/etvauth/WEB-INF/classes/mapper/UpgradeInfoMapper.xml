@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.etv.manage.dao.UpgradeInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.etv.manage.model.UpgradeInfo" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="PERSONER_ID" property="personerId" jdbcType="VARCHAR" />
+    <result column="UPGRADE_USER" property="upgradeUser" jdbcType="VARCHAR" />
+    <result column="IS_OPEN" property="isOpen" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, PERSONER_ID, UPGRADE_USER, IS_OPEN, CREATE_TIME
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from ETV_UPGRADE_INFO
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from ETV_UPGRADE_INFO
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.etv.manage.model.UpgradeInfo" >
+    insert into ETV_UPGRADE_INFO (ID, PERSONER_ID, UPGRADE_USER, 
+      IS_OPEN, CREATE_TIME)
+    values (#{id,jdbcType=INTEGER}, #{personerId,jdbcType=VARCHAR}, #{upgradeUser,jdbcType=VARCHAR}, 
+      #{isOpen,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.etv.manage.model.UpgradeInfo" >
+    insert into ETV_UPGRADE_INFO
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="personerId != null" >
+        PERSONER_ID,
+      </if>
+      <if test="upgradeUser != null" >
+        UPGRADE_USER,
+      </if>
+      <if test="isOpen != null" >
+        IS_OPEN,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="personerId != null" >
+        #{personerId,jdbcType=VARCHAR},
+      </if>
+      <if test="upgradeUser != null" >
+        #{upgradeUser,jdbcType=VARCHAR},
+      </if>
+      <if test="isOpen != null" >
+        #{isOpen,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.etv.manage.model.UpgradeInfo" >
+    update ETV_UPGRADE_INFO
+    <set >
+      <if test="personerId != null" >
+        PERSONER_ID = #{personerId,jdbcType=VARCHAR},
+      </if>
+      <if test="upgradeUser != null" >
+        UPGRADE_USER = #{upgradeUser,jdbcType=VARCHAR},
+      </if>
+      <if test="isOpen != null" >
+        IS_OPEN = #{isOpen,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.etv.manage.model.UpgradeInfo" >
+    update ETV_UPGRADE_INFO
+    set PERSONER_ID = #{personerId,jdbcType=VARCHAR},
+      UPGRADE_USER = #{upgradeUser,jdbcType=VARCHAR},
+      IS_OPEN = #{isOpen,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  
+  
+  <!--自定义的sql  -->
+  
+  <select id="selectUpgradeInfoByPsId" parameterType="String" resultMap="BaseResultMap">
+   select 
+    <include refid="Base_Column_List" />
+    from ETV_UPGRADE_INFO
+    where 1=1
+    <if test="psId!=null and psId!=''">
+    	 and PERSONER_ID = #{psId,jdbcType=INTEGER}
+    </if>
+    <if test="upgradeUser!=null and upgradeUser!=''">
+    	and UPGRADE_USER like CONCAT(CONCAT('%', ltrim(rtrim(#{upgradeUser,jdbcType=VARCHAR}))),'%') 
+    </if>
+  </select>
+  
+</mapper>
